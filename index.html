@@ -795,6 +795,7 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+  var isPremiumUser = false;
 
 // 🔐 LOGIN
 function loginUser(){
@@ -811,10 +812,12 @@ function loginUser(){
       ];
 
       if(premiumUsers.includes(email)){
-        unlockPremium();
-      } else {
-        alert("Not a premium user");
-      }
+  isPremiumUser = true;
+  unlockPremium();
+} else {
+  isPremiumUser = false;
+  showPopup();
+}
     })
     .catch((error)=>{
       alert(error.message);
