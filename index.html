@@ -401,7 +401,7 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
     <li><button id="nl-home" class="on" onclick="go('home')">Home</button></li>
     <li><button id="nl-city" onclick="go('city')">Explore</button></li>
     <li><button id="nl-join" onclick="go('join')">Join as Baker</button></li>
-    <li><button id="nl-pricing" onclick="go('pricing')">Pricing</button></li> <li><button onclick="alert('clicked')">Login</button></li>
+    <li><button id="nl-pricing" onclick="go('pricing')">Pricing</button></li> <li><button onclick="loginUser()">Login</button></li>
     <li><button onclick="go('join')" class="ncta">Apply Now</button></li>
   </ul>
   <button class="ham" id="hambtn" onclick="toggleMM()"><span></span><span></span><span></span></button>
@@ -774,7 +774,7 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
   <div class="supbox">
     <div class="rev"><p class="lbl">Premium Benefit</p><h2 class="ttl">Supplier <em>Network</em></h2><p class="sub">Premium bakers get exclusive access to our curated supplier network.</p></div>
     <div class="supgrid">
-      <div class="supc rev"><div class="suplock"><div class="lic">🔒</div><div class="ltx"><strong>Premium Only</strong>Upgrade to access</div></div><div class="supic">🖨️</div><div class="supnm">Edible Prints</div><p class="supds">Premium edible ink suppliers, wafer paper, and photo cake printing partners.</p></div>
+      <div class="supc rev"><div class="suplock" onclick="handlePremiumClick()"><div class="lic">🔒</div><div class="ltx"><strong>Premium Only</strong>Upgrade to access</div></div><div class="supic">🖨️</div><div class="supnm">Edible Prints</div><p class="supds">Premium edible ink suppliers, wafer paper, and photo cake printing partners.</p></div>
       <div class="supc rev" style="transition-delay:.1s"><div class="suplock"><div class="lic">🔒</div><div class="ltx"><strong>Premium Only</strong>Upgrade to access</div></div><div class="supic">📦</div><div class="supnm">Packaging</div><p class="supds">Branded boxes, ribbons, and luxury packaging at wholesale rates.</p></div>
       <div class="supc rev" style="transition-delay:.2s"><div class="suplock"><div class="lic">🔒</div><div class="ltx"><strong>Premium Only</strong>Upgrade to access</div></div><div class="supic">🧁</div><div class="supnm">Ingredients</div><p class="supds">Premium chocolate, fondant, and baking ingredients from verified suppliers.</p></div>
     </div>
@@ -807,7 +807,7 @@ function loginUser(){
       var email = result.user.email;
 
       var premiumUsers = [
-        "yovanshub2gmail.com" 
+        "yovanshub@gmail.com" 
       ];
 
       if(premiumUsers.includes(email)){
@@ -830,6 +830,12 @@ function loginUser(){
 
 function closePopup(){
   document.getElementById('premiumPopup').style.display = 'none';
+}function handlePremiumClick(){
+  if(isPremiumUser){
+    unlockPremium();
+  } else {
+    showPopup();
+  }
 }
 function unlockPremium(){
   document.querySelectorAll('.suplock').forEach(el=>{
