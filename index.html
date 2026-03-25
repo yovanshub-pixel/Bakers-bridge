@@ -799,31 +799,30 @@ firebase.initializeApp(firebaseConfig);
 
 // 🔐 LOGIN
 function loginUser(){
+  function loginUser(){
   var provider = new firebase.auth.GoogleAuthProvider();
 
   firebase.auth().signInWithPopup(provider)
     .then((result)=>{
-      alert("Login Successful");
-
       var email = result.user.email;
 
       var premiumUsers = [
-        "yovanshub@gmail.com"
+        "yovanshub2gmail.com" 
       ];
 
       if(premiumUsers.includes(email)){
-  isPremiumUser = true;
-  unlockPremium();
-} else {
-  isPremiumUser = false;
-  showPopup();
-}
+        isPremiumUser = true;
+        unlockPremium();
+        alert("Welcome Premium User 🔓");
+      } else {
+        isPremiumUser = false;
+        showPopup();
+      }
     })
     .catch((error)=>{
       alert(error.message);
     });
 }
-
 // 🔓 UNLOCK
 function unlockPremium(){
   document.querySelectorAll('.suplock').forEach(el=>{
