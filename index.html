@@ -775,7 +775,7 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
     <div class="rev"><p class="lbl">Premium Benefit</p><h2 class="ttl">Supplier <em>Network</em></h2><p class="sub">Premium bakers get exclusive access to our curated supplier network.</p></div>
     <div class="supgrid">
       <div class="supc rev"><div class="suplock" onclick="handlePremiumClick()"><div class="lic">🔒</div><div class="ltx"><strong>Premium Only</strong>Upgrade to access</div></div><div class="supic">🖨️</div><div class="supnm">Edible Prints</div><p class="supds">Premium edible ink suppliers, wafer paper, and photo cake printing partners.</p></div>
-      <div class="supc rev" style="transition-delay:.1s"><div class="suplock"><div class="lic">🔒</div><div class="ltx"><strong>Premium Only</strong>Upgrade to access</div></div><div class="supic">📦</div><div class="supnm">Packaging</div><p class="supds">Branded boxes, ribbons, and luxury packaging at wholesale rates.</p></div>
+      <div class="supc rev" style="transition-delay:.1s"><div class="suplock" onclick="handlePremiumClick()"><div class="lic">🔒</div><div class="ltx"><strong>Premium Only</strong>Upgrade to access</div></div><div class="supic">📦</div><div class="supnm">Packaging</div><p class="supds">Branded boxes, ribbons, and luxury packaging at wholesale rates.</p></div>
       <div class="supc rev" style="transition-delay:.2s"><div class="suplock"><div class="lic">🔒</div><div class="ltx"><strong>Premium Only</strong>Upgrade to access</div></div><div class="supic">🧁</div><div class="supnm">Ingredients</div><p class="supds">Premium chocolate, fondant, and baking ingredients from verified suppliers.</p></div>
     </div>
     <div style="text-align:center;margin-top:28px;"><button class="btn bd" onclick="go('join')">Upgrade to Premium →</button></div>
@@ -975,6 +975,14 @@ function unlockPremium(){
 })();
 </script>
   <div id="premiumPopup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:white;padding:25px;border-radius:12px;text-align:center;">
+    <h3>🔒 Premium Access</h3>
+    <p>Upgrade to access this feature</p>
+    <button onclick="go('pricing')">View Plans</button>
+    <br><br>
+    <button onclick="closePopup()">Close</button>
+  </div>
+</div><div id="premiumPopup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;">
   <div style="background:white;padding:25px;border-radius:12px;text-align:center;">
     <h3>🔒 Premium Access</h3>
     <p>Upgrade to access this feature</p>
