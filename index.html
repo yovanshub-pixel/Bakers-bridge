@@ -5,37 +5,111 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Bakers Bridge</title>
 
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
 <style>
-body{font-family:sans-serif;margin:0}
-.pg{display:none}
+body{margin:0;font-family:Poppins, sans-serif;background:#faf7f3}
+
+/* NAV */
+nav{display:flex;justify-content:space-between;padding:15px 20px;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+nav h2{margin:0}
+nav button{padding:8px 14px;border:none;background:#000;color:#fff;border-radius:6px}
+
+/* PAGES */
+.pg{display:none;padding:20px}
 .pg.on{display:block}
-.suplock{cursor:pointer;background:#eee;padding:20px;margin:10px}
-nav{padding:10px;background:#333;color:white}
-button{padding:10px;margin:5px}
+
+/* HERO */
+.hero{text-align:center;padding:60px 20px}
+.hero h1{font-size:32px}
+
+/* CARDS */
+.card{background:#fff;border-radius:12px;padding:15px;margin:10px 0;box-shadow:0 4px 12px rgba(0,0,0,.05)}
+
+/* LOCK */
+.suplock{cursor:pointer;background:#f1f1f1;padding:20px;border-radius:10px;text-align:center}
+
+/* POPUP */
+.popup{
+position:fixed;inset:0;background:rgba(0,0,0,.6);
+display:flex;align-items:center;justify-content:center;
+z-index:9999;
+}
+.popup-box{
+background:#fff;padding:25px;border-radius:12px;text-align:center;
+}
 </style>
 </head>
 
 <body>
 
+<!-- NAV -->
 <nav>
+<h2>Bakers Bridge</h2>
+<div>
 <button onclick="go('home')">Home</button>
+<button onclick="go('city')">Explore</button>
 <button onclick="go('pricing')">Pricing</button>
 <button onclick="loginUser()">Login</button>
+</div>
 </nav>
 
+<!-- HOME -->
 <div id="pg-home" class="pg on">
-<h2>Home</h2>
-<button onclick="go('pricing')">Go Pricing</button>
+<div class="hero">
+<h1>Find the Best Home Bakers</h1>
+<p>Order cakes from verified bakers near you</p>
+<button onclick="go('city')">Explore Bakers</button>
+</div>
 </div>
 
-<div id="pg-pricing" class="pg">
-<h2>Premium Section</h2>
+<!-- CITY -->
+<div id="pg-city" class="pg">
+<h2>Chennai Bakers</h2>
 
-<div class="suplock" onclick="handlePremiumClick()">🔒 Supplier 1</div>
-<div class="suplock" onclick="handlePremiumClick()">🔒 Supplier 2</div>
+<div class="card" onclick="go('profile')">
+<h3>The Pastry Bay ⭐</h3>
+<p>Custom cakes & desserts</p>
+</div>
+
+<div class="card suplock" onclick="handlePremiumClick()">
+🔒 Premium Baker Slot
+</div>
+
+<div class="card suplock" onclick="handlePremiumClick()">
+🔒 Premium Baker Slot
+</div>
+
+</div>
+
+<!-- PROFILE -->
+<div id="pg-profile" class="pg">
+<h2>The Pastry Bay</h2>
+<p>Beautiful custom cakes for all occasions</p>
+<button onclick="go('city')">Back</button>
+</div>
+
+<!-- PRICING -->
+<div id="pg-pricing" class="pg">
+<h2>Pricing</h2>
+
+<div class="card">
+<h3>Starter</h3>
+<p>₹499/month</p>
+</div>
+
+<div class="card">
+<h3>Premium</h3>
+<p>₹999/month</p>
+<p>Unlock supplier network & priority listing</p>
+</div>
+
+<h3>Supplier Network</h3>
+
+<div class="suplock" onclick="handlePremiumClick()">🔒 Cake Boxes Supplier</div>
+<div class="suplock" onclick="handlePremiumClick()">🔒 Raw Materials Supplier</div>
 
 </div>
 
@@ -62,7 +136,7 @@ function loginUser(){
       if(email === "yovanshub@gmail.com"){
         isPremiumUser = true;
         unlockPremium();
-        alert("Premium unlocked");
+        alert("Welcome Premium User 🔓");
       } else {
         showPopup();
       }
@@ -71,13 +145,26 @@ function loginUser(){
 
 // POPUP
 function showPopup(){
-  alert("Upgrade to premium");
+  let div = document.createElement('div');
+  div.className = "popup";
+
+  div.innerHTML = `
+    <div class="popup-box">
+      <h3>🔒 Premium Access</h3>
+      <p>Upgrade to unlock this feature</p>
+      <button onclick="go('pricing')">View Plans</button><br><br>
+      <button onclick="this.parentElement.parentElement.remove()">Close</button>
+    </div>
+  `;
+
+  document.body.appendChild(div);
 }
 
 // UNLOCK
 function unlockPremium(){
   document.querySelectorAll('.suplock').forEach(el=>{
     el.innerHTML = "Unlocked ✅";
+    el.style.background = "#d4edda";
   });
 }
 
@@ -90,6 +177,7 @@ function handlePremiumClick(){
 function go(id){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
   document.getElementById('pg-'+id).classList.add('on');
+  window.scrollTo(0,0);
 }
 
 </script>
