@@ -826,24 +826,36 @@ function loginUser(){
 }
 // 🔓 UNLOCK
   function showPopup(){
-  document.getElementById('premiumPopup').style.display = 'flex';
-}
+  function showPopup(){
+  var p = document.getElementById('premiumPopup');
 
-function closePopup(){
-  document.getElementById('premiumPopup').style.display = 'none';
-}function handlePremiumClick(){
-  if(isPremiumUser){
-    unlockPremium();
+  if(!p){
+    // create popup dynamically if missing
+    var div = document.createElement('div');
+    div.id = "premiumPopup";
+    div.style.position = "fixed";
+    div.style.inset = "0";
+    div.style.background = "rgba(0,0,0,0.6)";
+    div.style.zIndex = "9999";
+    div.style.display = "flex";
+    div.style.alignItems = "center";
+    div.style.justifyContent = "center";
+
+    div.innerHTML = `
+      <div style="background:white;padding:25px;border-radius:12px;text-align:center;">
+        <h3>🔒 Premium Access</h3>
+        <p>Upgrade to access this feature</p>
+        <button onclick="go('pricing')">View Plans</button>
+        <br><br>
+        <button onclick="closePopup()">Close</button>
+      </div>
+    `;
+
+    document.body.appendChild(div);
   } else {
-    showPopup();
+    p.style.display = "flex";
   }
 }
-function unlockPremium(){
-  document.querySelectorAll('.suplock').forEach(el=>{
-    el.style.display = "none";
-  });
-}
-
 // ===== FULL ORIGINAL LOGIC RESTORED =====
 (function(){
 
@@ -974,7 +986,42 @@ function unlockPremium(){
   };
 
 })();
-</script>
+// 🔥 FORCE POPUP SYSTEM (FIXED)
+
+function showPopup(){
+  var p = document.getElementById('premiumPopup');
+
+  if(!p){
+    var div = document.createElement('div');
+    div.id = "premiumPopup";
+    div.style.position = "fixed";
+    div.style.inset = "0";
+    div.style.background = "rgba(0,0,0,0.6)";
+    div.style.zIndex = "9999";
+    div.style.display = "flex";
+    div.style.alignItems = "center";
+    div.style.justifyContent = "center";
+
+    div.innerHTML = `
+      <div style="background:white;padding:25px;border-radius:12px;text-align:center;">
+        <h3>🔒 Premium Access</h3>
+        <p>Upgrade to access this feature</p>
+        <button onclick="go('pricing')">View Plans</button>
+        <br><br>
+        <button onclick="closePopup()">Close</button>
+      </div>
+    `;
+
+    document.body.appendChild(div);
+  } else {
+    p.style.display = "flex";
+  }
+}
+
+function closePopup(){
+  var p = document.getElementById('premiumPopup');
+  if(p) p.style.display = "none";
+}</script>
   <div id="premiumPopup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;">
   <div style="background:white;padding:25px;border-radius:12px;text-align:center;">
     <h3>🔒 Premium Access</h3>
