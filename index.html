@@ -401,7 +401,7 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
     <li><button id="nl-home" class="on" onclick="go('home')">Home</button></li>
     <li><button id="nl-city" onclick="go('city')">Explore</button></li>
     <li><button id="nl-join" onclick="go('join')">Join as Baker</button></li>
-    <li><button id="nl-pricing" onclick="go('pricing')">Pricing</button></li> <li><button onclick="loginUser()">Login</button></li>
+    <li><button id="nl-pricing" onclick="go('pricing')">Pricing</button></li> <li><button onclick="alert('clicked')">Login</button></li>
     <li><button onclick="go('join')" class="ncta">Apply Now</button></li>
   </ul>
   <button class="ham" id="hambtn" onclick="toggleMM()"><span></span><span></span><span></span></button>
@@ -413,6 +413,7 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
   <button onclick="go('city');closeMM()">Explore Bakers</button>
   <button onclick="go('join');closeMM()">Join as Baker</button>
   <button onclick="go('pricing');closeMM()">Pricing</button>
+  <button onclick="loginUser()">Login</button>
 </div>
 
 <!-- ═══════════════════ HOME ═══════════════════ -->
@@ -823,6 +824,13 @@ function loginUser(){
     });
 }
 // 🔓 UNLOCK
+  function showPopup(){
+  document.getElementById('premiumPopup').style.display = 'flex';
+}
+
+function closePopup(){
+  document.getElementById('premiumPopup').style.display = 'none';
+}
 function unlockPremium(){
   document.querySelectorAll('.suplock').forEach(el=>{
     el.style.display = "none";
@@ -960,5 +968,14 @@ function unlockPremium(){
 
 })();
 </script>
+  <div id="premiumPopup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:white;padding:25px;border-radius:12px;text-align:center;">
+    <h3>🔒 Premium Access</h3>
+    <p>Upgrade to access this feature</p>
+    <button onclick="go('pricing')">View Plans</button>
+    <br><br>
+    <button onclick="closePopup()">Close</button>
+  </div>
+</div>
 </body>
 </html>
