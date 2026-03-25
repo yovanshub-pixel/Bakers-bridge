@@ -807,7 +807,7 @@ function loginUser(){
       var email = result.user.email;
 
       var premiumUsers = [
-        "yovanshub2gmail.com"
+        "yovanshub@gmail.com"
       ];
 
       if(premiumUsers.includes(email)){
@@ -828,26 +828,54 @@ function unlockPremium(){
   });
 }
 
-// ===== ORIGINAL SCRIPT FIXED =====
+// ===== FULL ORIGINAL LOGIC RESTORED =====
 (function(){
 
+  /* PAGE NAV */
   window.go = function(id){
     var pgs = document.querySelectorAll('.pg');
-    for(var i=0;i<pgs.length;i++) pgs[i].classList.remove('on');
+    for(var i=0;i<pgs.length;i++){
+      pgs[i].classList.remove('on');
+    }
 
     var pg = document.getElementById('pg-'+id);
     if(pg) pg.classList.add('on');
 
     window.scrollTo({top:0,behavior:'smooth'});
+
+    var btns = document.querySelectorAll('.nlinks li button[id]');
+    for(var j=0;j<btns.length;j++){
+      btns[j].classList.remove('on');
+    }
+
+    var nb = document.getElementById('nl-'+id);
+    if(nb) nb.classList.add('on');
+
+    closeMM();
+    setTimeout(doReveal,120);
   };
 
+  /* CITY SEARCH */
   window.explore = function(){
     var v = document.getElementById('csel').value;
-    if(!v){alert('Select city');return;}
-    if(v!=='chennai'){alert('Coming soon');return;}
+    if(!v){alert('Please select a city first!');return;}
+    if(v!=='chennai'){alert('Coming soon! Only Chennai is live right now.');return;}
     go('city');
   };
 
+  /* TABS */
+  window.swTab = function(id){
+    var tabs = document.querySelectorAll('.tab');
+    tabs.forEach(t => t.classList.remove('on'));
+
+    var panels = document.querySelectorAll('.tpanel');
+    panels.forEach(p => p.classList.remove('on'));
+
+    document.getElementById('tab-'+id).classList.add('on');
+    document.getElementById('tp-'+id).classList.add('on');
+  };
+
+  /* MOBILE MENU */
   window.toggleMM = function(){
     document.getElementById('mmenu').classList.toggle('on');
   };
@@ -856,18 +884,80 @@ function unlockPremium(){
     document.getElementById('mmenu').classList.remove('on');
   };
 
+  /* SCROLL REVEAL */
+  function doReveal(){
+    var items = document.querySelectorAll('.pg.on .rev:not(.vis)');
+
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add('vis');
+          obs.unobserve(e.target);
+        }
+      });
+    },{threshold:0.1});
+
+    items.forEach(i => obs.observe(i));
+  }
+
+  doReveal();
+
+  /* NAV SHADOW */
+  window.addEventListener('scroll',function(){
+    var n = document.getElementById('nav');
+    if(n){
+      n.style.boxShadow = window.scrollY>40
+        ? '0 4px 24px rgba(61,35,20,.09)'
+        : 'none';
+    }
+  });
+
+  /* CONTACT FORM */
   window.hForm = function(e){
     e.preventDefault();
-    alert("Message sent!");
+
+    var btn = e.target.querySelector('button');
+    var orig = btn.textContent;
+
+    btn.textContent = '✓ Message Sent!';
+    btn.style.background = '#25d366';
+
+    setTimeout(function(){
+      btn.textContent = orig;
+      btn.style.background = '';
+      e.target.reset();
+    },3000);
   };
 
+  /* JOIN FORM */
   window.hJoin = function(e){
     e.preventDefault();
-    alert("Application submitted!");
+
+    var btn = e.target.querySelector('button[type="submit"]');
+    var orig = btn.textContent;
+
+    btn.textContent = '✓ Application Sent!';
+    btn.style.background = '#25d366';
+
+    setTimeout(function(){
+      btn.textContent = orig;
+      btn.style.background = '';
+      e.target.reset();
+    },3000);
+  };
+
+  /* FILE UPLOAD */
+  window.upFile = function(input){
+    var label = document.getElementById('uplbl');
+
+    if(input.files.length > 0){
+      label.innerHTML = "<strong>" + input.files.length + " file(s) selected</strong>";
+    } else {
+      label.innerHTML = "<strong>Upload Sample Work</strong><br>Click to select images";
+    }
   };
 
 })();
-
 </script>
 </body>
 </html>
