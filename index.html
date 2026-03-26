@@ -92,9 +92,8 @@ nav{
 .ttl{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,50px);color:var(--deep);line-height:1.1;margin-bottom:13px;}
 .ttl em{font-style:italic;color:var(--warm);}
 .sub{color:var(--muted);font-size:15px;line-height:1.75;max-width:550px;}
-sec{display:block;padding:78px 6vw;}
 
-/* ── HOME ── */
+/* HERO */
 .hero{
   min-height:100vh;display:grid;grid-template-columns:1fr 1fr;
   align-items:center;padding:96px 6vw 56px;gap:56px;
@@ -128,7 +127,6 @@ sec{display:block;padding:78px 6vw;}
 }
 .sbar button:hover{background:var(--warm);}
 .hbtns{display:flex;gap:11px;flex-wrap:wrap;}
-
 .himg{
   width:100%;aspect-ratio:5/6;
   border-radius:40% 60% 55% 45%/50% 45% 55% 50%;
@@ -144,7 +142,7 @@ sec{display:block;padding:78px 6vw;}
 .p1{bottom:55px;left:-26px;}
 .p2{top:55px;right:-18px;}
 
-/* TRUST */
+/* TRUST BAR */
 .tbar{
   background:var(--deep);padding:20px 6vw;
   display:flex;align-items:center;justify-content:center;gap:44px;flex-wrap:wrap;
@@ -162,10 +160,7 @@ sec{display:block;padding:78px 6vw;}
 .cthumb-w{width:100%;height:148px;overflow:hidden;}
 .cthumb{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .5s;position:relative;}
 .ccard:hover .cthumb{transform:scale(1.05);}
-.cbadge{
-  position:absolute;top:9px;right:9px;background:var(--white);
-  font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:50px;
-}
+.cbadge{position:absolute;top:9px;right:9px;background:var(--white);font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:50px;}
 .clive{color:var(--warm);}
 .csoon{color:var(--muted);}
 .cinfo{padding:14px 16px 16px;}
@@ -173,14 +168,10 @@ sec{display:block;padding:78px 6vw;}
 .csub{font-size:11px;color:var(--muted);margin-top:2px;}
 .carr{float:right;color:var(--warm);}
 
-/* HOW */
+/* HOW IT WORKS */
 .how-wrap{background:var(--light);border-radius:24px;padding:48px;}
 .tabs{display:flex;gap:9px;margin:18px 0 36px;}
-.tab{
-  padding:9px 22px;border-radius:50px;font-size:12px;font-weight:500;letter-spacing:.05em;
-  cursor:pointer;transition:var(--t);border:1.5px solid var(--beige);
-  background:transparent;color:var(--muted);font-family:'Outfit',sans-serif;
-}
+.tab{padding:9px 22px;border-radius:50px;font-size:12px;font-weight:500;letter-spacing:.05em;cursor:pointer;transition:var(--t);border:1.5px solid var(--beige);background:transparent;color:var(--muted);font-family:'Outfit',sans-serif;}
 .tab.on{background:var(--deep);color:var(--cream);border-color:var(--deep);}
 .tpanel{display:none;grid-template-columns:repeat(3,1fr);gap:20px;}
 .tpanel.on{display:grid;}
@@ -191,7 +182,7 @@ sec{display:block;padding:78px 6vw;}
 .stit{font-family:'Playfair Display',serif;font-size:16px;color:var(--deep);margin-bottom:7px;}
 .stxt{font-size:13px;color:var(--muted);line-height:1.7;}
 
-/* TESTI */
+/* TESTIMONIALS */
 .tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px;}
 .tcard{background:var(--white);border-radius:var(--r);padding:26px;box-shadow:var(--sh-s);transition:var(--t);}
 .tcard:hover{transform:translateY(-4px);box-shadow:var(--sh);}
@@ -227,7 +218,7 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
 .si:hover{background:var(--blush);transform:translateY(-2px);}
 .fcopy{font-size:11px;color:var(--muted);}
 
-/* ── CITY PAGE ── */
+/* CITY PAGE */
 #pg-city{padding-top:70px;}
 .chero{background:var(--deep);color:var(--cream);padding:56px 6vw 44px;position:relative;overflow:hidden;}
 .chero::before{content:'';position:absolute;top:-70px;right:-50px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(242,200,200,.09) 0%,transparent 70%);pointer-events:none;}
@@ -239,21 +230,15 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
 .cmeta span{background:rgba(255,255,255,.1);color:rgba(253,248,242,.82);font-size:11px;letter-spacing:.07em;text-transform:uppercase;padding:5px 13px;border-radius:50px;}
 .bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:8px;}
 
-/* BAKER CARD */
+/* BAKER CARD — FIXED */
 .bkcard{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh-s);transition:var(--t);}
 .bkcard.click{cursor:pointer;}
 .bkcard.click:hover{transform:translateY(-5px);box-shadow:var(--sh);}
 .bkbanner{width:100%;height:168px;background-size:cover;background-position:center;position:relative;}
-.bkav{   position:absolute;   bottom:-30px;   left:16px;   width:46px;   height:46px;   border-radius:50%;   border:3px solid var(--white);   background:var(--beige);   background-size:cover;   background-position:center; }{position:absolute;bottom:-20px;left:16px;width:46px;height:46px;border-radius:50%;border:3px solid var(--white);background:var(--beige);background-size:cover;background-position:center;box-shadow:var(--sh-s);}
+.bkav{position:absolute;bottom:-18px;left:16px;width:46px;height:46px;border-radius:50%;border:3px solid var(--white);background:var(--beige);background-size:cover;background-position:center;box-shadow:var(--sh-s);}
 .bkfeat{position:absolute;top:9px;right:9px;background:var(--gold);color:var(--white);font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:50px;}
-.<div class="bkbody">   padding:50px 16px 18px; }{   padding:36px 16px 18px; }{padding:30px 16px 18px;}
-  position:relative;
-  z-index:2;
-}.bkbody{
-  margin-top:40px;
-  padding:16px;
-}
-.bkname{   font-family:'Playfair Display',serif;   font-size:18px;   font-weight:700;   color:#1a0f08;   letter-spacing:0.3px; }{font-family:'Playfair Display',serif;font-size:16px;color:var(--deep);margin-bottom:3px;}
+.bkbody{padding:38px 16px 18px;}
+.bkname{font-family:'Playfair Display',serif;font-size:16px;color:var(--deep);margin-bottom:3px;}
 .bkspec{font-size:12px;color:var(--muted);margin-bottom:9px;}
 .bkstars{color:var(--gold);font-size:12px;margin-bottom:2px;}
 .bkrev{font-size:11px;color:var(--muted);}
@@ -270,7 +255,7 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
 .slot-bot .snm{font-family:'Playfair Display',serif;font-size:16px;color:var(--muted);margin-bottom:5px;}
 .slot-bot .sdsc{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:14px;}
 
-/* ── PROFILE PAGE ── */
+/* PROFILE PAGE */
 #pg-profile{padding-top:70px;}
 .pbanner{width:100%;height:290px;background:url('https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=1400&q=85') center/cover;position:relative;}
 .pbanner::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(61,35,20,.52));}
@@ -307,7 +292,7 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
 .sr span:first-child{font-size:12px;color:var(--muted);}
 .sr strong{font-size:12px;color:var(--deep);}
 
-/* ── JOIN PAGE ── */
+/* JOIN PAGE */
 #pg-join{padding-top:70px;}
 .jhero{text-align:center;padding:68px 6vw 48px;background:linear-gradient(135deg,var(--cream),var(--light));}
 .jnotice{display:inline-flex;align-items:center;gap:7px;background:rgba(201,130,90,.09);color:var(--warm);font-size:12px;font-weight:500;letter-spacing:.06em;padding:6px 16px;border-radius:50px;margin-top:14px;border:1px solid rgba(201,130,90,.18);}
@@ -331,7 +316,7 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
 .fup .fupic{font-size:24px;margin-bottom:5px;}
 .fup .fuptxt{font-size:12px;color:var(--muted);}
 
-/* ── PRICING PAGE ── */
+/* PRICING PAGE */
 #pg-pricing{padding-top:70px;}
 .priher{text-align:center;padding:68px 6vw 48px;}
 .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:0 6vw 48px;max-width:800px;margin:0 auto;}
@@ -370,7 +355,6 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
 @media(max-width:960px){
   .hero,.cbox,.jbody{grid-template-columns:1fr;gap:34px;padding:44px 6vw;}
   .hero{padding-top:86px;}
-  .hero .hero-visual,.hero-visual{order:-1;max-width:340px;margin:0 auto;}
   .cgrid{grid-template-columns:1fr 1fr;}
   .bgrid{grid-template-columns:1fr 1fr;}
   .pbody{grid-template-columns:1fr;}
@@ -462,7 +446,7 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
     <div class="titem"><strong>6</strong><span>Cities Launching</span></div>
   </div>
 
-  <sec style="display:block;padding:78px 6vw;">
+  <div style="padding:78px 6vw;">
     <div class="rev">
       <p class="lbl">Browse by City</p>
       <h2 class="ttl">Find Bakers <em>Near You</em></h2>
@@ -486,9 +470,9 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
         <div class="cinfo"><div class="cname" style="color:var(--muted)">Mumbai</div><div class="csub">Launching Q4 2025</div></div>
       </div>
     </div>
-  </sec>
+  </div>
 
-  <sec style="display:block;padding:78px 6vw;">
+  <div style="padding:0 6vw 78px;">
     <div class="how-wrap">
       <div class="rev">
         <p class="lbl">How It Works</p>
@@ -509,9 +493,9 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
         <div class="scard rev" style="transition-delay:.2s"><div class="snum">03</div><div class="sicn">📈</div><div class="stit">Grow Your Brand</div><p class="stxt">Receive orders, build reviews, access our supplier network & marketing.</p></div>
       </div>
     </div>
-  </sec>
+  </div>
 
-  <sec style="display:block;padding:78px 6vw;">
+  <div style="padding:0 6vw 78px;">
     <div class="rev">
       <p class="lbl">Love Notes</p>
       <h2 class="ttl">Loved by <em>Customers & Bakers</em></h2>
@@ -533,9 +517,9 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
         <div class="tauth"><div class="tav">A</div><div><div class="tname">Arjun Menon</div><div class="trole">Customer · Chennai</div></div></div>
       </div>
     </div>
-  </sec>
+  </div>
 
-  <sec style="display:block;padding:0 6vw 78px;">
+  <div style="padding:0 6vw 78px;">
     <div class="cbox rev">
       <div>
         <p class="lbl" style="color:var(--blush)">Get in Touch</p>
@@ -555,7 +539,7 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
         <button type="submit" class="btn bw bfull">Send Message ✦</button>
       </form>
     </div>
-  </sec>
+  </div>
 
   <footer>
     <div class="flogo">Bakers <em>Bridge</em></div>
@@ -603,7 +587,7 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
           </div>
         </div>
       </div>
-      <!-- Slots 2–5 -->
+      <!-- Slots 2-5 -->
       <div class="slot rev" style="transition-delay:.08s">
         <div class="slot-top"><div class="si2">🎂</div><div class="slbl">Slot Available</div></div>
         <div class="slot-bot"><div class="snm">Your Bakery Here</div><div class="sdsc">This spot is open for a talented Chennai baker</div><button class="btn bd bsm bfull" onclick="go('join')">Apply for This Slot</button></div>
@@ -679,6 +663,7 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
         </div>
         <div class="psec">
           <h3>Reviews</h3>
+          <a href="https://wa.me/919999999999?text=Hi!%20I%20want%20to%20leave%20a%20review%20for%20The%20Pastry%20Bay%20%F0%9F%8C%9F%0AName%3A%0ARating%3A%20%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85%0AReview%3A" target="_blank" class="btn bd" style="margin-bottom:20px;display:inline-flex;">⭐ Leave a Review</a>
           <div class="tcard" style="box-shadow:none;border:1.5px solid var(--beige);padding:20px;">
             <div class="stars">★★★★★</div>
             <p class="ttxt">"Absolutely stunning cake! Highly recommend The Pastry Bay for any occasion."</p>
@@ -746,9 +731,11 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
   </div>
   <div class="pgrid">
     <div class="pc rev">
-      <div class="pnam">Basic</div><div class="pdes">Perfect for getting started on the platform.</div>
+      <div class="pnam">Starter</div>
+      <div class="pdes">Perfect for getting started on the platform.</div>
       <hr style="border:none;border-top:1px solid var(--beige);margin:14px 0;"/>
-      <div class="ppri">Free</div><div class="pper">to get listed</div>
+      <div class="ppri">₹499</div>
+      <div class="pper">per month</div>
       <ul class="pfeas">
         <li class="pfea">Profile listing on platform</li>
         <li class="pfea">Standard visibility</li>
@@ -756,13 +743,15 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
         <li class="pfea">Up to 5 menu items</li>
         <li class="pfea">Basic gallery (3 photos)</li>
       </ul>
-      <button class="pbtn" onclick="go('join')">Apply for Basic</button>
+      <button class="pbtn" onclick="go('join')">Apply for Starter</button>
     </div>
     <div class="pc feat rev" style="transition-delay:.1s">
       <div class="prec">Most Popular</div>
-      <div class="pnam">Premium</div><div class="pdes">For serious bakers ready to grow their brand.</div>
+      <div class="pnam">Premium</div>
+      <div class="pdes">For serious bakers ready to grow their brand.</div>
       <hr style="border:none;border-top:1px solid rgba(255,255,255,.11);margin:14px 0;"/>
-      <div class="ppri">₹999</div><div class="pper">per month</div>
+      <div class="ppri">₹999</div>
+      <div class="pper">per month</div>
       <ul class="pfeas">
         <li class="pfea">Featured placement (top of listing)</li>
         <li class="pfea">Higher visibility & reach</li>
@@ -790,8 +779,6 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
 <!-- ═══════════════════ JAVASCRIPT ═══════════════════ -->
 <script>
 (function(){
-
-  /* PAGE NAV */
   window.go = function(id){
     var pgs = document.querySelectorAll('.pg');
     for(var i=0;i<pgs.length;i++) pgs[i].classList.remove('on');
@@ -805,16 +792,12 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
     closeMM();
     setTimeout(doReveal,120);
   };
-
-  /* CITY SEARCH */
   window.explore = function(){
     var v = document.getElementById('csel').value;
     if(!v){alert('Please select a city first!');return;}
     if(v!=='chennai'){alert('Coming soon! Only Chennai is live right now.');return;}
     go('city');
   };
-
-  /* HOW IT WORKS TABS */
   window.swTab = function(id){
     var tabs = document.querySelectorAll('.tab');
     for(var i=0;i<tabs.length;i++) tabs[i].classList.remove('on');
@@ -825,8 +808,6 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
     if(tb) tb.classList.add('on');
     if(tp) tp.classList.add('on');
   };
-
-  /* MOBILE MENU */
   window.toggleMM = function(){
     document.getElementById('mmenu').classList.toggle('on');
   };
@@ -834,8 +815,6 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
     var m = document.getElementById('mmenu');
     if(m) m.classList.remove('on');
   };
-
-  /* SCROLL REVEAL */
   function doReveal(){
     var items = document.querySelectorAll('.pg.on .rev:not(.vis)');
     if(!items.length) return;
@@ -847,14 +826,10 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
     for(var i=0;i<items.length;i++) obs.observe(items[i]);
   }
   doReveal();
-
-  /* NAV SHADOW */
   window.addEventListener('scroll',function(){
     var n = document.getElementById('nav');
     if(n) n.style.boxShadow = window.scrollY>40?'0 4px 24px rgba(61,35,20,.09)':'none';
   });
-
-  /* CONTACT FORM */
   window.hForm = function(e){
     e.preventDefault();
     var btn = e.target.querySelector('button[type="submit"]');
@@ -862,8 +837,6 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
     btn.textContent='✓ Message Sent!';btn.style.background='#25d366';
     setTimeout(function(){btn.textContent=orig;btn.style.background='';e.target.reset();},3000);
   };
-
-  /* JOIN FORM */
   window.hJoin = function(e){
     e.preventDefault();
     var btn = e.target.querySelector('button[type="submit"]');
@@ -875,14 +848,11 @@ footer{padding:44px 6vw 26px;text-align:center;border-top:1px solid var(--beige)
       if(ul) ul.innerHTML='<strong>Upload Sample Work</strong><br>Click to select images';
     },4000);
   };
-
-  /* FILE UPLOAD */
   window.upFile = function(inp){
     var lbl = document.getElementById('uplbl');
     if(lbl && inp.files.length>0)
       lbl.innerHTML='<strong>'+inp.files.length+' file(s) selected</strong><br>Ready to submit';
   };
-
 })();
 </script>
 </body>
