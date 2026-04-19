@@ -95,8 +95,12 @@ section{padding:6rem 3rem;}
 .filter-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:2.5rem;flex-wrap:wrap;}
 .filter-tab{background:transparent;color:var(--text-muted);border:1px solid var(--border);padding:8px 20px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
 .filter-tab:hover,.filter-tab.active{background:var(--gold);color:var(--white);border-color:var(--gold);}
-.bakers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;}
-
+.bakers-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,300px));
+  justify-content:center;
+  gap:1.5rem;
+}
 /* BAKER CARD WITH LOGO */
 .baker-card{background:var(--card);border-radius:18px;border:1px solid var(--border);overflow:hidden;transition:transform 0.25s,box-shadow 0.25s;cursor:pointer;}
 .baker-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(61,43,31,0.12);}
