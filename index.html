@@ -7,45 +7,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --cream:#FDF6EC;
-  --warm:#F5E6CC;
-  --gold:#C8962A;
-  --gold-light:#E8B84B;
-  --gold-dark:#9A7020;
-  --brown:#3D2B1F;
-  --brown-mid:#6B4C35;
-  --brown-light:#9A7B65;
-  --text:#2C1A0E;
-  --text-muted:#7A5C45;
-  --white:#FFFFFF;
-  --card:#FFFDF8;
-  --border:rgba(200,150,42,0.18);
-}
+:root{--cream:#FDF6EC;--warm:#F5E6CC;--gold:#C8962A;--gold-light:#E8B84B;--gold-dark:#9A7020;--brown:#3D2B1F;--brown-mid:#6B4C35;--brown-light:#9A7B65;--text:#2C1A0E;--text-muted:#7A5C45;--white:#FFFFFF;--card:#FFFDF8;--border:rgba(200,150,42,0.18);}
 html{scroll-behavior:smooth;}
 body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
+::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--warm);}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px;}
 
-/* SCROLLBAR */
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-track{background:var(--warm);}
-::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px;}
-
-/* NAV */
-nav{
-  position:fixed;top:0;width:100%;z-index:1000;
-  background:rgba(253,246,236,0.96);backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
-  padding:0 3rem;height:68px;
-  display:flex;align-items:center;justify-content:space-between;
-  transition:box-shadow 0.3s;
-}
+nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(253,246,236,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 3rem;height:68px;display:flex;align-items:center;justify-content:space-between;transition:box-shadow 0.3s;}
 nav.scrolled{box-shadow:0 4px 20px rgba(61,43,31,0.1);}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.logo-icon{
-  width:38px;height:38px;background:var(--gold);
-  border-radius:10px;display:flex;align-items:center;justify-content:center;
-  font-size:20px;
-}
+.logo-icon{width:38px;height:38px;background:var(--gold);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;}
 .logo-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--brown);}
 .logo-text span{color:var(--gold);}
 .nav-links{display:flex;gap:2.5rem;list-style:none;}
@@ -60,131 +30,59 @@ nav.scrolled{box-shadow:0 4px 20px rgba(61,43,31,0.1);}
 .btn-nav-solid:hover{background:var(--gold-dark);}
 
 /* HERO */
-.hero{
-  min-height:100vh;padding:140px 3rem 100px;
-  display:flex;align-items:center;
-  background:var(--cream);
-  position:relative;overflow:hidden;
-}
-.hero-pattern{
-  position:absolute;inset:0;opacity:0.04;
-  background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);
-  background-size:20px 20px;
-}
-.hero-orb{
-  position:absolute;border-radius:50%;
-  background:radial-gradient(circle,rgba(200,150,42,0.12),transparent 70%);
-}
+.hero{min-height:100vh;padding:120px 3rem 80px;display:flex;align-items:center;background:var(--cream);position:relative;overflow:hidden;}
+.hero-pattern{position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);background-size:20px 20px;}
+.hero-orb{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(200,150,42,0.12),transparent 70%);}
 .hero-orb.o1{width:700px;height:700px;top:-200px;right:-150px;}
 .hero-orb.o2{width:400px;height:400px;bottom:-100px;left:-100px;}
-.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
 .hero-left{position:relative;z-index:1;}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(200,150,42,0.12);color:var(--gold-dark);
-  padding:7px 18px;border-radius:30px;font-size:12px;font-weight:600;
-  letter-spacing:0.5px;margin-bottom:1.5rem;
-  border:1px solid rgba(200,150,42,0.25);
-  animation:fadeUp 0.6s ease both;
-}
-.hero h1{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2.8rem,5vw,4.2rem);
-  font-weight:700;line-height:1.1;color:var(--brown);
-  margin-bottom:1.5rem;
-  animation:fadeUp 0.6s ease 0.1s both;
-}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,150,42,0.12);color:var(--gold-dark);padding:7px 18px;border-radius:30px;font-size:12px;font-weight:600;letter-spacing:0.5px;margin-bottom:1.5rem;border:1px solid rgba(200,150,42,0.25);animation:fadeUp 0.6s ease both;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,4.2rem);font-weight:700;line-height:1.1;color:var(--brown);margin-bottom:1.5rem;animation:fadeUp 0.6s ease 0.1s both;}
 .hero h1 em{color:var(--gold);font-style:normal;}
-.hero-desc{
-  font-size:1.05rem;color:var(--text-muted);line-height:1.75;
-  margin-bottom:2rem;max-width:480px;
-  animation:fadeUp 0.6s ease 0.2s both;
-}
+.hero-desc{font-size:1.05rem;color:var(--text-muted);line-height:1.75;margin-bottom:2rem;max-width:480px;animation:fadeUp 0.6s ease 0.2s both;}
 .hero-btns{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp 0.6s ease 0.3s both;}
-.btn-primary{
-  background:var(--gold);color:var(--white);border:none;
-  padding:14px 32px;border-radius:30px;font-size:15px;font-weight:500;
-  cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.25s;
-}
+.btn-primary{background:var(--gold);color:var(--white);border:none;padding:14px 32px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.25s;}
 .btn-primary:hover{background:var(--gold-dark);transform:translateY(-2px);box-shadow:0 8px 20px rgba(200,150,42,0.3);}
-.btn-outline{
-  background:transparent;color:var(--brown);
-  border:1.5px solid var(--brown-mid);
-  padding:14px 32px;border-radius:30px;font-size:15px;font-weight:500;
-  cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.25s;
-}
+.btn-outline{background:transparent;color:var(--brown);border:1.5px solid var(--brown-mid);padding:14px 32px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.25s;}
 .btn-outline:hover{border-color:var(--gold);color:var(--gold);}
-.hero-stats{
-  display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;
-  border-top:1px solid var(--border);
-  animation:fadeUp 0.6s ease 0.4s both;
-}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);animation:fadeUp 0.6s ease 0.4s both;}
 .stat-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--gold);display:block;line-height:1;}
 .stat-label{font-size:12px;color:var(--text-muted);margin-top:4px;}
 
-/* HERO RIGHT - FLOATING CARDS */
-.hero-right{position:relative;height:500px;z-index:1;animation:fadeUp 0.6s ease 0.2s both;}
-.float-card{
-  position:absolute;background:var(--card);
-  border-radius:16px;border:1px solid var(--border);
-  padding:1.25rem;box-shadow:0 8px 32px rgba(61,43,31,0.1);
-}
-.float-card.main{width:280px;top:40px;left:20px;animation:float1 4s ease-in-out infinite;}
-.float-card.side{width:200px;top:200px;right:10px;animation:float2 5s ease-in-out infinite;}
-.float-card.bottom{width:240px;bottom:40px;left:50px;animation:float1 6s ease-in-out infinite;}
-.fc-emoji{font-size:2.5rem;margin-bottom:0.75rem;}
-.fc-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--brown);}
-.fc-sub{font-size:11px;color:var(--text-muted);margin-bottom:0.5rem;}
-.fc-badge{display:inline-block;background:rgba(200,150,42,0.15);color:var(--gold-dark);font-size:10px;padding:3px 10px;border-radius:10px;font-weight:600;}
-.fc-stars{color:var(--gold);font-size:13px;margin-top:6px;}
-.fc-location{font-size:11px;color:var(--text-muted);margin-top:4px;}
+/* HERO RIGHT FLOATING CARDS - PROPERLY SPACED */
+.hero-right{position:relative;height:600px;z-index:1;animation:fadeUp 0.6s ease 0.2s both;}
+.float-card{position:absolute;background:var(--card);border-radius:18px;border:1px solid var(--border);padding:1.25rem;box-shadow:0 8px 32px rgba(61,43,31,0.1);}
+.float-card.main{width:270px;top:20px;left:10px;animation:float1 4s ease-in-out infinite;}
+.float-card.side{width:230px;top:220px;right:0px;animation:float2 5s ease-in-out infinite;}
+.float-card.bottom{width:260px;bottom:20px;left:30px;animation:float1 6s ease-in-out infinite;}
+.fc-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.fc-logo{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;background:var(--warm);border:1px solid var(--border);}
+.fc-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--brown);line-height:1.2;}
+.fc-spec{font-size:10px;color:var(--text-muted);margin-top:2px;}
+.fc-badge{display:inline-block;background:rgba(200,150,42,0.15);color:var(--gold-dark);font-size:10px;padding:4px 12px;border-radius:10px;font-weight:600;margin-bottom:8px;}
+.fc-bottom{display:flex;justify-content:space-between;align-items:center;}
+.fc-stars{color:var(--gold);font-size:12px;font-weight:600;}
+.fc-loc{font-size:11px;color:var(--text-muted);}
 
 @keyframes float1{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
 @keyframes float2{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
-/* SEARCH BAR */
-.search-bar-section{
-  background:var(--white);padding:2.5rem 3rem;
-  box-shadow:0 4px 20px rgba(61,43,31,0.07);
-  position:sticky;top:68px;z-index:100;
-}
+/* SEARCH */
+.search-bar-section{background:var(--white);padding:2.5rem 3rem;box-shadow:0 4px 20px rgba(61,43,31,0.07);position:sticky;top:68px;z-index:100;}
 .search-inner{max-width:800px;margin:0 auto;}
-.search-box{
-  display:flex;background:var(--cream);
-  border:1.5px solid var(--border);border-radius:50px;
-  overflow:hidden;padding:6px 6px 6px 24px;
-  transition:border-color 0.2s;
-}
+.search-box{display:flex;background:var(--cream);border:1.5px solid var(--border);border-radius:50px;overflow:hidden;padding:6px 6px 6px 24px;transition:border-color 0.2s;}
 .search-box:focus-within{border-color:var(--gold);}
-.search-box input{
-  flex:1;border:none;background:transparent;
-  font-size:15px;color:var(--text);outline:none;
-  font-family:'Outfit',sans-serif;
-}
+.search-box input{flex:1;border:none;background:transparent;font-size:15px;color:var(--text);outline:none;font-family:'Outfit',sans-serif;}
 .search-box input::placeholder{color:var(--text-muted);}
-.search-select{
-  border:none;background:transparent;font-size:14px;
-  color:var(--text-muted);outline:none;padding:0 12px;
-  font-family:'Outfit',sans-serif;cursor:pointer;
-  border-left:1px solid var(--border);
-}
-.search-btn{
-  background:var(--gold);color:var(--white);border:none;
-  padding:10px 28px;border-radius:40px;font-size:14px;font-weight:500;
-  cursor:pointer;font-family:'Outfit',sans-serif;transition:background 0.2s;
-  white-space:nowrap;
-}
+.search-select{border:none;background:transparent;font-size:14px;color:var(--text-muted);outline:none;padding:0 12px;font-family:'Outfit',sans-serif;cursor:pointer;border-left:1px solid var(--border);}
+.search-btn{background:var(--gold);color:var(--white);border:none;padding:10px 28px;border-radius:40px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:background 0.2s;white-space:nowrap;}
 .search-btn:hover{background:var(--gold-dark);}
 .area-chips{display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap;}
-.chip{
-  background:var(--warm);color:var(--brown-mid);border:none;
-  padding:6px 16px;border-radius:20px;font-size:12px;font-weight:500;
-  cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;
-}
+.chip{background:var(--warm);color:var(--brown-mid);border:none;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
 .chip:hover,.chip.active{background:var(--gold);color:var(--white);}
 
-/* SECTIONS */
 section{padding:6rem 3rem;}
 .section-inner{max-width:1100px;margin:0 auto;}
 .section-header{text-align:center;margin-bottom:3.5rem;}
@@ -192,45 +90,28 @@ section{padding:6rem 3rem;}
 .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);color:var(--brown);margin-bottom:0.75rem;}
 .section-sub{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.7;}
 
-/* BAKERS GRID */
+/* BAKERS */
 .bakers-section{background:var(--cream);}
 .filter-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:2.5rem;flex-wrap:wrap;}
-.filter-tab{
-  background:transparent;color:var(--text-muted);
-  border:1px solid var(--border);padding:8px 20px;border-radius:20px;
-  font-size:13px;font-weight:500;cursor:pointer;
-  font-family:'Outfit',sans-serif;transition:all 0.2s;
-}
+.filter-tab{background:transparent;color:var(--text-muted);border:1px solid var(--border);padding:8px 20px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
 .filter-tab:hover,.filter-tab.active{background:var(--gold);color:var(--white);border-color:var(--gold);}
-.bakers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;}
-.baker-card{
-  background:var(--card);border-radius:18px;
-  border:1px solid var(--border);overflow:hidden;
-  transition:transform 0.25s,box-shadow 0.25s;cursor:pointer;
-}
+.bakers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;}
+
+/* BAKER CARD WITH LOGO */
+.baker-card{background:var(--card);border-radius:18px;border:1px solid var(--border);overflow:hidden;transition:transform 0.25s,box-shadow 0.25s;cursor:pointer;}
 .baker-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(61,43,31,0.12);}
-.baker-img{
-  height:200px;display:flex;align-items:center;justify-content:center;
-  font-size:72px;position:relative;
-  background:linear-gradient(135deg,var(--warm),#EDD5A3);
-}
-.baker-img.blue-bg{background:linear-gradient(135deg,#E8F4FD,#C5DFF5);}
-.baker-img.green-bg{background:linear-gradient(135deg,#E8F5E9,#C8E6C9);}
-.baker-img.pink-bg{background:linear-gradient(135deg,#FCE4EC,#F8BBD9);}
-.baker-img.purple-bg{background:linear-gradient(135deg,#F3E5F5,#E1BEE7);}
-.baker-img.teal-bg{background:linear-gradient(135deg,#E0F2F1,#B2DFDB);}
-.verified-badge{
-  position:absolute;top:12px;right:12px;
-  background:var(--gold);color:var(--white);
-  font-size:10px;font-weight:600;padding:4px 12px;border-radius:12px;
-}
-.new-badge{
-  position:absolute;top:12px;left:12px;
-  background:var(--brown);color:var(--warm);
-  font-size:10px;font-weight:600;padding:4px 12px;border-radius:12px;
-}
+.baker-card-header{height:180px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;}
+.baker-card-header.bg1{background:linear-gradient(135deg,#FFF3DC,#F5E6CC);}
+.baker-card-header.bg2{background:linear-gradient(135deg,#E8F4FD,#C5DFF5);}
+.baker-card-header.bg3{background:linear-gradient(135deg,#E8F5E9,#C8E6C9);}
+.baker-card-header.bg4{background:linear-gradient(135deg,#FCE4EC,#F8BBD9);}
+.baker-card-header.bg5{background:linear-gradient(135deg,#F3E5F5,#E1BEE7);}
+.baker-card-header.bg6{background:linear-gradient(135deg,#E0F2F1,#B2DFDB);}
+.baker-brand-logo{width:80px;height:80px;border-radius:16px;background:var(--white);border:2px solid rgba(200,150,42,0.2);display:flex;align-items:center;justify-content:center;font-size:40px;box-shadow:0 4px 16px rgba(61,43,31,0.12);}
+.baker-brand-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--brown);text-align:center;padding:0 1rem;}
+.verified-badge{position:absolute;top:12px;right:12px;background:var(--gold);color:var(--white);font-size:10px;font-weight:600;padding:4px 12px;border-radius:12px;}
+.new-badge{position:absolute;top:12px;left:12px;background:var(--brown);color:var(--warm);font-size:10px;font-weight:600;padding:4px 12px;border-radius:12px;}
 .baker-body{padding:1.25rem;}
-.baker-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--brown);margin-bottom:3px;}
 .baker-spec{font-size:12px;color:var(--text-muted);margin-bottom:0.75rem;}
 .baker-row{display:flex;align-items:center;justify-content:space-between;}
 .baker-loc{font-size:12px;color:var(--text-muted);}
@@ -239,82 +120,92 @@ section{padding:6rem 3rem;}
 .rating-val{font-size:12px;font-weight:600;color:var(--brown);}
 .baker-tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
 .tag{background:rgba(200,150,42,0.1);color:var(--gold-dark);font-size:10px;padding:3px 10px;border-radius:10px;font-weight:500;}
-.baker-footer{
-  display:flex;gap:8px;padding:1rem 1.25rem;
-  border-top:1px solid var(--border);
-}
-.btn-enquire{
-  flex:1;background:var(--gold);color:var(--white);border:none;
-  padding:9px;border-radius:10px;font-size:13px;font-weight:500;
-  cursor:pointer;font-family:'Outfit',sans-serif;transition:background 0.2s;
-}
+.baker-footer{display:flex;gap:8px;padding:1rem 1.25rem;border-top:1px solid var(--border);}
+.btn-enquire{flex:1;background:var(--gold);color:var(--white);border:none;padding:9px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:background 0.2s;}
 .btn-enquire:hover{background:var(--gold-dark);}
-.btn-view{
-  background:transparent;color:var(--brown);border:1px solid var(--border);
-  padding:9px 16px;border-radius:10px;font-size:13px;font-weight:500;
-  cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;
-}
+.btn-view{background:transparent;color:var(--brown);border:1px solid var(--border);padding:9px 16px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
 .btn-view:hover{border-color:var(--gold);color:var(--gold);}
 
-/* HOW IT WORKS */
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(30,15,5,0.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:1rem;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--card);border-radius:24px;width:100%;max-width:740px;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 24px 60px rgba(61,43,31,0.25);}
+.modal-close{position:absolute;top:16px;right:16px;z-index:10;width:36px;height:36px;border-radius:50%;background:var(--warm);border:none;cursor:pointer;font-size:16px;color:var(--brown);display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.modal-close:hover{background:var(--gold);color:var(--white);}
+.modal-header{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--border);display:flex;gap:1.5rem;align-items:flex-start;}
+.modal-logo{width:90px;height:90px;border-radius:18px;background:var(--warm);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:48px;flex-shrink:0;}
+.modal-info{flex:1;}
+.modal-baker-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:var(--brown);margin-bottom:4px;}
+.modal-spec{font-size:14px;color:var(--text-muted);margin-bottom:10px;}
+.modal-meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px;}
+.modal-badge{display:inline-block;background:rgba(200,150,42,0.15);color:var(--gold-dark);font-size:11px;padding:4px 12px;border-radius:10px;font-weight:600;}
+.modal-loc{font-size:13px;color:var(--text-muted);}
+.modal-rating{display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--gold);}
+.modal-wa-btn{background:var(--gold);color:var(--white);border:none;padding:10px 22px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
+.modal-wa-btn:hover{background:var(--gold-dark);}
+.modal-tabs{display:flex;border-bottom:1px solid var(--border);}
+.modal-tab{flex:1;padding:1rem;text-align:center;font-size:13px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;border-bottom:2px solid transparent;transition:all 0.2s;background:none;font-family:'Outfit',sans-serif;}
+.modal-tab:hover{color:var(--gold);}
+.modal-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.modal-content{padding:1.5rem 2rem;}
+
+/* PRODUCTS */
+.product-category{margin-bottom:2rem;}
+.product-cat-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--brown);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+.products-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;}
+.product-item{background:var(--cream);border-radius:12px;padding:1rem;text-align:center;border:1px solid var(--border);transition:all 0.2s;cursor:pointer;}
+.product-item:hover{border-color:var(--gold);background:rgba(200,150,42,0.05);}
+.product-emoji{font-size:2rem;margin-bottom:6px;}
+.product-name{font-size:12px;font-weight:500;color:var(--brown);margin-bottom:4px;}
+.product-price{font-size:11px;color:var(--gold);font-weight:600;}
+
+/* ABOUT */
+.about-text{font-size:14px;color:var(--text-muted);line-height:1.75;margin-bottom:1.5rem;}
+.about-highlights{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.highlight-item{background:var(--cream);border-radius:10px;padding:0.75rem 1rem;border:1px solid var(--border);}
+.highlight-val{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--gold);}
+.highlight-label{font-size:11px;color:var(--text-muted);margin-top:2px;}
+
+/* REVIEWS */
+.review-item{padding:1rem 0;border-bottom:1px solid var(--border);}
+.review-item:last-child{border-bottom:none;}
+.review-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.reviewer-name{font-size:14px;font-weight:500;color:var(--brown);}
+.review-stars{color:var(--gold);font-size:12px;}
+.review-text{font-size:13px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+.review-date{font-size:11px;color:var(--brown-light);margin-top:4px;}
+
+/* HOW */
 .how-section{background:var(--white);}
 .steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;}
 .step{text-align:center;padding:2.5rem 1.5rem;border-radius:16px;transition:background 0.2s;}
 .step:hover{background:var(--cream);}
-.step-num{
-  width:60px;height:60px;border-radius:50%;
-  background:rgba(200,150,42,0.1);
-  border:2px solid rgba(200,150,42,0.25);
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 1.25rem;
-  font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--gold);
-}
+.step-num{width:60px;height:60px;border-radius:50%;background:rgba(200,150,42,0.1);border:2px solid rgba(200,150,42,0.25);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--gold);}
 .step-icon{font-size:1.5rem;margin-bottom:0.5rem;}
 .step-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--brown);margin-bottom:0.5rem;}
 .step-desc{font-size:13px;color:var(--text-muted);line-height:1.65;}
 
-/* WHY SECTION */
+/* WHY */
 .why-section{background:var(--cream);}
 .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
-.why-left{}
-.why-visual{
-  background:var(--brown);border-radius:24px;padding:3rem;
-  display:flex;flex-direction:column;gap:1.5rem;
-}
-.why-item{
-  display:flex;gap:1rem;align-items:flex-start;
-  background:rgba(255,255,255,0.07);border-radius:12px;padding:1rem;
-}
+.why-visual{background:var(--brown);border-radius:24px;padding:3rem;display:flex;flex-direction:column;gap:1.5rem;}
+.why-item{display:flex;gap:1rem;align-items:flex-start;background:rgba(255,255,255,0.07);border-radius:12px;padding:1rem;}
 .why-item-icon{font-size:1.5rem;flex-shrink:0;}
 .why-item-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--warm);margin-bottom:3px;}
 .why-item-desc{font-size:12px;color:rgba(245,230,204,0.6);line-height:1.5;}
 .why-points{display:flex;flex-direction:column;gap:1rem;}
 .why-point{display:flex;gap:1rem;align-items:flex-start;}
-.why-point-icon{
-  width:36px;height:36px;border-radius:10px;
-  background:rgba(200,150,42,0.12);
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;flex-shrink:0;
-}
+.why-point-icon{width:36px;height:36px;border-radius:10px;background:rgba(200,150,42,0.12);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
 .why-point-title{font-size:15px;font-weight:500;color:var(--brown);margin-bottom:3px;}
 .why-point-desc{font-size:13px;color:var(--text-muted);line-height:1.5;}
 
 /* PACKAGES */
 .packages-section{background:var(--white);}
 .packages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
-.pkg-card{
-  background:var(--card);border-radius:20px;
-  border:1px solid var(--border);padding:2rem;
-  transition:transform 0.25s;position:relative;overflow:hidden;
-}
+.pkg-card{background:var(--card);border-radius:20px;border:1px solid var(--border);padding:2rem;transition:transform 0.25s;position:relative;overflow:hidden;}
 .pkg-card:hover{transform:translateY(-4px);}
 .pkg-card.featured{background:var(--brown);border-color:var(--brown);}
-.pkg-popular{
-  position:absolute;top:0;right:0;
-  background:var(--gold);color:var(--white);
-  font-size:10px;font-weight:600;padding:6px 16px;
-  border-bottom-left-radius:12px;
-}
+.pkg-popular{position:absolute;top:0;right:0;background:var(--gold);color:var(--white);font-size:10px;font-weight:600;padding:6px 16px;border-bottom-left-radius:12px;}
 .pkg-icon{font-size:2rem;margin-bottom:1rem;}
 .pkg-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;margin-bottom:0.25rem;}
 .pkg-card:not(.featured) .pkg-name{color:var(--brown);}
@@ -332,11 +223,7 @@ section{padding:6rem 3rem;}
 .pkg-card:not(.featured) .pkg-feature{color:var(--text);}
 .pkg-card.featured .pkg-feature{color:var(--warm);}
 .pkg-feature::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0;}
-.pkg-btn{
-  width:100%;padding:12px;border-radius:25px;
-  font-size:14px;font-weight:500;cursor:pointer;
-  font-family:'Outfit',sans-serif;transition:all 0.2s;
-}
+.pkg-btn{width:100%;padding:12px;border-radius:25px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
 .pkg-btn-outline{background:transparent;color:var(--gold);border:1.5px solid var(--gold);}
 .pkg-btn-outline:hover{background:var(--gold);color:var(--white);}
 .pkg-btn-solid{background:var(--gold);color:var(--white);border:none;}
@@ -345,57 +232,29 @@ section{padding:6rem 3rem;}
 /* TESTIMONIALS */
 .testi-section{background:var(--cream);}
 .testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;}
-.testi-card{
-  background:var(--card);border-radius:16px;
-  border:1px solid var(--border);padding:1.75rem;
-}
+.testi-card{background:var(--card);border-radius:16px;border:1px solid var(--border);padding:1.75rem;}
 .testi-stars{color:var(--gold);font-size:14px;margin-bottom:1rem;}
 .testi-text{font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:1.25rem;font-style:italic;}
 .testi-author{display:flex;align-items:center;gap:10px;}
-.testi-avatar{
-  width:40px;height:40px;border-radius:50%;
-  background:var(--warm);display:flex;align-items:center;justify-content:center;
-  font-size:1.2rem;flex-shrink:0;
-}
+.testi-avatar{width:40px;height:40px;border-radius:50%;background:var(--warm);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
 .testi-name{font-size:14px;font-weight:600;color:var(--brown);}
 .testi-role{font-size:11px;color:var(--text-muted);}
 
 /* FAQ */
 .faq-section{background:var(--white);}
 .faq-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:1rem;}
-.faq-item{
-  background:var(--card);border-radius:12px;
-  border:1px solid var(--border);overflow:hidden;
-}
-.faq-q{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:1.25rem 1.5rem;cursor:pointer;
-  font-weight:500;color:var(--brown);font-size:15px;
-}
+.faq-item{background:var(--card);border-radius:12px;border:1px solid var(--border);overflow:hidden;}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 1.5rem;cursor:pointer;font-weight:500;color:var(--brown);font-size:15px;}
 .faq-icon{color:var(--gold);font-size:18px;transition:transform 0.2s;flex-shrink:0;}
 .faq-item.open .faq-icon{transform:rotate(45deg);}
-.faq-a{
-  padding:0 1.5rem;max-height:0;overflow:hidden;
-  transition:max-height 0.3s,padding 0.3s;
-  font-size:14px;color:var(--text-muted);line-height:1.7;
-}
+.faq-a{padding:0 1.5rem;max-height:0;overflow:hidden;transition:max-height 0.3s,padding 0.3s;font-size:14px;color:var(--text-muted);line-height:1.7;}
 .faq-item.open .faq-a{max-height:200px;padding:0 1.5rem 1.25rem;}
 
-/* JOIN CTA */
-.join-section{
-  background:var(--brown);padding:6rem 3rem;text-align:center;
-  position:relative;overflow:hidden;
-}
-.join-pattern{
-  position:absolute;inset:0;opacity:0.05;
-  background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);
-  background-size:24px 24px;
-}
+/* JOIN */
+.join-section{background:var(--brown);padding:6rem 3rem;text-align:center;position:relative;overflow:hidden;}
+.join-pattern{position:absolute;inset:0;opacity:0.05;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);background-size:24px 24px;}
 .join-inner{position:relative;z-index:1;}
-.join-section h2{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2rem,4vw,3rem);color:var(--warm);margin-bottom:1rem;
-}
+.join-section h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);color:var(--warm);margin-bottom:1rem;}
 .join-section p{color:rgba(245,230,204,0.65);font-size:1rem;max-width:500px;margin:0 auto 2rem;line-height:1.7;}
 .join-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
 .btn-join-gold{background:var(--gold);color:var(--white);border:none;padding:15px 36px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
@@ -403,11 +262,9 @@ section{padding:6rem 3rem;}
 .btn-join-outline{background:transparent;color:var(--warm);border:1.5px solid rgba(245,230,204,0.3);padding:15px 36px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
 .btn-join-outline:hover{border-color:var(--warm);}
 
-/* FOOTER */
 footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13px;}
 .footer-inner{max-width:1100px;margin:0 auto;}
 .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2rem;}
-.footer-brand .logo-text{color:var(--warm);}
 .footer-desc{font-size:13px;color:rgba(245,230,204,0.4);margin-top:0.75rem;line-height:1.6;max-width:260px;}
 .footer-col-title{color:var(--warm);font-size:13px;font-weight:600;margin-bottom:1rem;}
 .footer-links{list-style:none;display:flex;flex-direction:column;gap:6px;}
@@ -415,48 +272,20 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
 .footer-links a:hover{color:var(--gold);}
 .footer-bottom{border-top:1px solid rgba(245,230,204,0.1);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
 .footer-bottom a{color:var(--gold);text-decoration:none;}
-
-/* WHATSAPP FLOAT */
-.wa-float{
-  position:fixed;bottom:24px;right:24px;z-index:999;
-  width:54px;height:54px;border-radius:50%;
-  background:#25D366;color:var(--white);
-  display:flex;align-items:center;justify-content:center;
-  font-size:26px;box-shadow:0 4px 16px rgba(37,211,102,0.4);
-  cursor:pointer;transition:transform 0.2s;text-decoration:none;
-}
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:999;width:54px;height:54px;border-radius:50%;background:#25D366;color:var(--white);display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 4px 16px rgba(37,211,102,0.4);cursor:pointer;transition:transform 0.2s;text-decoration:none;}
 .wa-float:hover{transform:scale(1.1);}
 
-/* MOBILE */
-@media(max-width:900px){
-  .hero-inner{grid-template-columns:1fr;}
-  .hero-right{display:none;}
-  .why-grid{grid-template-columns:1fr;}
-  .footer-top{grid-template-columns:1fr 1fr;}
-  nav{padding:0 1.5rem;}
-  .nav-links{display:none;}
-  section{padding:4rem 1.5rem;}
-}
-@media(max-width:600px){
-  .search-bar-section{padding:1.5rem;}
-  .footer-top{grid-template-columns:1fr;}
-  .footer-bottom{flex-direction:column;text-align:center;}
-}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;}.hero-right{display:none;}.why-grid{grid-template-columns:1fr;}.footer-top{grid-template-columns:1fr 1fr;}nav{padding:0 1.5rem;}.nav-links{display:none;}section{padding:4rem 1.5rem;}}
+@media(max-width:600px){.search-bar-section{padding:1.5rem;}.footer-top{grid-template-columns:1fr;}.footer-bottom{flex-direction:column;text-align:center;}.modal-header{flex-direction:column;align-items:center;text-align:center;}.modal-meta{justify-content:center;}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav id="navbar">
-  <a href="#" class="nav-logo">
-    <div class="logo-icon">🎂</div>
-    <span class="logo-text">Bakers <span>Bridge</span></span>
-  </a>
+  <a href="#" class="nav-logo"><div class="logo-icon">🎂</div><span class="logo-text">Bakers <span>Bridge</span></span></a>
   <ul class="nav-links">
-    <li><a href="#bakers">Find Bakers</a></li>
-    <li><a href="#how">How It Works</a></li>
-    <li><a href="#packages">For Bakers</a></li>
-    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#bakers">Find Bakers</a></li><li><a href="#how">How It Works</a></li>
+    <li><a href="#packages">For Bakers</a></li><li><a href="#faq">FAQ</a></li>
   </ul>
   <div class="nav-actions">
     <button class="btn-nav-outline">Login</button>
@@ -464,16 +293,13 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-pattern"></div>
-  <div class="hero-orb o1"></div>
-  <div class="hero-orb o2"></div>
+  <div class="hero-pattern"></div><div class="hero-orb o1"></div><div class="hero-orb o2"></div>
   <div class="hero-inner">
     <div class="hero-left">
       <div class="hero-badge">🏅 Chennai's Most Trusted Home Baker Hub</div>
       <h1>Discover the <em>Best Home Bakers</em> Near You</h1>
-      <p class="hero-desc">Every baker on Bakers Bridge is personally visited, quality-checked, and verified. Fresh, local, and made with love — exactly what you deserve.</p>
+      <p class="hero-desc">Every baker on Bakers Bridge is personally visited, quality-checked, and verified. Fresh, local, and made with love.</p>
       <div class="hero-btns">
         <button class="btn-primary" onclick="document.getElementById('bakers').scrollIntoView({behavior:'smooth'})">Find Bakers Near Me</button>
         <button class="btn-outline" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">Join as a Baker</button>
@@ -486,65 +312,48 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
     </div>
     <div class="hero-right">
       <div class="float-card main">
-        <div class="fc-emoji">🎂</div>
-        <div class="fc-name">the pastry bay</div>
-        <div class="fc-sub">Custom Cakes & Cupcakes</div>
+        <div class="fc-top">
+          <div class="fc-logo">🎂</div>
+          <div><div class="fc-name">Priya's Sweet Kitchen</div><div class="fc-spec">Custom Cakes & Cupcakes</div></div>
+        </div>
         <div class="fc-badge">✓ Verified Baker</div>
-        <div class="fc-stars">★★★★★</div>
-        <div class="fc-location">📍anna nagar</div>
+        <div class="fc-bottom"><span class="fc-stars">★★★★★ 4.9</span><span class="fc-loc">📍 Anna Nagar</span></div>
       </div>
       <div class="float-card side">
-        <div class="fc-emoji">🍪</div>
-        <div class="fc-name">The Cookie Co.</div>
-        <div class="fc-sub">Artisan Cookies</div>
-        <div class="fc-badge">✓ Verified</div>
-        <div class="fc-stars">★★★★★</div>
+        <div class="fc-top">
+          <div class="fc-logo">🍪</div>
+          <div><div class="fc-name">The Cookie Co.</div><div class="fc-spec">Artisan Cookies & Brownies</div></div>
+        </div>
+        <div class="fc-badge">✓ Verified Baker</div>
+        <div class="fc-bottom"><span class="fc-stars">★★★★★ 4.8</span><span class="fc-loc">📍 Adyar</span></div>
       </div>
       <div class="float-card bottom">
-        <div class="fc-emoji">🍞</div>
-        <div class="fc-name">Healthy Bakes by Meena</div>
-        <div class="fc-sub">Sugar-Free Breads</div>
+        <div class="fc-top">
+          <div class="fc-logo">🍞</div>
+          <div><div class="fc-name">Healthy Bakes by Meena</div><div class="fc-spec">Sugar-Free Breads</div></div>
+        </div>
         <div class="fc-badge">✓ Verified Baker</div>
-        <div class="fc-stars">★★★★☆</div>
-        <div class="fc-location">📍 Velachery</div>
+        <div class="fc-bottom"><span class="fc-stars">★★★★☆ 4.7</span><span class="fc-loc">📍 Velachery</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SEARCH -->
 <div class="search-bar-section">
   <div class="search-inner">
     <div class="search-box">
-      <input type="text" placeholder="Search baker name, specialty..." id="searchInput"/>
-      <select class="search-select">
-        <option>All Areas</option>
-        <option>Anna Nagar</option>
-        <option>Adyar</option>
-        <option>Velachery</option>
-        <option>T Nagar</option>
-        <option>OMR</option>
-        <option>Tambaram</option>
-        <option>Mylapore</option>
-        <option>Porur</option>
-        <option>Chromepet</option>
-      </select>
+      <input type="text" placeholder="Search baker name, specialty..."/>
+      <select class="search-select"><option>All Areas</option><option>Anna Nagar</option><option>Adyar</option><option>Velachery</option><option>T Nagar</option><option>OMR</option><option>Tambaram</option><option>Mylapore</option></select>
       <button class="search-btn">Search</button>
     </div>
     <div class="area-chips">
-      <button class="chip active">All</button>
-      <button class="chip">Anna Nagar</button>
-      <button class="chip">Adyar</button>
-      <button class="chip">Velachery</button>
-      <button class="chip">T Nagar</button>
-      <button class="chip">OMR</button>
-      <button class="chip">Tambaram</button>
-      <button class="chip">Mylapore</button>
+      <button class="chip active">All</button><button class="chip">Anna Nagar</button><button class="chip">Adyar</button>
+      <button class="chip">Velachery</button><button class="chip">T Nagar</button><button class="chip">OMR</button>
+      <button class="chip">Tambaram</button><button class="chip">Mylapore</button>
     </div>
   </div>
 </div>
 
-<!-- BAKERS -->
 <section class="bakers-section" id="bakers">
   <div class="section-inner">
     <div class="section-header">
@@ -553,421 +362,225 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
       <div class="section-sub">Hand-picked, personally visited, and monthly quality-checked — only the best make it here.</div>
     </div>
     <div class="filter-tabs">
-      <button class="filter-tab active">All</button>
-      <button class="filter-tab">Custom Cakes</button>
-      <button class="filter-tab">Cookies</button>
-      <button class="filter-tab">Healthy Bakes</button>
-      <button class="filter-tab">Traditional Sweets</button>
-      <button class="filter-tab">Eggless</button>
+      <button class="filter-tab active">All</button><button class="filter-tab">Custom Cakes</button>
+      <button class="filter-tab">Cookies</button><button class="filter-tab">Healthy Bakes</button>
+      <button class="filter-tab">Traditional Sweets</button><button class="filter-tab">Eggless</button>
     </div>
     <div class="bakers-grid">
-      <div class="baker-card">
-        <div class="baker-img"><span>🎂</span><span class="verified-badge">✓ Verified</span></div>
-        <div class="baker-body">
-          <div class="baker-name">the pastry bay</div>
-          <div class="baker-spec">Custom Fondant Cakes & Cupcakes</div>
-          <div class="baker-row">
-            <div class="baker-loc">📍 Anna Nagar</div>
-            <div class="baker-rating"><span class="stars">★★★★★</span><span class="rating-val">4.9</span></div>
-          </div>
-          <div class="baker-tags"><span class="tag">Eggless</span><span class="tag">Custom Cakes</span><span class="tag">3 yrs</span></div>
-        </div>
-        <div class="baker-footer">
-          <button class="btn-enquire">WhatsApp Enquiry</button>
-          <button class="btn-view">View</button>
-        </div>
+      <div class="baker-card" onclick="openModal('priya')">
+        <div class="baker-card-header bg1"><div class="baker-brand-logo">🎂</div><div class="baker-brand-name">Priya's Sweet Kitchen</div><span class="verified-badge">✓ Verified</span></div>
+        <div class="baker-body"><div class="baker-spec">Custom Fondant Cakes & Cupcakes</div><div class="baker-row"><div class="baker-loc">📍 Anna Nagar</div><div class="baker-rating"><span class="stars">★★★★★</span><span class="rating-val">4.9</span></div></div><div class="baker-tags"><span class="tag">Eggless</span><span class="tag">Custom Cakes</span><span class="tag">3 yrs</span></div></div>
+        <div class="baker-footer"><button class="btn-enquire" onclick="event.stopPropagation()">WhatsApp Enquiry</button><button class="btn-view" onclick="event.stopPropagation();openModal('priya')">View Profile</button></div>
       </div>
-      <div class="baker-card">
-        <div class="baker-img blue-bg"><span>🍪</span><span class="verified-badge">✓ Verified</span></div>
-        <div class="baker-body">
-          <div class="baker-name">The Cookie Co.</div>
-          <div class="baker-spec">Artisan Cookies & Brownies</div>
-          <div class="baker-row">
-            <div class="baker-loc">📍 Adyar</div>
-            <div class="baker-rating"><span class="stars">★★★★★</span><span class="rating-val">4.8</span></div>
-          </div>
-          <div class="baker-tags"><span class="tag">Cookies</span><span class="tag">Brownies</span><span class="tag">5 yrs</span></div>
-        </div>
-        <div class="baker-footer">
-          <button class="btn-enquire">WhatsApp Enquiry</button>
-          <button class="btn-view">View</button>
-        </div>
+      <div class="baker-card" onclick="openModal('cookie')">
+        <div class="baker-card-header bg2"><div class="baker-brand-logo">🍪</div><div class="baker-brand-name">The Cookie Co.</div><span class="verified-badge">✓ Verified</span></div>
+        <div class="baker-body"><div class="baker-spec">Artisan Cookies & Brownies</div><div class="baker-row"><div class="baker-loc">📍 Adyar</div><div class="baker-rating"><span class="stars">★★★★★</span><span class="rating-val">4.8</span></div></div><div class="baker-tags"><span class="tag">Cookies</span><span class="tag">Brownies</span><span class="tag">5 yrs</span></div></div>
+        <div class="baker-footer"><button class="btn-enquire" onclick="event.stopPropagation()">WhatsApp Enquiry</button><button class="btn-view" onclick="event.stopPropagation();openModal('cookie')">View Profile</button></div>
       </div>
-      <div class="baker-card">
-        <div class="baker-img green-bg"><span>🍞</span><span class="verified-badge">✓ Verified</span><span class="new-badge">New</span></div>
-        <div class="baker-body">
-          <div class="baker-name">Healthy Bakes by Meena</div>
-          <div class="baker-spec">Sugar-Free & Whole Wheat Breads</div>
-          <div class="baker-row">
-            <div class="baker-loc">📍 Velachery</div>
-            <div class="baker-rating"><span class="stars">★★★★☆</span><span class="rating-val">4.7</span></div>
-          </div>
-          <div class="baker-tags"><span class="tag">Sugar Free</span><span class="tag">Healthy</span><span class="tag">Eggless</span></div>
-        </div>
-        <div class="baker-footer">
-          <button class="btn-enquire">WhatsApp Enquiry</button>
-          <button class="btn-view">View</button>
-        </div>
+      <div class="baker-card" onclick="openModal('meena')">
+        <div class="baker-card-header bg3"><div class="baker-brand-logo">🍞</div><div class="baker-brand-name">Healthy Bakes by Meena</div><span class="verified-badge">✓ Verified</span><span class="new-badge">New</span></div>
+        <div class="baker-body"><div class="baker-spec">Sugar-Free & Whole Wheat Breads</div><div class="baker-row"><div class="baker-loc">📍 Velachery</div><div class="baker-rating"><span class="stars">★★★★☆</span><span class="rating-val">4.7</span></div></div><div class="baker-tags"><span class="tag">Sugar Free</span><span class="tag">Healthy</span><span class="tag">Eggless</span></div></div>
+        <div class="baker-footer"><button class="btn-enquire" onclick="event.stopPropagation()">WhatsApp Enquiry</button><button class="btn-view" onclick="event.stopPropagation();openModal('meena')">View Profile</button></div>
       </div>
-      <div class="baker-card">
-        <div class="baker-img pink-bg"><span>🧁</span><span class="verified-badge">✓ Verified</span></div>
-        <div class="baker-body">
-          <div class="baker-name">Cupcake Diaries</div>
-          <div class="baker-spec">Designer Cupcakes & Cake Pops</div>
-          <div class="baker-row">
-            <div class="baker-loc">📍 T Nagar</div>
-            <div class="baker-rating"><span class="stars">★★★★★</span><span class="rating-val">5.0</span></div>
-          </div>
-          <div class="baker-tags"><span class="tag">Cupcakes</span><span class="tag">Cake Pops</span><span class="tag">4 yrs</span></div>
-        </div>
-        <div class="baker-footer">
-          <button class="btn-enquire">WhatsApp Enquiry</button>
-          <button class="btn-view">View</button>
-        </div>
+      <div class="baker-card" onclick="openModal('cupcake')">
+        <div class="baker-card-header bg4"><div class="baker-brand-logo">🧁</div><div class="baker-brand-name">Cupcake Diaries</div><span class="verified-badge">✓ Verified</span></div>
+        <div class="baker-body"><div class="baker-spec">Designer Cupcakes & Cake Pops</div><div class="baker-row"><div class="baker-loc">📍 T Nagar</div><div class="baker-rating"><span class="stars">★★★★★</span><span class="rating-val">5.0</span></div></div><div class="baker-tags"><span class="tag">Cupcakes</span><span class="tag">Cake Pops</span><span class="tag">4 yrs</span></div></div>
+        <div class="baker-footer"><button class="btn-enquire" onclick="event.stopPropagation()">WhatsApp Enquiry</button><button class="btn-view" onclick="event.stopPropagation();openModal('cupcake')">View Profile</button></div>
       </div>
-      <div class="baker-card">
-        <div class="baker-img purple-bg"><span>🍮</span><span class="verified-badge">✓ Verified</span></div>
-        <div class="baker-body">
-          <div class="baker-name">Nalla Inipugal</div>
-          <div class="baker-spec">Traditional Tamil Sweets</div>
-          <div class="baker-row">
-            <div class="baker-loc">📍 Mylapore</div>
-            <div class="baker-rating"><span class="stars">★★★★★</span><span class="rating-val">4.9</span></div>
-          </div>
-          <div class="baker-tags"><span class="tag">Traditional</span><span class="tag">Festival</span><span class="tag">6 yrs</span></div>
-        </div>
-        <div class="baker-footer">
-          <button class="btn-enquire">WhatsApp Enquiry</button>
-          <button class="btn-view">View</button>
-        </div>
+      <div class="baker-card" onclick="openModal('nalla')">
+        <div class="baker-card-header bg5"><div class="baker-brand-logo">🍮</div><div class="baker-brand-name">Nalla Inipugal</div><span class="verified-badge">✓ Verified</span></div>
+        <div class="baker-body"><div class="baker-spec">Traditional Tamil Sweets</div><div class="baker-row"><div class="baker-loc">📍 Mylapore</div><div class="baker-rating"><span class="stars">★★★★★</span><span class="rating-val">4.9</span></div></div><div class="baker-tags"><span class="tag">Traditional</span><span class="tag">Festival</span><span class="tag">6 yrs</span></div></div>
+        <div class="baker-footer"><button class="btn-enquire" onclick="event.stopPropagation()">WhatsApp Enquiry</button><button class="btn-view" onclick="event.stopPropagation();openModal('nalla')">View Profile</button></div>
       </div>
-      <div class="baker-card">
-        <div class="baker-img teal-bg"><span>🎂</span><span class="verified-badge">✓ Verified</span><span class="new-badge">New</span></div>
-        <div class="baker-body">
-          <div class="baker-name">The Bake Studio</div>
-          <div class="baker-spec">Themed & Photo Cakes</div>
-          <div class="baker-row">
-            <div class="baker-loc">📍 OMR</div>
-            <div class="baker-rating"><span class="stars">★★★★☆</span><span class="rating-val">4.6</span></div>
-          </div>
-          <div class="baker-tags"><span class="tag">Photo Cakes</span><span class="tag">Themed</span><span class="tag">2 yrs</span></div>
-        </div>
-        <div class="baker-footer">
-          <button class="btn-enquire">WhatsApp Enquiry</button>
-          <button class="btn-view">View</button>
-        </div>
+      <div class="baker-card" onclick="openModal('studio')">
+        <div class="baker-card-header bg6"><div class="baker-brand-logo">📸</div><div class="baker-brand-name">The Bake Studio</div><span class="verified-badge">✓ Verified</span><span class="new-badge">New</span></div>
+        <div class="baker-body"><div class="baker-spec">Themed & Photo Cakes</div><div class="baker-row"><div class="baker-loc">📍 OMR</div><div class="baker-rating"><span class="stars">★★★★☆</span><span class="rating-val">4.6</span></div></div><div class="baker-tags"><span class="tag">Photo Cakes</span><span class="tag">Themed</span><span class="tag">2 yrs</span></div></div>
+        <div class="baker-footer"><button class="btn-enquire" onclick="event.stopPropagation()">WhatsApp Enquiry</button><button class="btn-view" onclick="event.stopPropagation();openModal('studio')">View Profile</button></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
+<!-- BAKER PROFILE MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modalBox">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-header">
+      <div class="modal-logo" id="modalLogo">🎂</div>
+      <div class="modal-info">
+        <div class="modal-baker-name" id="modalName"></div>
+        <div class="modal-spec" id="modalSpec"></div>
+        <div class="modal-meta">
+          <span class="modal-badge">✓ Verified Baker</span>
+          <span class="modal-rating" id="modalRating"></span>
+          <span class="modal-loc" id="modalLoc"></span>
+        </div>
+        <button class="modal-wa-btn">💬 WhatsApp Enquiry</button>
+      </div>
+    </div>
+    <div class="modal-tabs">
+      <button class="modal-tab active" onclick="switchTab('products',this)">🛍 Products</button>
+      <button class="modal-tab" onclick="switchTab('about',this)">👩‍🍳 About</button>
+      <button class="modal-tab" onclick="switchTab('reviews',this)">⭐ Reviews</button>
+    </div>
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+</div>
+
 <section class="how-section" id="how">
   <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">How It Works</div>
-      <div class="section-title">Simple. Trusted. Delicious.</div>
-      <div class="section-sub">From search to fresh-baked goodness at your door in 4 easy steps.</div>
-    </div>
+    <div class="section-header"><div class="section-tag">How It Works</div><div class="section-title">Simple. Trusted. Delicious.</div><div class="section-sub">From search to fresh-baked goodness at your door in 4 easy steps.</div></div>
     <div class="steps-grid">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-icon">🔍</div>
-        <div class="step-title">Search Your Area</div>
-        <div class="step-desc">Enter your location and instantly discover verified home bakers near you in Chennai.</div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-icon">👀</div>
-        <div class="step-title">Browse Profiles</div>
-        <div class="step-desc">View baker profiles, specialties, customer reviews, and photos to find your perfect match.</div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-icon">💬</div>
-        <div class="step-title">Connect Directly</div>
-        <div class="step-desc">Contact the baker directly on WhatsApp — no middleman, no commission cut, just you and the baker.</div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div class="step-icon">🎉</div>
-        <div class="step-title">Enjoy Fresh Bakes</div>
-        <div class="step-desc">Get freshly baked, quality-verified goodies delivered with love from your local home baker.</div>
-      </div>
+      <div class="step"><div class="step-num">1</div><div class="step-icon">🔍</div><div class="step-title">Search Your Area</div><div class="step-desc">Enter your location and instantly discover verified home bakers near you in Chennai.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-icon">👀</div><div class="step-title">Browse Profiles</div><div class="step-desc">View baker profiles, products, reviews, and photos to find your perfect match.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-icon">💬</div><div class="step-title">Connect Directly</div><div class="step-desc">Contact the baker directly on WhatsApp — no middleman, no commission cut.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-icon">🎉</div><div class="step-title">Enjoy Fresh Bakes</div><div class="step-desc">Get freshly baked, quality-verified goodies delivered with love from your local baker.</div></div>
     </div>
   </div>
 </section>
 
-<!-- WHY BAKERS BRIDGE -->
 <section class="why-section">
   <div class="section-inner">
     <div class="why-grid">
-      <div class="why-left">
+      <div>
         <div class="section-tag" style="text-align:left;">Why Bakers Bridge</div>
         <div class="section-title" style="text-align:left;">We Do What Instagram Can't</div>
-        <div class="section-sub" style="text-align:left;margin:0 0 2rem;">Finding a good home baker online is hard. We solve that by personally verifying every single baker before listing them.</div>
+        <div class="section-sub" style="text-align:left;margin:0 0 2rem;">Finding a trusted home baker is hard. We solve that by personally verifying every baker before listing them.</div>
         <div class="why-points">
-          <div class="why-point">
-            <div class="why-point-icon">🏅</div>
-            <div><div class="why-point-title">Personal Verification</div><div class="why-point-desc">We visit every baker, taste their products, and check hygiene before listing them.</div></div>
-          </div>
-          <div class="why-point">
-            <div class="why-point-icon">📍</div>
-            <div><div class="why-point-title">Location-Based Search</div><div class="why-point-desc">Find bakers within your exact area — no more ordering from across the city.</div></div>
-          </div>
-          <div class="why-point">
-            <div class="why-point-icon">🔄</div>
-            <div><div class="why-point-title">Monthly Quality Check</div><div class="why-point-desc">We don't just verify once. Every baker is inspected monthly to maintain standards.</div></div>
-          </div>
-          <div class="why-point">
-            <div class="why-point-icon">💰</div>
-            <div><div class="why-point-title">Zero Commission</div><div class="why-point-desc">Customers connect directly to bakers. No hidden charges, no commission cuts.</div></div>
-          </div>
+          <div class="why-point"><div class="why-point-icon">🏅</div><div><div class="why-point-title">Personal Verification</div><div class="why-point-desc">We visit every baker, taste their products, and check hygiene before listing them.</div></div></div>
+          <div class="why-point"><div class="why-point-icon">📍</div><div><div class="why-point-title">Location-Based Search</div><div class="why-point-desc">Find bakers within your exact area — no more ordering from across the city.</div></div></div>
+          <div class="why-point"><div class="why-point-icon">🔄</div><div><div class="why-point-title">Monthly Quality Check</div><div class="why-point-desc">Every baker is inspected monthly to maintain their quality standards.</div></div></div>
+          <div class="why-point"><div class="why-point-icon">💰</div><div><div class="why-point-title">Zero Commission</div><div class="why-point-desc">Customers connect directly to bakers. No hidden charges, no cuts.</div></div></div>
         </div>
       </div>
       <div class="why-visual">
-        <div class="why-item">
-          <div class="why-item-icon">✅</div>
-          <div><div class="why-item-title">Quality Ingredients Verified</div><div class="why-item-desc">We check that only quality ingredients are used in every product.</div></div>
-        </div>
-        <div class="why-item">
-          <div class="why-item-icon">🧹</div>
-          <div><div class="why-item-title">Hygiene Inspected</div><div class="why-item-desc">Kitchen cleanliness and food safety standards are checked personally.</div></div>
-        </div>
-        <div class="why-item">
-          <div class="why-item-icon">⭐</div>
-          <div><div class="why-item-title">Real Customer Reviews</div><div class="why-item-desc">Only genuine customer reviews — no fake ratings allowed on our platform.</div></div>
-        </div>
-        <div class="why-item">
-          <div class="why-item-icon">🎓</div>
-          <div><div class="why-item-title">Experience Checked</div><div class="why-item-desc">Baking experience, consistency, and reliability all evaluated before listing.</div></div>
-        </div>
+        <div class="why-item"><div class="why-item-icon">✅</div><div><div class="why-item-title">Quality Ingredients Verified</div><div class="why-item-desc">We check that only quality ingredients are used in every product.</div></div></div>
+        <div class="why-item"><div class="why-item-icon">🧹</div><div><div class="why-item-title">Hygiene Inspected</div><div class="why-item-desc">Kitchen cleanliness and food safety standards checked personally.</div></div></div>
+        <div class="why-item"><div class="why-item-icon">⭐</div><div><div class="why-item-title">Real Customer Reviews</div><div class="why-item-desc">Only genuine customer reviews — no fake ratings allowed.</div></div></div>
+        <div class="why-item"><div class="why-item-icon">🎓</div><div><div class="why-item-title">Experience Checked</div><div class="why-item-desc">Baking experience, consistency, and reliability all evaluated.</div></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PACKAGES -->
 <section class="packages-section" id="packages">
   <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">For Home Bakers</div>
-      <div class="section-title">Grow Your Baking Business</div>
-      <div class="section-sub">Choose a plan that fits your baking journey. Start free, grow at your own pace.</div>
-    </div>
+    <div class="section-header"><div class="section-tag">For Home Bakers</div><div class="section-title">Grow Your Baking Business</div><div class="section-sub">Choose a plan that fits your baking journey. Start free, grow at your own pace.</div></div>
     <div class="packages-grid">
-      <div class="pkg-card">
-        <div class="pkg-icon">🌱</div>
-        <div class="pkg-name">Basic</div>
-        <div class="pkg-price">₹199 <span class="pkg-price-period">/ month</span></div>
-        <div class="pkg-desc">Perfect for bakers just starting out and wanting to get discovered.</div>
-        <div class="pkg-divider"></div>
-        <ul class="pkg-features">
-          <li class="pkg-feature">Profile listing on platform</li>
-          <li class="pkg-feature">Location-based visibility</li>
-          <li class="pkg-feature">Direct customer connect</li>
-          <li class="pkg-feature">Monthly quality check</li>
-          <li class="pkg-feature">Verified Baker badge</li>
-        </ul>
-        <button class="pkg-btn pkg-btn-outline">Get Started Free</button>
-      </div>
-      <div class="pkg-card featured">
-        <div class="pkg-popular">Most Popular</div>
-        <div class="pkg-icon">🚀</div>
-        <div class="pkg-name">Standard</div>
-        <div class="pkg-price">₹499 <span class="pkg-price-period">/ month</span></div>
-        <div class="pkg-desc">For bakers ready to grow their customer base seriously.</div>
-        <div class="pkg-divider"></div>
-        <ul class="pkg-features">
-          <li class="pkg-feature">Everything in Basic</li>
-          <li class="pkg-feature">Priority search ranking</li>
-          <li class="pkg-feature">Review & rating system</li>
-          <li class="pkg-feature">WhatsApp enquiry button</li>
-          <li class="pkg-feature">Marketing support</li>
-          <li class="pkg-feature">Festival promotion alerts</li>
-        </ul>
-        <button class="pkg-btn pkg-btn-solid">Get Started</button>
-      </div>
-      <div class="pkg-card">
-        <div class="pkg-icon">👑</div>
-        <div class="pkg-name">Premium</div>
-        <div class="pkg-price">₹999 <span class="pkg-price-period">/ month</span></div>
-        <div class="pkg-desc">Full support to build your baking brand professionally.</div>
-        <div class="pkg-divider"></div>
-        <ul class="pkg-features">
-          <li class="pkg-feature">Everything in Standard</li>
-          <li class="pkg-feature">Professional photography</li>
-          <li class="pkg-feature">Social media management</li>
-          <li class="pkg-feature">Paid ad campaigns</li>
-          <li class="pkg-feature">Featured Baker of Week</li>
-          <li class="pkg-feature">Personal brand building</li>
-        </ul>
-        <button class="pkg-btn pkg-btn-outline">Get Started</button>
-      </div>
+      <div class="pkg-card"><div class="pkg-icon">🌱</div><div class="pkg-name">Basic</div><div class="pkg-price">₹199 <span class="pkg-price-period">/ month</span></div><div class="pkg-desc">Perfect for bakers just starting out.</div><div class="pkg-divider"></div><ul class="pkg-features"><li class="pkg-feature">Profile listing on platform</li><li class="pkg-feature">Location-based visibility</li><li class="pkg-feature">Direct customer connect</li><li class="pkg-feature">Monthly quality check</li><li class="pkg-feature">Verified Baker badge</li></ul><button class="pkg-btn pkg-btn-outline">Get Started Free</button></div>
+      <div class="pkg-card featured"><div class="pkg-popular">Most Popular</div><div class="pkg-icon">🚀</div><div class="pkg-name">Standard</div><div class="pkg-price">₹499 <span class="pkg-price-period">/ month</span></div><div class="pkg-desc">For bakers ready to grow their customer base seriously.</div><div class="pkg-divider"></div><ul class="pkg-features"><li class="pkg-feature">Everything in Basic</li><li class="pkg-feature">Priority search ranking</li><li class="pkg-feature">Review & rating system</li><li class="pkg-feature">WhatsApp enquiry button</li><li class="pkg-feature">Marketing support</li><li class="pkg-feature">Festival promotion alerts</li></ul><button class="pkg-btn pkg-btn-solid">Get Started</button></div>
+      <div class="pkg-card"><div class="pkg-icon">👑</div><div class="pkg-name">Premium</div><div class="pkg-price">₹999 <span class="pkg-price-period">/ month</span></div><div class="pkg-desc">Full support to build your baking brand professionally.</div><div class="pkg-divider"></div><ul class="pkg-features"><li class="pkg-feature">Everything in Standard</li><li class="pkg-feature">Professional photography</li><li class="pkg-feature">Social media management</li><li class="pkg-feature">Paid ad campaigns</li><li class="pkg-feature">Featured Baker of Week</li><li class="pkg-feature">Personal brand building</li></ul><button class="pkg-btn pkg-btn-outline">Get Started</button></div>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
 <section class="testi-section">
   <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">Testimonials</div>
-      <div class="section-title">What People Are Saying</div>
-      <div class="section-sub">Real words from real customers and bakers who love Bakers Bridge.</div>
-    </div>
+    <div class="section-header"><div class="section-tag">Testimonials</div><div class="section-title">What People Are Saying</div></div>
     <div class="testi-grid">
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"I was tired of scrolling through hundreds of Instagram pages not knowing who to trust. Bakers Bridge made it so easy — I found an amazing baker near my home in 2 minutes!"</div>
-        <div class="testi-author">
-          <div class="testi-avatar">👩</div>
-          <div><div class="testi-name">Kavitha R.</div><div class="testi-role">Customer, Anna Nagar</div></div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"After joining Bakers Bridge, I started getting 3-4 new enquiries every week. The platform genuinely brought me customers I never would have reached on Instagram alone."</div>
-        <div class="testi-author">
-          <div class="testi-avatar">👩‍🍳</div>
-          <div><div class="testi-name">Priya S.</div><div class="testi-role">Home Baker, Adyar</div></div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"The verified badge gave my customers confidence to order from me. My monthly orders doubled within 2 months of joining Bakers Bridge!"</div>
-        <div class="testi-author">
-          <div class="testi-avatar">👩‍🍳</div>
-          <div><div class="testi-name">Meena L.</div><div class="testi-role">Home Baker, Velachery</div></div>
-        </div>
-      </div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"I was tired of scrolling Instagram not knowing who to trust. Bakers Bridge made it so easy — found an amazing baker near me in 2 minutes!"</div><div class="testi-author"><div class="testi-avatar">👩</div><div><div class="testi-name">Kavitha R.</div><div class="testi-role">Customer, Anna Nagar</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"After joining Bakers Bridge I started getting 3-4 new enquiries every week. The platform genuinely brought me customers I never would have reached alone."</div><div class="testi-author"><div class="testi-avatar">👩‍🍳</div><div><div class="testi-name">Priya S.</div><div class="testi-role">Home Baker, Adyar</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"The verified badge gave my customers confidence. My monthly orders doubled within 2 months of joining Bakers Bridge!"</div><div class="testi-author"><div class="testi-avatar">👩‍🍳</div><div><div class="testi-name">Meena L.</div><div class="testi-role">Home Baker, Velachery</div></div></div></div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
 <section class="faq-section" id="faq">
   <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">FAQ</div>
-      <div class="section-title">Frequently Asked Questions</div>
-    </div>
+    <div class="section-header"><div class="section-tag">FAQ</div><div class="section-title">Frequently Asked Questions</div></div>
     <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">How does Bakers Bridge verify bakers? <span class="faq-icon">+</span></div>
-        <div class="faq-a">We personally visit every baker, taste their products, check their kitchen hygiene, verify their ingredients quality, and review their customer feedback before listing them on our platform.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Is it free for customers to use? <span class="faq-icon">+</span></div>
-        <div class="faq-a">Yes, completely free! Customers can search, browse, and contact bakers without any charges. We never take a commission from orders either.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">How do I join as a home baker? <span class="faq-icon">+</span></div>
-        <div class="faq-a">Click "Join as a Baker" and fill in your details. Our team will contact you within 48 hours to schedule a quality inspection visit. Once verified, your profile goes live!</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Do you take commission on orders? <span class="faq-icon">+</span></div>
-        <div class="faq-a">No commission at all. Customers contact bakers directly and all payments are handled between them. We only charge bakers a small monthly listing fee to maintain the platform.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">What cities do you cover? <span class="faq-icon">+</span></div>
-        <div class="faq-a">We currently cover all major areas in Chennai. We are expanding to other Tamil Nadu cities soon. Stay tuned!</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">What is included in the photography package? <span class="faq-icon">+</span></div>
-        <div class="faq-a">Our photography package includes a professional photoshoot of your baked goods, edited photos optimized for social media and your profile, and a digital delivery of all images within 5 working days.</div>
-      </div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How does Bakers Bridge verify bakers? <span class="faq-icon">+</span></div><div class="faq-a">We personally visit every baker, taste their products, check kitchen hygiene, verify ingredient quality, and review customer feedback before listing them.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is it free for customers to use? <span class="faq-icon">+</span></div><div class="faq-a">Yes, completely free! Customers can search, browse, and contact bakers without any charges. We never take a commission from orders either.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I join as a home baker? <span class="faq-icon">+</span></div><div class="faq-a">Click "Join as a Baker" and fill in your details. Our team will contact you within 48 hours to schedule a quality inspection visit. Once verified, your profile goes live!</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do you take commission on orders? <span class="faq-icon">+</span></div><div class="faq-a">No commission at all. Customers contact bakers directly and all payments are handled between them. We only charge bakers a small monthly listing fee.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What cities do you cover? <span class="faq-icon">+</span></div><div class="faq-a">We currently cover all major areas in Chennai and are expanding to other Tamil Nadu cities soon!</div></div>
     </div>
   </div>
 </section>
 
-<!-- JOIN CTA -->
 <section class="join-section">
   <div class="join-pattern"></div>
   <div class="join-inner">
     <h2>Are You a Home Baker in Chennai?</h2>
     <p>Join Bakers Bridge and get discovered by hundreds of customers searching for quality home bakers near them. Start free today.</p>
-    <div class="join-btns">
-      <button class="btn-join-gold">Apply to Join — Free to Start</button>
-      <button class="btn-join-outline">Learn More</button>
-    </div>
+    <div class="join-btns"><button class="btn-join-gold">Apply to Join — Free to Start</button><button class="btn-join-outline">Learn More</button></div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
-      <div class="footer-brand">
-        <div class="nav-logo" style="margin-bottom:0.75rem;">
-          <div class="logo-icon">🎂</div>
-          <span class="logo-text">Bakers <span>Bridge</span></span>
-        </div>
-        <div class="footer-desc">Chennai's most trusted platform for discovering and connecting with quality-verified home bakers.</div>
-      </div>
-      <div>
-        <div class="footer-col-title">For Customers</div>
-        <ul class="footer-links">
-          <li><a href="#">Find Bakers</a></li>
-          <li><a href="#">Search by Area</a></li>
-          <li><a href="#">How It Works</a></li>
-          <li><a href="#">Leave a Review</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">For Bakers</div>
-        <ul class="footer-links">
-          <li><a href="#">Join as Baker</a></li>
-          <li><a href="#">Our Packages</a></li>
-          <li><a href="#">Photography</a></li>
-          <li><a href="#">Social Media Help</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Company</div>
-        <ul class="footer-links">
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-        </ul>
-      </div>
+      <div><div class="nav-logo" style="margin-bottom:0.75rem;"><div class="logo-icon">🎂</div><span class="logo-text" style="color:var(--warm);">Bakers <span>Bridge</span></span></div><div class="footer-desc">Chennai's most trusted platform for discovering quality-verified home bakers.</div></div>
+      <div><div class="footer-col-title">For Customers</div><ul class="footer-links"><li><a href="#">Find Bakers</a></li><li><a href="#">Search by Area</a></li><li><a href="#">How It Works</a></li><li><a href="#">Leave a Review</a></li></ul></div>
+      <div><div class="footer-col-title">For Bakers</div><ul class="footer-links"><li><a href="#">Join as Baker</a></li><li><a href="#">Our Packages</a></li><li><a href="#">Photography</a></li><li><a href="#">Social Media Help</a></li></ul></div>
+      <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="#">About Us</a></li><li><a href="#">Contact</a></li><li><a href="#">Instagram</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 <a href="#">Bakers Bridge</a> · Chennai, Tamil Nadu</span>
-      <span>Made with ❤️ for home bakers</span>
-    </div>
+    <div class="footer-bottom"><span>© 2026 <a href="#">Bakers Bridge</a> · Chennai, Tamil Nadu</span><span>Made with ❤️ for home bakers</span></div>
   </div>
 </footer>
 
-<!-- WHATSAPP FLOAT -->
 <a href="https://wa.me/919999999999" class="wa-float" target="_blank">💬</a>
 
 <script>
-window.addEventListener('scroll',()=>{
-  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);
-});
+const bakers={
+  priya:{logo:'🎂',name:"Priya's Sweet Kitchen",spec:'Custom Fondant Cakes & Cupcakes',rating:'★★★★★ 4.9',loc:'📍 Anna Nagar',about:"Priya has been baking custom cakes for over 3 years from her home kitchen in Anna Nagar. She specialises in fondant cakes, cupcakes, and eggless options. Every cake is made fresh to order using quality imported ingredients.",exp:'3 Years',orders:'500+',happy:'98%',areas:'Anna Nagar, Kilpauk',
+  products:{'Custom Cakes':[{e:'🎂',n:'Birthday Cake',p:'From ₹800'},{e:'🎂',n:'Anniversary Cake',p:'From ₹1200'},{e:'🎂',n:'Fondant Cake',p:'From ₹1500'},{e:'🎂',n:'Photo Cake',p:'From ₹1000'}],'Cupcakes':[{e:'🧁',n:'Vanilla Cupcake',p:'₹60 each'},{e:'🧁',n:'Chocolate Cupcake',p:'₹70 each'},{e:'🧁',n:'Red Velvet',p:'₹80 each'},{e:'🧁',n:'Box of 12',p:'From ₹700'}],'Desserts':[{e:'🍮',n:'Cheesecake',p:'₹600'},{e:'🍮',n:'Tiramisu',p:'₹550'},{e:'🍮',n:'Brownie Box',p:'₹400'}]},
+  reviews:[{name:'Kavitha R.',stars:'★★★★★',text:'Ordered a fondant birthday cake — it was stunning and tasted amazing! Will order again.',date:'March 2026'},{name:'Arun M.',stars:'★★★★★',text:'Priya is so professional. Delivered on time and the cake was exactly as I imagined.',date:'Feb 2026'},{name:'Sruthi P.',stars:'★★★★☆',text:"Lovely cupcakes for my daughter's birthday party. Kids loved them!",date:'Jan 2026'}]},
+  cookie:{logo:'🍪',name:'The Cookie Co.',spec:'Artisan Cookies & Brownies',rating:'★★★★★ 4.8',loc:'📍 Adyar',about:'The Cookie Co. is run by Divya, a passionate baker with 5 years of experience in artisan cookies and brownies. She bakes in small batches to ensure freshness and quality in every bite.',exp:'5 Years',orders:'800+',happy:'97%',areas:'Adyar, Besant Nagar, Mylapore',
+  products:{'Cookies':[{e:'🍪',n:'Choco Chip',p:'₹30 each'},{e:'🍪',n:'Oat Raisin',p:'₹35 each'},{e:'🍪',n:'Double Choco',p:'₹40 each'},{e:'🍪',n:'Cookie Box (12)',p:'₹350'}],'Brownies':[{e:'🍫',n:'Classic Brownie',p:'₹50 each'},{e:'🍫',n:'Walnut Brownie',p:'₹60 each'},{e:'🍫',n:'Nutella Brownie',p:'₹70 each'},{e:'🍫',n:'Box of 9',p:'₹450'}],'Gift Boxes':[{e:'🎁',n:'Cookie Gift Box',p:'From ₹600'},{e:'🎁',n:'Corporate Hamper',p:'From ₹1200'},{e:'🎁',n:'Festival Special',p:'From ₹800'}]},
+  reviews:[{name:'Preethi S.',stars:'★★★★★',text:'Best brownies in Chennai! Dense, fudgy, and perfect. Will order every week.',date:'April 2026'},{name:'Raj K.',stars:'★★★★★',text:'Ordered a corporate cookie hamper — everyone loved it. Very professional.',date:'March 2026'}]},
+  meena:{logo:'🍞',name:'Healthy Bakes by Meena',spec:'Sugar-Free & Whole Wheat Breads',rating:'★★★★☆ 4.7',loc:'📍 Velachery',about:'Meena started Healthy Bakes after her family needed sugar-free and diabetic-friendly baked options. She now serves hundreds of health-conscious customers across Velachery and nearby areas.',exp:'2 Years',orders:'300+',happy:'95%',areas:'Velachery, Medavakkam, Pallikaranai',
+  products:{'Breads':[{e:'🍞',n:'Whole Wheat Bread',p:'₹120'},{e:'🍞',n:'Multigrain Loaf',p:'₹150'},{e:'🍞',n:'Oat Bread',p:'₹130'},{e:'🍞',n:'Garlic Herb Bread',p:'₹160'}],'Sugar-Free':[{e:'🎂',n:'Sugar-Free Cake',p:'From ₹700'},{e:'🍪',n:'Sugar-Free Cookies',p:'₹25 each'},{e:'🧁',n:'Diabetic Cupcakes',p:'₹50 each'}],'Healthy Snacks':[{e:'🥜',n:'Granola Bars',p:'₹40 each'},{e:'🥜',n:'Energy Bites (12)',p:'₹300'},{e:'🥜',n:'Millet Cookies',p:'₹30 each'}]},
+  reviews:[{name:'Dr. Suresh P.',stars:'★★★★★',text:"As a diabetic, finding sugar-free baked goods that taste good is rare. Meena's cakes are incredible!",date:'April 2026'},{name:'Anitha K.',stars:'★★★★☆',text:'The whole wheat bread is fresh and delicious. Ordered 3 times already.',date:'March 2026'}]},
+  cupcake:{logo:'🧁',name:'Cupcake Diaries',spec:'Designer Cupcakes & Cake Pops',rating:'★★★★★ 5.0',loc:'📍 T Nagar',about:"Cupcake Diaries by Riya is the go-to for beautifully designed cupcakes and cake pops in T Nagar. With 4 years of experience, Riya creates stunning edible art for all occasions.",exp:'4 Years',orders:'600+',happy:'100%',areas:'T Nagar, Nungambakkam, Kodambakkam',
+  products:{'Cupcakes':[{e:'🧁',n:'Classic Vanilla',p:'₹70'},{e:'🧁',n:'Salted Caramel',p:'₹90'},{e:'🧁',n:'Matcha Green Tea',p:'₹100'},{e:'🧁',n:'Custom Design',p:'From ₹120'}],'Cake Pops':[{e:'🍭',n:'Chocolate Pop',p:'₹60'},{e:'🍭',n:'Vanilla Pop',p:'₹60'},{e:'🍭',n:'Custom Pops',p:'From ₹80'},{e:'🍭',n:'Box of 10',p:'₹550'}],'Custom Cakes':[{e:'🎂',n:'Designer Birthday',p:'From ₹1200'},{e:'🎂',n:'Baby Shower Cake',p:'From ₹1500'},{e:'🎂',n:'Wedding Tier',p:'From ₹3000'}],'Dessert Tables':[{e:'🍽',n:'Party Dessert Table',p:'From ₹5000'},{e:'🍽',n:'Mini Dessert Box',p:'From ₹800'}]},
+  reviews:[{name:'Nisha M.',stars:'★★★★★',text:"Ordered for my daughter's birthday — everyone was amazed at how beautiful they were!",date:'April 2026'},{name:'Vikram T.',stars:'★★★★★',text:'Perfect 5 stars. The cake pops were a huge hit at our office party.',date:'March 2026'}]},
+  nalla:{logo:'🍮',name:'Nalla Inipugal',spec:'Traditional Tamil Sweets',rating:'★★★★★ 4.9',loc:'📍 Mylapore',about:"Nalla Inipugal by Saraswathi is Chennai's most trusted home-based traditional sweet maker. With 6 years of experience and recipes passed down through generations, every sweet is made with pure ghee and traditional methods.",exp:'6 Years',orders:'1200+',happy:'99%',areas:'Mylapore, Triplicane, Mandaveli',
+  products:{'Traditional Sweets':[{e:'🍮',n:'Adhirasam',p:'₹30 each'},{e:'🍮',n:'Mysore Pak',p:'₹50 each'},{e:'🍮',n:'Halwa',p:'From ₹300/kg'},{e:'🍮',n:'Laddu',p:'₹25 each'}],'Festival Specials':[{e:'🪔',n:'Diwali Sweet Box',p:'From ₹500'},{e:'🪔',n:'Pongal Special',p:'From ₹400'},{e:'🪔',n:'Navarathri Sweet',p:'From ₹350'}],'Savouries':[{e:'🫓',n:'Murukku',p:'₹200/500g'},{e:'🫓',n:'Thattai',p:'₹180/500g'},{e:'🫓',n:'Mixture',p:'₹220/500g'}]},
+  reviews:[{name:'Padma V.',stars:'★★★★★',text:'Exactly like homemade — pure ghee taste and perfect sweetness. Ordered for my wedding and everyone loved it.',date:'Feb 2026'},{name:'Suresh R.',stars:'★★★★★',text:'Nalla Inipugal is the only place I trust for authentic Tamil sweets.',date:'Jan 2026'}]},
+  studio:{logo:'📸',name:'The Bake Studio',spec:'Themed & Photo Cakes',rating:'★★★★☆ 4.6',loc:'📍 OMR',about:"The Bake Studio by Ananya specializes in photo-printed and elaborately themed cakes. Based in OMR, she serves the tech community and families across the corridor with stunning celebration cakes.",exp:'2 Years',orders:'250+',happy:'94%',areas:'OMR, Sholinganallur, Perungudi',
+  products:{'Photo Cakes':[{e:'📸',n:'Photo Print Cake',p:'From ₹900'},{e:'📸',n:'Collage Cake',p:'From ₹1100'},{e:'📸',n:'Edible Image Cake',p:'From ₹1000'}],'Themed Cakes':[{e:'🎮',n:'Game Theme Cake',p:'From ₹1200'},{e:'🦸',n:'Superhero Cake',p:'From ₹1500'},{e:'🌸',n:'Floral Theme',p:'From ₹1300'},{e:'🐾',n:'Animal Theme',p:'From ₹1200'}],'Custom Cakes':[{e:'🎂',n:'Birthday Special',p:'From ₹800'},{e:'🎂',n:'Anniversary',p:'From ₹1000'},{e:'🎂',n:'Kids Party Cake',p:'From ₹750'}]},
+  reviews:[{name:'Arun S.',stars:'★★★★★',text:"Got a photo cake of my son's favourite game character — he was speechless! Great quality.",date:'April 2026'},{name:'Deepa M.',stars:'★★★★☆',text:'Beautiful floral cake for my anniversary. Tasted great and looked stunning.',date:'March 2026'}]}
+};
 
-document.querySelectorAll('.chip').forEach(chip=>{
-  chip.addEventListener('click',function(){
-    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-    this.classList.add('active');
-  });
-});
+let curBaker=null;
 
-document.querySelectorAll('.filter-tab').forEach(tab=>{
-  tab.addEventListener('click',function(){
-    document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
-    this.classList.add('active');
-  });
-});
-
-function toggleFaq(el){
-  const item=el.parentElement;
-  const isOpen=item.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
-  if(!isOpen)item.classList.add('open');
+function openModal(id){
+  curBaker=id;
+  const b=bakers[id];
+  document.getElementById('modalLogo').textContent=b.logo;
+  document.getElementById('modalName').textContent=b.name;
+  document.getElementById('modalSpec').textContent=b.spec;
+  document.getElementById('modalRating').textContent=b.rating;
+  document.getElementById('modalLoc').textContent=b.loc;
+  document.querySelectorAll('.modal-tab').forEach((t,i)=>t.classList.toggle('active',i===0));
+  renderTab('products');
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
 }
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';}
+function closeModalOutside(e){if(e.target===document.getElementById('modalOverlay'))closeModal();}
+function switchTab(tab,el){document.querySelectorAll('.modal-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');renderTab(tab);}
+
+function renderTab(tab){
+  const b=bakers[curBaker];let html='';
+  if(tab==='products'){
+    Object.entries(b.products).forEach(([cat,items])=>{
+      html+=`<div class="product-category"><div class="product-cat-title">${cat}</div><div class="products-row">${items.map(p=>`<div class="product-item"><div class="product-emoji">${p.e}</div><div class="product-name">${p.n}</div><div class="product-price">${p.p}</div></div>`).join('')}</div></div>`;
+    });
+  }else if(tab==='about'){
+    html=`<div class="about-text">${b.about}</div><div class="about-highlights"><div class="highlight-item"><div class="highlight-val">${b.exp}</div><div class="highlight-label">Experience</div></div><div class="highlight-item"><div class="highlight-val">${b.orders}</div><div class="highlight-label">Orders Completed</div></div><div class="highlight-item"><div class="highlight-val">${b.happy}</div><div class="highlight-label">Happy Customers</div></div><div class="highlight-item"><div class="highlight-val" style="font-size:1rem;">📍</div><div class="highlight-label">${b.areas}</div></div></div>`;
+  }else{
+    html=b.reviews.map(r=>`<div class="review-item"><div class="review-top"><span class="reviewer-name">${r.name}</span><span class="review-stars">${r.stars}</span></div><div class="review-text">"${r.text}"</div><div class="review-date">${r.date}</div></div>`).join('');
+  }
+  document.getElementById('modalContent').innerHTML=html;
+}
+
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);});
+document.querySelectorAll('.chip').forEach(c=>{c.addEventListener('click',function(){document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));this.classList.add('active');});});
+document.querySelectorAll('.filter-tab').forEach(t=>{t.addEventListener('click',function(){document.querySelectorAll('.filter-tab').forEach(x=>x.classList.remove('active'));this.classList.add('active');});});
+function toggleFaq(el){const item=el.parentElement;const open=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!open)item.classList.add('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 </script>
 </body>
 </html>
