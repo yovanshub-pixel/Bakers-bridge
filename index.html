@@ -230,8 +230,8 @@ section{padding:6rem 3rem;}
 .why-point-desc{font-size:13px;color:var(--text-muted);line-height:1.5;}
 
 .packages-section{background:var(--white);}
-.packages-grid{   display:grid;   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));   gap:1.5rem;    align-items:stretch; }display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
-.pkg-card{   background:var(--card);   border-radius:20px;   border:1px solid var(--border);   padding:2rem;   transition:transform 0.25s;   position:relative;   overflow:hidden;    display:flex;   flex-direction:column;   justify-content:space-between;   height:100%; }background:var(--card);border-radius:20px;border:1px solid var(--border);padding:2rem;transition:transform 0.25s;position:relative;overflow:hidden;}
+.packages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
+.pkg-card{background:var(--card);border-radius:20px;border:1px solid var(--border);padding:2rem;transition:transform 0.25s;position:relative;overflow:hidden;}
 .pkg-card:hover{transform:translateY(-4px);}
 .pkg-card.featured{background:var(--brown);border-color:var(--brown);}
 .pkg-popular{position:absolute;top:0;right:0;background:var(--gold);color:var(--white);font-size:10px;font-weight:600;padding:6px 16px;border-bottom-left-radius:12px;}
@@ -247,12 +247,12 @@ section{padding:6rem 3rem;}
 .pkg-card.featured .pkg-desc{color:rgba(245,230,204,0.6);}
 .pkg-divider{height:1px;background:var(--border);margin-bottom:1.25rem;}
 .pkg-card.featured .pkg-divider{background:rgba(255,255,255,0.1);}
-.pkg-features{   list-style:none;   display:flex;   flex-direction:column;   gap:8px;   margin-bottom:1.5rem;    flex-grow:1; }list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem;}
+.pkg-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem;}
 .pkg-feature{font-size:13px;display:flex;align-items:center;gap:8px;}
 .pkg-card:not(.featured) .pkg-feature{color:var(--text);}
 .pkg-card.featured .pkg-feature{color:var(--warm);}
 .pkg-feature::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0;}
-.pkg-btn{   width:100%;   padding:12px;   border-radius:25px;   font-size:14px;   font-weight:500;   cursor:pointer;   font-family:'Outfit',sans-serif;   transition:all 0.2s;    margin-top:auto; }width:100%;padding:12px;border-radius:25px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
+.pkg-btn{width:100%;padding:12px;border-radius:25px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
 .pkg-btn-outline{background:transparent;color:var(--gold);border:1.5px solid var(--gold);}
 .pkg-btn-outline:hover{background:var(--gold);color:var(--white);}
 .pkg-btn-solid{background:var(--gold);color:var(--white);border:none;}
@@ -590,18 +590,9 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
   <div class="section-inner">
     <div class="section-header"><div class="section-tag">For Home Bakers</div><div class="section-title">Grow Your Baking Business</div><div class="section-sub">Choose a plan that fits your baking journey. Start free, grow at your own pace.</div></div>
     <div class="packages-grid">
-      <div class="pkg-card"><div class="pkg-icon">🌱</div><div class="pkg-name">Basic</div><div class="pkg-price">₹999 <span class="pkg-price-period">/ month</span></div><div class="pkg-desc">Perfect for bakers just starting out.</div><div class="pkg-divider"></div><ul class="pkg-features"><li class="pkg-feature">Profile listing</li><li class="pkg-feature">Location-based visibility</li><li class="pkg-feature">WhatsApp enquiry button</li><li class="pkg-feature">WhatsApp enquiry button</li><li class="pkg-feature">Verified Baker badge</li></ul><button class="pkg-btn pkg-btn-solid"
-onclick="window.open('https://wa.me/916369380977?text=Hi%20I%20want%20Standard%20Plan','_blank')">
-Get Started
-</button>
-      <div class="pkg-card featured"><div class="pkg-popular">Most Popular</div><div class="pkg-icon">🚀</div><div class="pkg-name">Standard</div><div class="pkg-price">₹1999 <span class="pkg-price-period">/ month</span></div><div class="pkg-desc">For bakers ready to grow their customer base seriously.</div><div class="pkg-divider"></div><ul class="pkg-features"><li class="pkg-feature">Priority listing</li><li class="pkg-feature">Festival promotion alerts</li><li class="pkg-feature">Marketing support</li><li class="pkg-feature">Social media tips</li><li class="pkg-feature">1 featured post per month</li></ul><button class="pkg-btn pkg-btn-solid"
-onclick="window.open('https://wa.me/916369380977?text=Hi%20I%20want%20Standard%20Plan','_blank')">
-Get Started
-</button>
-      <div class="pkg-card"><div class="pkg-icon">👑</div><div class="pkg-name">Premium</div><div class="pkg-price">₹3000 <span class="pkg-price-period">/ month</span></div><div class="pkg-desc">Full support to build your baking brand professionally.</div><div class="pkg-divider"></div><ul class="pkg-features"><li class="pkg-feature">Everything in Standard</li><li class="pkg-feature">Professional photography</li><li class="pkg-feature">Social media management</li><li class="pkg-feature">Paid ad campaigns</li><li class="pkg-feature">Featured Baker of Week</li><li class="pkg-feature">Personal brand building</li></ul><button class="pkg-btn pkg-btn-solid"
-onclick="window.open('https://wa.me/916369380977?text=Hi%20I%20want%20Standard%20Plan','_blank')">
-Get Started
-</button>
+      <div class="pkg-card"><div class="pkg-icon">🌱</div><div class="pkg-name">Basic</div><div class="pkg-price">₹999 <span class="pkg-price-period">/ month</span></div><div class="pkg-desc">Perfect for bakers just starting out.</div><div class="pkg-divider"></div><ul class="pkg-features"><li class="pkg-feature">Profile listing on platform</li><li class="pkg-feature">Location-based visibility</li><li class="pkg-feature">Direct customer connect</li><li class="pkg-feature">Monthly quality check</li><li class="pkg-feature">Verified Baker badge</li></ul><button class="pkg-btn pkg-btn-outline">Get Started Free</button></div>
+      <div class="pkg-card featured"><div class="pkg-popular">Most Popular</div><div class="pkg-icon">🚀</div><div class="pkg-name">Standard</div><div class="pkg-price">₹1999 <span class="pkg-price-period">/ month</span></div><div class="pkg-desc">For bakers ready to grow their customer base seriously.</div><div class="pkg-divider"></div><ul class="pkg-features"><li class="pkg-feature">Everything in Basic</li><li class="pkg-feature">Priority search ranking</li><li class="pkg-feature">Review & rating system</li><li class="pkg-feature">WhatsApp enquiry button</li><li class="pkg-feature">Marketing support</li><li class="pkg-feature">Festival promotion alerts</li></ul><button class="pkg-btn pkg-btn-solid">Get Started</button></div>
+      <div class="pkg-card"><div class="pkg-icon">👑</div><div class="pkg-name">Premium</div><div class="pkg-price">₹3000 <span class="pkg-price-period">/ month</span></div><div class="pkg-desc">Full support to build your baking brand professionally.</div><div class="pkg-divider"></div><ul class="pkg-features"><li class="pkg-feature">Everything in Standard</li><li class="pkg-feature">Professional photography</li><li class="pkg-feature">Social media management</li><li class="pkg-feature">Paid ad campaigns</li><li class="pkg-feature">Featured Baker of Week</li><li class="pkg-feature">Personal brand building</li></ul><button class="pkg-btn pkg-btn-outline">Get Started</button></div>
     </div>
   </div>
 </section>
@@ -651,7 +642,7 @@ Get Started
   </div>
 </footer>
 
-<a href="https://wa.me/916369380977" class="wa-float" target="_blank">💬</a>
+<a href="https://wa.me/919999999999" class="wa-float" target="_blank">💬</a>
 
 <script>
 const bakers={
