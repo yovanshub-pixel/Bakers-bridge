@@ -15,8 +15,7 @@ body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);o
 nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(253,246,236,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 3rem;height:68px;display:flex;align-items:center;justify-content:space-between;transition:box-shadow 0.3s;}
 nav.scrolled{box-shadow:0 4px 20px rgba(61,43,31,0.1);}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.logo-icon{width:44px;height:44px;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--warm);border:1px solid var(--border);}
-.logo-icon img{width:100%;height:100%;object-fit:cover;}
+.nav-logo-svg{width:42px;height:42px;}
 .logo-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--brown);}
 .logo-text span{color:var(--gold);}
 .nav-links{display:flex;gap:2.5rem;list-style:none;}
@@ -57,7 +56,7 @@ nav.scrolled{box-shadow:0 4px 20px rgba(61,43,31,0.1);}
 .float-card.bottom{width:260px;bottom:20px;left:30px;animation:float1 6s ease-in-out infinite;}
 .fc-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
 .fc-logo{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--warm);border:1px solid var(--border);overflow:hidden;}
-.fc-logo img{width:100%;height:100%;object-fit:cover;}
+.fc-logo svg{width:100%;height:100%;}
 .fc-logo.empty{background:var(--cream);border:2px dashed rgba(200,150,42,0.3);color:var(--text-muted);font-size:18px;}
 .fc-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--brown);line-height:1.2;}
 .fc-spec{font-size:10px;color:var(--text-muted);margin-top:2px;}
@@ -99,19 +98,19 @@ section{padding:6rem 3rem;}
 
 .baker-card{background:var(--card);border-radius:18px;border:1px solid var(--border);overflow:hidden;transition:transform 0.25s,box-shadow 0.25s;cursor:pointer;}
 .baker-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(61,43,31,0.12);}
-.baker-card-header{height:180px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;}
+.baker-card-header{height:200px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;overflow:hidden;}
 .baker-card-header.bg1{background:linear-gradient(135deg,#FFF3DC,#F5E6CC);}
-.baker-brand-logo{width:80px;height:80px;border-radius:16px;background:var(--white);border:2px solid rgba(200,150,42,0.2);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(61,43,31,0.12);overflow:hidden;}
-.baker-brand-logo img{width:100%;height:100%;object-fit:cover;}
-.baker-brand-logo.logo-placeholder{background:var(--cream);border:2px dashed rgba(200,150,42,0.35);flex-direction:column;gap:4px;}
-.baker-brand-logo.logo-placeholder span{font-size:22px;}
-.baker-brand-logo.logo-placeholder p{font-size:9px;color:var(--brown-light);font-family:'Outfit',sans-serif;}
+
+/* SVG LOGO on card */
+.baker-brand-logo{width:90px;height:90px;border-radius:18px;background:var(--white);border:2px solid rgba(200,150,42,0.2);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(61,43,31,0.12);overflow:hidden;}
+.baker-brand-logo svg{width:80px;height:80px;}
 .baker-brand-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--brown);text-align:center;padding:0 1rem;}
 .verified-badge{position:absolute;top:12px;right:12px;background:var(--gold);color:var(--white);font-size:10px;font-weight:600;padding:4px 12px;border-radius:12px;}
 
-.slot-card{background:var(--card);border-radius:18px;border:2px dashed rgba(200,150,42,0.25);overflow:hidden;transition:all 0.25s;cursor:pointer;position:relative;}
+/* SLOT */
+.slot-card{background:var(--card);border-radius:18px;border:2px dashed rgba(200,150,42,0.25);overflow:hidden;transition:all 0.25s;cursor:pointer;}
 .slot-card:hover{border-color:var(--gold);box-shadow:0 8px 24px rgba(200,150,42,0.12);transform:translateY(-3px);}
-.slot-card-header{height:180px;background:linear-gradient(135deg,#FAFAF8,#F5F0E8);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;}
+.slot-card-header{height:200px;background:linear-gradient(135deg,#FAFAF8,#F5F0E8);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;}
 .slot-logo-frame{width:80px;height:80px;border-radius:16px;border:2px dashed rgba(200,150,42,0.4);background:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
 .slot-logo-frame .frame-icon{font-size:22px;opacity:0.5;}
 .slot-logo-frame .frame-text{font-size:8px;color:var(--brown-light);font-family:'Outfit',sans-serif;text-align:center;line-height:1.3;padding:0 4px;}
@@ -146,12 +145,12 @@ section{padding:6rem 3rem;}
 /* MODAL */
 .modal-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(30,15,5,0.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:1rem;}
 .modal-overlay.open{display:flex;}
-.modal{background:var(--card);border-radius:24px;width:100%;max-width:740px;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 24px 60px rgba(61,43,31,0.25);}
+.modal{background:var(--card);border-radius:24px;width:100%;max-width:760px;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 24px 60px rgba(61,43,31,0.25);}
 .modal-close{position:absolute;top:16px;right:16px;z-index:10;width:36px;height:36px;border-radius:50%;background:var(--warm);border:none;cursor:pointer;font-size:16px;color:var(--brown);display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
 .modal-close:hover{background:var(--gold);color:var(--white);}
 .modal-header{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--border);display:flex;gap:1.5rem;align-items:flex-start;}
 .modal-logo{width:90px;height:90px;border-radius:18px;background:var(--warm);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
-.modal-logo img{width:100%;height:100%;object-fit:cover;}
+.modal-logo svg{width:80px;height:80px;}
 .modal-info{flex:1;}
 .modal-baker-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:var(--brown);margin-bottom:4px;}
 .modal-spec{font-size:14px;color:var(--text-muted);margin-bottom:10px;}
@@ -167,28 +166,30 @@ section{padding:6rem 3rem;}
 .modal-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
 .modal-content{padding:1.5rem 2rem;}
 
+/* PRODUCT CARDS WITH SVG IMAGES */
 .product-category{margin-bottom:2rem;}
 .product-cat-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--brown);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);}
-.products-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;}
-.product-item{background:var(--cream);border-radius:12px;padding:1rem;text-align:center;border:1px solid var(--border);transition:all 0.2s;cursor:pointer;}
-.product-item:hover{border-color:var(--gold);background:rgba(200,150,42,0.05);}
-.product-emoji{font-size:2rem;margin-bottom:8px;display:block;}
-.product-name{font-size:12px;font-weight:500;color:var(--brown);margin-bottom:4px;}
+.products-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;}
+.product-item{background:var(--cream);border-radius:14px;overflow:hidden;border:1px solid var(--border);transition:all 0.2s;cursor:pointer;}
+.product-item:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 6px 16px rgba(200,150,42,0.12);}
+.product-img{width:100%;height:100px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.product-img svg{width:100%;height:100%;}
+.product-details{padding:8px 10px;}
+.product-name{font-size:12px;font-weight:500;color:var(--brown);margin-bottom:3px;}
 .product-price{font-size:11px;color:var(--gold);font-weight:600;}
 
 .about-text{font-size:14px;color:var(--text-muted);line-height:1.75;margin-bottom:1.5rem;}
-.about-highlights{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
-.highlight-item{background:var(--cream);border-radius:10px;padding:1rem;border:1px solid var(--border);text-align:center;}
-.highlight-val{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--gold);}
-.highlight-label{font-size:11px;color:var(--text-muted);margin-top:6px;}
-
+.about-highlights{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.highlight-item{background:var(--cream);border-radius:10px;padding:0.75rem 1rem;border:1px solid var(--border);}
+.highlight-val{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--gold);}
+.highlight-label{font-size:11px;color:var(--text-muted);margin-top:2px;}
 .review-item{padding:1rem 0;border-bottom:1px solid var(--border);}
 .review-item:last-child{border-bottom:none;}
-.review-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.review-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
 .reviewer-name{font-size:14px;font-weight:500;color:var(--brown);}
 .review-stars{color:var(--gold);font-size:12px;}
-.review-text{font-size:13px;color:var(--text-muted);line-height:1.6;font-style:italic;margin:6px 0;}
-.review-date{font-size:11px;color:var(--brown-light);}
+.review-text{font-size:13px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+.review-date{font-size:11px;color:var(--brown-light);margin-top:4px;}
 
 .how-section{background:var(--white);}
 .steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;}
@@ -281,9 +282,6 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
 .footer-links a:hover{color:var(--gold);}
 .footer-bottom{border-top:1px solid rgba(245,230,204,0.1);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
 .footer-bottom a{color:var(--gold);text-decoration:none;}
-.footer-logo-img{width:50px;height:50px;border-radius:10px;overflow:hidden;background:rgba(245,230,204,0.1);}
-.footer-logo-img img{width:100%;height:100%;object-fit:cover;}
-
 .wa-float{position:fixed;bottom:24px;right:24px;z-index:999;width:54px;height:54px;border-radius:50%;background:#25D366;color:var(--white);display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 4px 16px rgba(37,211,102,0.4);cursor:pointer;transition:transform 0.2s;text-decoration:none;}
 .wa-float:hover{transform:scale(1.1);}
 
@@ -293,16 +291,298 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
 </head>
 <body>
 
+<!-- SVG DEFINITIONS (reusable logos and product images) -->
+<svg style="display:none">
+  <defs>
+    <!-- BAKERS BRIDGE LOGO -->
+    <symbol id="bb-logo" viewBox="0 0 100 100">
+      <rect width="100" height="100" rx="18" fill="#C8962A"/>
+      <rect x="15" y="55" width="70" height="28" rx="8" fill="#FDF6EC"/>
+      <ellipse cx="50" cy="48" rx="28" ry="20" fill="#FDF6EC"/>
+      <ellipse cx="50" cy="44" rx="22" ry="16" fill="#F5E6CC"/>
+      <!-- cake layers -->
+      <rect x="22" y="52" width="56" height="10" rx="5" fill="#E8B84B"/>
+      <rect x="18" y="58" width="64" height="12" rx="6" fill="#C8962A"/>
+      <rect x="14" y="66" width="72" height="14" rx="7" fill="#9A7020"/>
+      <!-- cherry on top -->
+      <circle cx="50" cy="28" r="5" fill="#C0392B"/>
+      <line x1="50" y1="33" x2="50" y2="43" stroke="#6B4C35" stroke-width="1.5"/>
+      <!-- stars -->
+      <text x="20" y="20" font-size="8" fill="#FDF6EC">✦</text>
+      <text x="72" y="20" font-size="8" fill="#FDF6EC">✦</text>
+    </symbol>
+
+    <!-- PASTRY BAY LOGO -->
+    <symbol id="pastry-bay-logo" viewBox="0 0 100 100">
+      <rect width="100" height="100" rx="18" fill="#2C1A0E"/>
+      <!-- decorative circle border -->
+      <circle cx="50" cy="50" r="40" fill="none" stroke="#C8962A" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <!-- croissant shape -->
+      <path d="M30 60 Q35 35 50 30 Q65 35 70 60 Q60 52 50 54 Q40 52 30 60Z" fill="#C8962A"/>
+      <path d="M30 60 Q35 40 50 36 Q65 40 70 60 Q60 55 50 57 Q40 55 30 60Z" fill="#E8B84B" opacity="0.7"/>
+      <!-- text -->
+      <text x="50" y="78" text-anchor="middle" font-family="Georgia,serif" font-size="9" font-weight="bold" fill="#C8962A">THE PASTRY BAY</text>
+      <!-- small stars -->
+      <text x="22" y="74" font-size="7" fill="#C8962A">✦</text>
+      <text x="72" y="74" font-size="7" fill="#C8962A">✦</text>
+    </symbol>
+
+    <!-- PRODUCT: BIRTHDAY CAKE -->
+    <symbol id="prod-birthday-cake" viewBox="0 0 140 110">
+      <rect width="140" height="110" fill="#FFF8F0"/>
+      <!-- plate -->
+      <ellipse cx="70" cy="95" rx="52" ry="8" fill="#F0E0C0"/>
+      <!-- cake bottom layer -->
+      <rect x="22" y="72" width="96" height="22" rx="6" fill="#D4956B"/>
+      <rect x="22" y="72" width="96" height="7" rx="3" fill="#E8A87A"/>
+      <!-- cake middle layer -->
+      <rect x="30" y="52" width="80" height="22" rx="6" fill="#C8962A"/>
+      <rect x="30" y="52" width="80" height="7" rx="3" fill="#E8B84B"/>
+      <!-- cake top layer -->
+      <rect x="38" y="35" width="64" height="19" rx="6" fill="#F5C842"/>
+      <rect x="38" y="35" width="64" height="6" rx="3" fill="#FFD966"/>
+      <!-- frosting drips -->
+      <path d="M38 41 Q43 48 48 41 Q53 48 58 41 Q63 48 68 41 Q73 48 78 41 Q83 48 88 41 Q93 48 98 41 Q103 46 102 41" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
+      <!-- candles -->
+      <rect x="53" y="18" width="5" height="18" rx="2" fill="#E74C3C"/>
+      <rect x="63" y="15" width="5" height="21" rx="2" fill="#3498DB"/>
+      <rect x="73" y="18" width="5" height="18" rx="2" fill="#9B59B6"/>
+      <!-- flames -->
+      <ellipse cx="55.5" cy="16" rx="3" ry="4" fill="#FFD700"/>
+      <ellipse cx="65.5" cy="13" rx="3" ry="4" fill="#FFD700"/>
+      <ellipse cx="75.5" cy="16" rx="3" ry="4" fill="#FFD700"/>
+      <!-- decorations -->
+      <circle cx="35" cy="68" r="4" fill="#FF6B8A"/>
+      <circle cx="105" cy="68" r="4" fill="#FF6B8A"/>
+      <circle cx="35" cy="48" r="3" fill="#FFF"/>
+      <circle cx="105" cy="48" r="3" fill="#FFF"/>
+    </symbol>
+
+    <!-- PRODUCT: FONDANT CAKE -->
+    <symbol id="prod-fondant-cake" viewBox="0 0 140 110">
+      <rect width="140" height="110" fill="#F0F8FF"/>
+      <ellipse cx="70" cy="95" rx="50" ry="7" fill="#E0D0C0"/>
+      <!-- cake -->
+      <rect x="25" y="45" width="90" height="48" rx="8" fill="#C8A882"/>
+      <rect x="25" y="45" width="90" height="12" rx="4" fill="#D4B896"/>
+      <!-- fondant top -->
+      <ellipse cx="70" cy="45" rx="45" ry="10" fill="#E8D5B7"/>
+      <!-- fondant decoration - roses -->
+      <circle cx="50" cy="42" r="7" fill="#FF8FAB"/>
+      <circle cx="70" cy="40" r="9" fill="#FF6B8A"/>
+      <circle cx="90" cy="42" r="7" fill="#FF8FAB"/>
+      <!-- rose petals -->
+      <circle cx="50" cy="37" r="4" fill="#FFB3C6"/>
+      <circle cx="46" cy="44" r="4" fill="#FFB3C6"/>
+      <circle cx="54" cy="44" r="4" fill="#FFB3C6"/>
+      <circle cx="70" cy="34" r="5" fill="#FFB3C6"/>
+      <circle cx="63" cy="43" r="5" fill="#FFB3C6"/>
+      <circle cx="77" cy="43" r="5" fill="#FFB3C6"/>
+      <!-- gold ribbon -->
+      <rect x="25" y="63" width="90" height="4" fill="#C8962A"/>
+      <!-- bow -->
+      <path d="M60 63 Q65 55 70 63 Q75 55 80 63" fill="#C8962A" stroke="#9A7020" stroke-width="1"/>
+      <!-- side decorations -->
+      <circle cx="35" cy="78" r="3" fill="#FFF" opacity="0.7"/>
+      <circle cx="105" cy="78" r="3" fill="#FFF" opacity="0.7"/>
+      <circle cx="35" cy="88" r="3" fill="#FFF" opacity="0.7"/>
+      <circle cx="105" cy="88" r="3" fill="#FFF" opacity="0.7"/>
+    </symbol>
+
+    <!-- PRODUCT: CUPCAKE -->
+    <symbol id="prod-cupcake" viewBox="0 0 140 110">
+      <rect width="140" height="110" fill="#FFF5FB"/>
+      <!-- cupcake wrapper -->
+      <path d="M45 65 L50 95 L90 95 L95 65Z" fill="#FFB347"/>
+      <line x1="55" y1="65" x2="52" y2="95" stroke="#FF8C00" stroke-width="1.5"/>
+      <line x1="65" y1="65" x2="64" y2="95" stroke="#FF8C00" stroke-width="1.5"/>
+      <line x1="75" y1="65" x2="76" y2="95" stroke="#FF8C00" stroke-width="1.5"/>
+      <line x1="85" y1="65" x2="88" y2="95" stroke="#FF8C00" stroke-width="1.5"/>
+      <!-- cake base -->
+      <rect x="42" y="58" width="56" height="10" rx="4" fill="#D4956B"/>
+      <!-- frosting swirl -->
+      <ellipse cx="70" cy="55" rx="28" ry="12" fill="#FF8FAB"/>
+      <path d="M42 55 Q56 35 70 30 Q84 35 98 55" fill="#FFB3C6"/>
+      <path d="M50 52 Q62 38 70 35 Q78 38 90 52" fill="#FF8FAB"/>
+      <path d="M56 50 Q65 40 70 38 Q75 40 84 50" fill="#FFB3C6"/>
+      <!-- cherry -->
+      <circle cx="70" cy="28" r="6" fill="#C0392B"/>
+      <line x1="70" y1="34" x2="70" y2="40" stroke="#27AE60" stroke-width="1.5"/>
+      <!-- sprinkles -->
+      <rect x="55" y="47" width="6" height="2" rx="1" fill="#3498DB" transform="rotate(-30 58 48)"/>
+      <rect x="75" y="45" width="6" height="2" rx="1" fill="#27AE60" transform="rotate(20 78 46)"/>
+      <rect x="63" y="44" width="5" height="2" rx="1" fill="#FFD700" transform="rotate(-10 65 45)"/>
+      <rect x="80" y="50" width="5" height="2" rx="1" fill="#E74C3C" transform="rotate(40 82 51)"/>
+    </symbol>
+
+    <!-- PRODUCT: RED VELVET -->
+    <symbol id="prod-redvelvet" viewBox="0 0 140 110">
+      <rect width="140" height="110" fill="#FFF5F5"/>
+      <!-- cake slice -->
+      <path d="M70 20 L110 85 L30 85Z" fill="#C0392B"/>
+      <path d="M70 20 L110 85 L30 85Z" fill="none" stroke="#922B21" stroke-width="1"/>
+      <!-- layers visible in slice -->
+      <line x1="40" y1="73" x2="100" y2="73" stroke="#E8D5D5" stroke-width="6"/>
+      <line x1="47" y1="60" x2="93" y2="60" stroke="#E8D5D5" stroke-width="6"/>
+      <line x1="55" y1="47" x2="85" y2="47" stroke="#E8D5D5" stroke-width="5"/>
+      <!-- cream cheese frosting on top -->
+      <path d="M55 20 Q70 12 85 20 L88 25 Q70 18 52 25Z" fill="#FFF"/>
+      <!-- cream on side -->
+      <path d="M30 85 L110 85 L108 90 L32 90Z" fill="#FFF"/>
+      <!-- plate -->
+      <ellipse cx="70" cy="92" rx="52" ry="8" fill="#F0E0E0"/>
+    </symbol>
+
+    <!-- PRODUCT: CHEESECAKE -->
+    <symbol id="prod-cheesecake" viewBox="0 0 140 110">
+      <rect width="140" height="110" fill="#FFFEF0"/>
+      <!-- plate -->
+      <ellipse cx="70" cy="96" rx="55" ry="9" fill="#EDE0C8"/>
+      <!-- crust -->
+      <rect x="18" y="78" width="104" height="16" rx="6" fill="#8B6914"/>
+      <!-- cheesecake body -->
+      <rect x="18" y="38" width="104" height="44" rx="0" fill="#FFF8E7"/>
+      <rect x="18" y="38" width="104" height="44" rx="6" fill="#FFFDE7"/>
+      <!-- top surface slight curve -->
+      <ellipse cx="70" cy="38" rx="52" ry="7" fill="#FFF9C4"/>
+      <!-- strawberry topping -->
+      <ellipse cx="70" cy="36" rx="52" ry="8" fill="#E74C3C" opacity="0.85"/>
+      <!-- strawberry glaze details -->
+      <ellipse cx="45" cy="34" rx="10" ry="6" fill="#C0392B" opacity="0.5"/>
+      <ellipse cx="70" cy="32" rx="12" ry="7" fill="#C0392B" opacity="0.5"/>
+      <ellipse cx="95" cy="34" rx="10" ry="6" fill="#C0392B" opacity="0.5"/>
+      <!-- small strawberries on top -->
+      <path d="M42 30 Q48 20 54 30 Q48 35 42 30Z" fill="#C0392B"/>
+      <path d="M65 27 Q72 16 79 27 Q72 32 65 27Z" fill="#C0392B"/>
+      <path d="M88 30 Q94 20 100 30 Q94 35 88 30Z" fill="#C0392B"/>
+      <line x1="48" y1="20" x2="48" y2="15" stroke="#27AE60" stroke-width="2"/>
+      <line x1="72" y1="16" x2="72" y2="11" stroke="#27AE60" stroke-width="2"/>
+      <line x1="94" y1="20" x2="94" y2="15" stroke="#27AE60" stroke-width="2"/>
+    </symbol>
+
+    <!-- PRODUCT: BROWNIE -->
+    <symbol id="prod-brownie" viewBox="0 0 140 110">
+      <rect width="140" height="110" fill="#FFF8F0"/>
+      <!-- brownie stack -->
+      <rect x="25" y="75" width="90" height="20" rx="4" fill="#3D1C02"/>
+      <rect x="25" y="57" width="90" height="20" rx="4" fill="#5D2E0C"/>
+      <rect x="25" y="40" width="90" height="20" rx="4" fill="#4A2208"/>
+      <!-- chocolate glaze on top -->
+      <rect x="25" y="40" width="90" height="8" rx="4" fill="#2C1503"/>
+      <!-- walnut pieces -->
+      <ellipse cx="45" cy="44" rx="7" ry="4" fill="#8B6914"/>
+      <ellipse cx="70" cy="44" rx="7" ry="4" fill="#8B6914"/>
+      <ellipse cx="95" cy="44" rx="7" ry="4" fill="#8B6914"/>
+      <!-- crinkle top texture -->
+      <path d="M30 42 Q40 38 50 42 Q60 38 70 42 Q80 38 90 42 Q100 38 110 42" fill="none" stroke="#6B3A1F" stroke-width="2"/>
+      <!-- powdered sugar dusting -->
+      <circle cx="38" cy="61" r="2" fill="white" opacity="0.6"/>
+      <circle cx="58" cy="59" r="1.5" fill="white" opacity="0.6"/>
+      <circle cx="78" cy="61" r="2" fill="white" opacity="0.6"/>
+      <circle cx="98" cy="59" r="1.5" fill="white" opacity="0.6"/>
+      <!-- side texture -->
+      <line x1="25" y1="62" x2="115" y2="62" stroke="#3D1C02" stroke-width="1" opacity="0.5"/>
+      <line x1="25" y1="79" x2="115" y2="79" stroke="#2C1503" stroke-width="1" opacity="0.5"/>
+    </symbol>
+
+    <!-- PRODUCT: COOKIE BOX -->
+    <symbol id="prod-cookie-box" viewBox="0 0 140 110">
+      <rect width="140" height="110" fill="#FFF9F0"/>
+      <!-- box -->
+      <rect x="20" y="55" width="100" height="48" rx="6" fill="#C8962A"/>
+      <rect x="20" y="55" width="100" height="12" rx="4" fill="#E8B84B"/>
+      <!-- ribbon -->
+      <rect x="62" y="55" width="16" height="48" fill="#9A7020"/>
+      <rect x="20" y="73" width="100" height="10" fill="#9A7020"/>
+      <!-- bow -->
+      <path d="M60 67 Q55 58 65 62 Q70 58 75 62 Q85 58 80 67" fill="#C8962A" stroke="#9A7020" stroke-width="1.5"/>
+      <!-- cookies visible in box top area -->
+      <circle cx="42" cy="44" r="14" fill="#D4956B"/>
+      <circle cx="42" cy="44" r="14" fill="none" stroke="#B8835A" stroke-width="1"/>
+      <!-- choco chips on cookie 1 -->
+      <circle cx="37" cy="40" r="2.5" fill="#3D1C02"/>
+      <circle cx="46" cy="42" r="2.5" fill="#3D1C02"/>
+      <circle cx="40" cy="49" r="2.5" fill="#3D1C02"/>
+      <!-- cookie 2 -->
+      <circle cx="98" cy="44" r="14" fill="#D4956B"/>
+      <circle cx="98" cy="44" r="14" fill="none" stroke="#B8835A" stroke-width="1"/>
+      <circle cx="93" cy="40" r="2.5" fill="#3D1C02"/>
+      <circle cx="102" cy="42" r="2.5" fill="#3D1C02"/>
+      <circle cx="96" cy="49" r="2.5" fill="#3D1C02"/>
+      <!-- cookie 3 center -->
+      <circle cx="70" cy="40" r="14" fill="#D4956B"/>
+      <circle cx="70" cy="40" r="14" fill="none" stroke="#B8835A" stroke-width="1"/>
+      <circle cx="65" cy="36" r="2.5" fill="#3D1C02"/>
+      <circle cx="74" cy="38" r="2.5" fill="#3D1C02"/>
+      <circle cx="68" cy="45" r="2.5" fill="#3D1C02"/>
+    </symbol>
+
+    <!-- PRODUCT: PHOTO CAKE -->
+    <symbol id="prod-photo-cake" viewBox="0 0 140 110">
+      <rect width="140" height="110" fill="#F0F5FF"/>
+      <ellipse cx="70" cy="96" rx="50" ry="7" fill="#D0D8E8"/>
+      <!-- cake -->
+      <rect x="22" y="52" width="96" height="42" rx="8" fill="#4A6FA5"/>
+      <rect x="22" y="52" width="96" height="10" rx="5" fill="#6B8EC7"/>
+      <!-- photo on top -->
+      <rect x="30" y="22" width="80" height="34" rx="6" fill="#FFF"/>
+      <rect x="33" y="25" width="74" height="28" rx="4" fill="#E8F4FD"/>
+      <!-- photo content - simple landscape -->
+      <rect x="33" y="40" width="74" height="13" rx="0" fill="#8BC34A" opacity="0.7"/>
+      <ellipse cx="55" cy="35" rx="12" ry="10" fill="#FFD700" opacity="0.8"/>
+      <path d="M33 40 Q50 32 65 38 Q80 30 107 40" fill="#6B8EC7" opacity="0.6"/>
+      <!-- photo frame -->
+      <rect x="30" y="22" width="80" height="34" rx="6" fill="none" stroke="#C8962A" stroke-width="2.5"/>
+      <!-- gold decorations on cake -->
+      <circle cx="35" cy="68" r="5" fill="#C8962A"/>
+      <circle cx="105" cy="68" r="5" fill="#C8962A"/>
+      <circle cx="35" cy="83" r="5" fill="#C8962A"/>
+      <circle cx="105" cy="83" r="5" fill="#C8962A"/>
+      <!-- side decorations -->
+      <path d="M45 52 Q50 44 55 52" fill="none" stroke="#E8B84B" stroke-width="2"/>
+      <path d="M85 52 Q90 44 95 52" fill="none" stroke="#E8B84B" stroke-width="2"/>
+    </symbol>
+
+    <!-- PRODUCT: TIRAMISU -->
+    <symbol id="prod-tiramisu" viewBox="0 0 140 110">
+      <rect width="140" height="110" fill="#FFF8F5"/>
+      <ellipse cx="70" cy="97" rx="55" ry="8" fill="#D4C4B0"/>
+      <!-- glass dish -->
+      <rect x="20" y="50" width="100" height="46" rx="4" fill="#F5EDE0" stroke="#D4B896" stroke-width="1.5"/>
+      <!-- mascarpone layer -->
+      <rect x="22" y="52" width="96" height="14" rx="2" fill="#FFF8F0"/>
+      <!-- coffee soaked ladyfingers -->
+      <rect x="24" y="66" width="96" height="12" rx="2" fill="#8B6914"/>
+      <line x1="40" y1="66" x2="40" y2="78" stroke="#6B4C1A" stroke-width="1.5"/>
+      <line x1="56" y1="66" x2="56" y2="78" stroke="#6B4C1A" stroke-width="1.5"/>
+      <line x1="72" y1="66" x2="72" y2="78" stroke="#6B4C1A" stroke-width="1.5"/>
+      <line x1="88" y1="66" x2="88" y2="78" stroke="#6B4C1A" stroke-width="1.5"/>
+      <line x1="104" y1="66" x2="104" y2="78" stroke="#6B4C1A" stroke-width="1.5"/>
+      <!-- top mascarpone -->
+      <rect x="22" y="78" width="96" height="16" rx="2" fill="#FFFAF5"/>
+      <!-- cocoa dusting -->
+      <ellipse cx="70" cy="85" rx="44" ry="6" fill="#8B6914" opacity="0.3"/>
+      <!-- cocoa powder details -->
+      <circle cx="45" cy="84" r="2" fill="#6B4C1A" opacity="0.4"/>
+      <circle cx="60" cy="82" r="1.5" fill="#6B4C1A" opacity="0.4"/>
+      <circle cx="75" cy="85" r="2" fill="#6B4C1A" opacity="0.4"/>
+      <circle cx="90" cy="83" r="1.5" fill="#6B4C1A" opacity="0.4"/>
+      <!-- cocoa top dusting -->
+      <rect x="24" y="50" width="92" height="3" fill="#8B6914" opacity="0.15"/>
+    </symbol>
+
+  </defs>
+</svg>
+
+<!-- NAV with SVG Logo -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <div class="logo-icon"><img src="https://i.imgur.com/rpZYtkx.jpeg" style="width:100%; height:100%; object-fit:cover; border-radius:8px;"></div>
+    <svg class="nav-logo-svg" viewBox="0 0 100 100"><use href="#bb-logo"/></svg>
     <span class="logo-text">Bakers <span>Bridge</span></span>
   </a>
   <ul class="nav-links">
-    <li><a href="#bakers">Find Bakers</a></li>
-    <li><a href="#how">How It Works</a></li>
-    <li><a href="#packages">For Bakers</a></li>
-    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#bakers">Find Bakers</a></li><li><a href="#how">How It Works</a></li>
+    <li><a href="#packages">For Bakers</a></li><li><a href="#faq">FAQ</a></li>
   </ul>
   <div class="nav-actions">
     <button class="btn-nav-outline">Login</button>
@@ -330,7 +610,7 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
     <div class="hero-right">
       <div class="float-card main">
         <div class="fc-top">
-          <div class="fc-logo"><img src="https://i.imgur.com/rpZYtkx.jpeg" style="width:100%; height:100%; object-fit:cover; border-radius:8px;"></div>
+          <div class="fc-logo"><svg viewBox="0 0 100 100"><use href="#pastry-bay-logo"/></svg></div>
           <div><div class="fc-name">The Pastry Bay</div><div class="fc-spec">Custom Cakes & Cupcakes</div></div>
         </div>
         <div class="fc-badge">✓ Verified Baker</div>
@@ -338,7 +618,7 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
       </div>
       <div class="float-card side">
         <div class="fc-top">
-          <div class="fc-logo empty">+</div>
+          <div class="fc-logo empty" style="font-size:22px;">+</div>
           <div><div class="fc-name" style="color:var(--brown-light);">Slot Available</div><div class="fc-spec">Your Bakery Here</div></div>
         </div>
         <div class="fc-badge slot">⏳ Opening Soon</div>
@@ -346,7 +626,7 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
       </div>
       <div class="float-card bottom">
         <div class="fc-top">
-          <div class="fc-logo empty">+</div>
+          <div class="fc-logo empty" style="font-size:22px;">+</div>
           <div><div class="fc-name" style="color:var(--brown-light);">Slot Available</div><div class="fc-spec">Your Bakery Here</div></div>
         </div>
         <div class="fc-badge slot">⏳ Opening Soon</div>
@@ -385,10 +665,12 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
     </div>
     <div class="bakers-grid">
 
-      <!-- REAL BAKER 1 -->
+      <!-- ✅ THE PASTRY BAY — Real Baker with SVG Logo -->
       <div class="baker-card" onclick="openModal('pastry')">
         <div class="baker-card-header bg1">
-          <div class="baker-brand-logo"><img src="https://i.imgur.com/rpZYtkx.jpeg" style="width:100%; height:100%; object-fit:cover; border-radius:8px;"></div>
+          <div class="baker-brand-logo">
+            <svg viewBox="0 0 100 100"><use href="#pastry-bay-logo"/></svg>
+          </div>
           <div class="baker-brand-name">The Pastry Bay</div>
           <span class="verified-badge">✓ Verified</span>
         </div>
@@ -398,83 +680,35 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
           <div class="baker-tags"><span class="tag">Eggless</span><span class="tag">Custom Cakes</span><span class="tag">3 yrs</span></div>
         </div>
         <div class="baker-footer">
-          <button class="btn-enquire" onclick="event.stopPropagation();window.open('https://wa.me/916369380977','_blank')">💬 WhatsApp Enquiry</button>
+          <button class="btn-enquire" onclick="event.stopPropagation()">WhatsApp Enquiry</button>
           <button class="btn-view" onclick="event.stopPropagation();openModal('pastry')">View Profile</button>
         </div>
       </div>
 
-      <!-- SLOT 2 -->
+      <!-- SLOTS 2-6 -->
       <div class="slot-card" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">
-        <div class="slot-card-header">
-          <div class="slot-logo-frame"><span class="frame-icon">🖼</span><span class="frame-text">Your Logo Here</span></div>
-          <div class="slot-name">Slot Available</div>
-          <span class="slot-available-badge">⏳ Opening Soon</span>
-        </div>
-        <div class="slot-body">
-          <div class="slot-spec">This spot is waiting for a quality baker like you</div>
-          <div class="slot-row"><div class="slot-loc">📍 Adyar</div></div>
-          <div class="slot-tags"><span class="slot-tag">Your Specialty</span><span class="slot-tag">Your Area</span></div>
-        </div>
+        <div class="slot-card-header"><div class="slot-logo-frame"><span class="frame-icon">🖼</span><span class="frame-text">Your Logo Here</span></div><div class="slot-name">Slot Available</div><span class="slot-available-badge">⏳ Opening Soon</span></div>
+        <div class="slot-body"><div class="slot-spec">This spot is waiting for a quality baker like you</div><div class="slot-row"><div class="slot-loc">📍 Adyar</div></div><div class="slot-tags"><span class="slot-tag">Your Specialty</span><span class="slot-tag">Your Area</span></div></div>
         <div class="slot-footer"><button class="btn-apply">Apply to Join</button><div class="slot-coming">Limited Slots</div></div>
       </div>
-
-      <!-- SLOT 3 -->
       <div class="slot-card" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">
-        <div class="slot-card-header">
-          <div class="slot-logo-frame"><span class="frame-icon">🖼</span><span class="frame-text">Your Logo Here</span></div>
-          <div class="slot-name">Slot Available</div>
-          <span class="slot-available-badge">⏳ Opening Soon</span>
-        </div>
-        <div class="slot-body">
-          <div class="slot-spec">This spot is waiting for a quality baker like you</div>
-          <div class="slot-row"><div class="slot-loc">📍 Velachery</div></div>
-          <div class="slot-tags"><span class="slot-tag">Your Specialty</span><span class="slot-tag">Your Area</span></div>
-        </div>
+        <div class="slot-card-header"><div class="slot-logo-frame"><span class="frame-icon">🖼</span><span class="frame-text">Your Logo Here</span></div><div class="slot-name">Slot Available</div><span class="slot-available-badge">⏳ Opening Soon</span></div>
+        <div class="slot-body"><div class="slot-spec">This spot is waiting for a quality baker like you</div><div class="slot-row"><div class="slot-loc">📍 Velachery</div></div><div class="slot-tags"><span class="slot-tag">Your Specialty</span><span class="slot-tag">Your Area</span></div></div>
         <div class="slot-footer"><button class="btn-apply">Apply to Join</button><div class="slot-coming">Limited Slots</div></div>
       </div>
-
-      <!-- SLOT 4 -->
       <div class="slot-card" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">
-        <div class="slot-card-header">
-          <div class="slot-logo-frame"><span class="frame-icon">🖼</span><span class="frame-text">Your Logo Here</span></div>
-          <div class="slot-name">Slot Available</div>
-          <span class="slot-available-badge">⏳ Opening Soon</span>
-        </div>
-        <div class="slot-body">
-          <div class="slot-spec">This spot is waiting for a quality baker like you</div>
-          <div class="slot-row"><div class="slot-loc">📍 T Nagar</div></div>
-          <div class="slot-tags"><span class="slot-tag">Your Specialty</span><span class="slot-tag">Your Area</span></div>
-        </div>
+        <div class="slot-card-header"><div class="slot-logo-frame"><span class="frame-icon">🖼</span><span class="frame-text">Your Logo Here</span></div><div class="slot-name">Slot Available</div><span class="slot-available-badge">⏳ Opening Soon</span></div>
+        <div class="slot-body"><div class="slot-spec">This spot is waiting for a quality baker like you</div><div class="slot-row"><div class="slot-loc">📍 T Nagar</div></div><div class="slot-tags"><span class="slot-tag">Your Specialty</span><span class="slot-tag">Your Area</span></div></div>
         <div class="slot-footer"><button class="btn-apply">Apply to Join</button><div class="slot-coming">Limited Slots</div></div>
       </div>
-
-      <!-- SLOT 5 -->
       <div class="slot-card" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">
-        <div class="slot-card-header">
-          <div class="slot-logo-frame"><span class="frame-icon">🖼</span><span class="frame-text">Your Logo Here</span></div>
-          <div class="slot-name">Slot Available</div>
-          <span class="slot-available-badge">⏳ Opening Soon</span>
-        </div>
-        <div class="slot-body">
-          <div class="slot-spec">This spot is waiting for a quality baker like you</div>
-          <div class="slot-row"><div class="slot-loc">📍 Mylapore</div></div>
-          <div class="slot-tags"><span class="slot-tag">Your Specialty</span><span class="slot-tag">Your Area</span></div>
-        </div>
+        <div class="slot-card-header"><div class="slot-logo-frame"><span class="frame-icon">🖼</span><span class="frame-text">Your Logo Here</span></div><div class="slot-name">Slot Available</div><span class="slot-available-badge">⏳ Opening Soon</span></div>
+        <div class="slot-body"><div class="slot-spec">This spot is waiting for a quality baker like you</div><div class="slot-row"><div class="slot-loc">📍 Mylapore</div></div><div class="slot-tags"><span class="slot-tag">Your Specialty</span><span class="slot-tag">Your Area</span></div></div>
         <div class="slot-footer"><button class="btn-apply">Apply to Join</button><div class="slot-coming">Limited Slots</div></div>
       </div>
-
-      <!-- SLOT 6 -->
       <div class="slot-card" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">
-        <div class="slot-card-header">
-          <div class="slot-logo-frame"><span class="frame-icon">🖼</span><span class="frame-text">Your Logo Here</span></div>
-          <div class="slot-name">Slot Available</div>
-          <span class="slot-available-badge">⏳ Opening Soon</span>
-        </div>
-        <div class="slot-body">
-          <div class="slot-spec">This spot is waiting for a quality baker like you</div>
-          <div class="slot-row"><div class="slot-loc">📍 OMR</div></div>
-          <div class="slot-tags"><span class="slot-tag">Your Specialty</span><span class="slot-tag">Your Area</span></div>
-        </div>
+        <div class="slot-card-header"><div class="slot-logo-frame"><span class="frame-icon">🖼</span><span class="frame-text">Your Logo Here</span></div><div class="slot-name">Slot Available</div><span class="slot-available-badge">⏳ Opening Soon</span></div>
+        <div class="slot-body"><div class="slot-spec">This spot is waiting for a quality baker like you</div><div class="slot-row"><div class="slot-loc">📍 OMR</div></div><div class="slot-tags"><span class="slot-tag">Your Specialty</span><span class="slot-tag">Your Area</span></div></div>
         <div class="slot-footer"><button class="btn-apply">Apply to Join</button><div class="slot-coming">Limited Slots</div></div>
       </div>
 
@@ -482,12 +716,14 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
   </div>
 </section>
 
-<!-- MODAL -->
+<!-- MODAL with SVG Logo + Product Images -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal" id="modalBox">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-header">
-      <div class="modal-logo" id="modalLogo"></div>
+      <div class="modal-logo" id="modalLogo">
+        <svg viewBox="0 0 100 100"><use href="#pastry-bay-logo"/></svg>
+      </div>
       <div class="modal-info">
         <div class="modal-baker-name" id="modalName"></div>
         <div class="modal-spec" id="modalSpec"></div>
@@ -496,7 +732,7 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
           <span class="modal-rating" id="modalRating"></span>
           <span class="modal-loc" id="modalLoc"></span>
         </div>
-        <button class="modal-wa-btn" id="modalWaBtn">💬 WhatsApp Enquiry</button>
+        <button class="modal-wa-btn">💬 WhatsApp Enquiry</button>
       </div>
     </div>
     <div class="modal-tabs">
@@ -548,51 +784,9 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
   <div class="section-inner">
     <div class="section-header"><div class="section-tag">For Home Bakers</div><div class="section-title">Grow Your Baking Business</div><div class="section-sub">Choose a plan that fits your baking journey. Start free, grow at your own pace.</div></div>
     <div class="packages-grid">
-      <div class="pkg-card">
-        <div class="pkg-icon">🌱</div><div class="pkg-name">Basic</div>
-        <div class="pkg-price">₹999 <span class="pkg-price-period">/ month</span></div>
-        <div class="pkg-desc">Perfect for bakers just starting out.</div>
-        <div class="pkg-divider"></div>
-        <ul class="pkg-features">
-          <li class="pkg-feature">Profile listing on platform</li>
-          <li class="pkg-feature">Location-based visibility</li>
-          <li class="pkg-feature">Direct customer connect</li>
-          <li class="pkg-feature">Monthly quality check</li>
-          <li class="pkg-feature">Verified Baker badge</li>
-        </ul>
-        <button class="pkg-btn pkg-btn-outline" onclick="window.open('https://wa.me/916369380977','_blank')">Get Started</button>
-      </div>
-      <div class="pkg-card featured">
-        <div class="pkg-popular">Most Popular</div>
-        <div class="pkg-icon">🚀</div><div class="pkg-name">Standard</div>
-        <div class="pkg-price">₹1999 <span class="pkg-price-period">/ month</span></div>
-        <div class="pkg-desc">For bakers ready to grow their customer base seriously.</div>
-        <div class="pkg-divider"></div>
-        <ul class="pkg-features">
-          <li class="pkg-feature">Everything in Basic</li>
-          <li class="pkg-feature">Priority search ranking</li>
-          <li class="pkg-feature">Review & rating system</li>
-          <li class="pkg-feature">WhatsApp enquiry button</li>
-          <li class="pkg-feature">Marketing support</li>
-          <li class="pkg-feature">Festival promotion alerts</li>
-        </ul>
-        <button class="pkg-btn pkg-btn-solid" onclick="window.open('https://wa.me/916369380977','_blank')">Get Started</button>
-      </div>
-      <div class="pkg-card">
-        <div class="pkg-icon">👑</div><div class="pkg-name">Premium</div>
-        <div class="pkg-price">₹3000 <span class="pkg-price-period">/ month</span></div>
-        <div class="pkg-desc">Full support to build your baking brand professionally.</div>
-        <div class="pkg-divider"></div>
-        <ul class="pkg-features">
-          <li class="pkg-feature">Everything in Standard</li>
-          <li class="pkg-feature">Professional photography</li>
-          <li class="pkg-feature">Social media management</li>
-          <li class="pkg-feature">Paid ad campaigns</li>
-          <li class="pkg-feature">Featured Baker of the Week</li>
-          <li class="pkg-feature">Personal brand building</li>
-        </ul>
-        <button class="pkg-btn pkg-btn-outline" onclick="window.open('https://wa.me/916369380977','_blank')">Get Started</button>
-      </div>
+      <div class="pkg-card"><div class="pkg-icon">🌱</div><div class="pkg-name">Basic</div><div class="pkg-price">₹999 <span class="pkg-price-period">/ month</span></div><div class="pkg-desc">Perfect for bakers just starting out.</div><div class="pkg-divider"></div><ul class="pkg-features"><li class="pkg-feature">Profile listing on platform</li><li class="pkg-feature">Location-based visibility</li><li class="pkg-feature">Direct customer connect</li><li class="pkg-feature">Monthly quality check</li><li class="pkg-feature">Verified Baker badge</li></ul><button class="pkg-btn pkg-btn-outline">Get Started</button></div>
+      <div class="pkg-card featured"><div class="pkg-popular">Most Popular</div><div class="pkg-icon">🚀</div><div class="pkg-name">Standard</div><div class="pkg-price">₹1999 <span class="pkg-price-period">/ month</span></div><div class="pkg-desc">For bakers ready to grow seriously.</div><div class="pkg-divider"></div><ul class="pkg-features"><li class="pkg-feature">Everything in Basic</li><li class="pkg-feature">Priority search ranking</li><li class="pkg-feature">Review & rating system</li><li class="pkg-feature">WhatsApp enquiry button</li><li class="pkg-feature">Marketing support</li><li class="pkg-feature">Festival promotion alerts</li></ul><button class="pkg-btn pkg-btn-solid">Get Started</button></div>
+      <div class="pkg-card"><div class="pkg-icon">👑</div><div class="pkg-name">Premium</div><div class="pkg-price">₹3000 <span class="pkg-price-period">/ month</span></div><div class="pkg-desc">Full support to build your baking brand.</div><div class="pkg-divider"></div><ul class="pkg-features"><li class="pkg-feature">Everything in Standard</li><li class="pkg-feature">Professional photography</li><li class="pkg-feature">Social media management</li><li class="pkg-feature">Paid ad campaigns</li><li class="pkg-feature">Featured Baker of Week</li><li class="pkg-feature">Personal brand building</li></ul><button class="pkg-btn pkg-btn-outline">Get Started</button></div>
     </div>
   </div>
 </section>
@@ -626,10 +820,7 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
   <div class="join-inner">
     <h2>Are You a Home Baker in Chennai?</h2>
     <p>Join Bakers Bridge and get discovered by hundreds of customers searching for quality home bakers near them. Start free today.</p>
-    <div class="join-btns">
-      <button class="btn-join-gold" onclick="window.open('https://wa.me/916369380977','_blank')">Apply to Join — Free to Start</button>
-      <button class="btn-join-outline" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">Learn More</button>
-    </div>
+    <div class="join-btns"><button class="btn-join-gold">Apply to Join — Free to Start</button><button class="btn-join-outline">Learn More</button></div>
   </div>
 </section>
 
@@ -638,168 +829,111 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
     <div class="footer-top">
       <div>
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
-          <div class="footer-logo-img"><img src="https://i.imgur.com/rpZYtkx.jpeg" style="width:100%; height:100%; object-fit:cover; border-radius:8px;"></div>
+          <svg width="36" height="36" viewBox="0 0 100 100"><use href="#bb-logo"/></svg>
           <span style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--warm);">Bakers <span style="color:var(--gold);">Bridge</span></span>
         </div>
         <div class="footer-desc">Chennai's most trusted platform for discovering quality-verified home bakers.</div>
       </div>
-      <div><div class="footer-col-title">For Customers</div><ul class="footer-links"><li><a href="#bakers">Find Bakers</a></li><li><a href="#bakers">Search by Area</a></li><li><a href="#how">How It Works</a></li></ul></div>
-      <div><div class="footer-col-title">For Bakers</div><ul class="footer-links"><li><a href="#packages">Join as Baker</a></li><li><a href="#packages">Our Packages</a></li><li><a href="#faq">FAQ</a></li></ul></div>
-      <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="#">About Us</a></li><li><a href="https://wa.me/916369380977" target="_blank">Contact</a></li><li><a href="https://instagram.com/bakersbridge.in" target="_blank">Instagram</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+      <div><div class="footer-col-title">For Customers</div><ul class="footer-links"><li><a href="#">Find Bakers</a></li><li><a href="#">Search by Area</a></li><li><a href="#">How It Works</a></li><li><a href="#">Leave a Review</a></li></ul></div>
+      <div><div class="footer-col-title">For Bakers</div><ul class="footer-links"><li><a href="#">Join as Baker</a></li><li><a href="#">Our Packages</a></li><li><a href="#">Photography</a></li><li><a href="#">Social Media Help</a></li></ul></div>
+      <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="#">About Us</a></li><li><a href="#">Contact</a></li><li><a href="https://instagram.com/bakersbridge.in">Instagram</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 <a href="#">Bakers Bridge</a> · Chennai, Tamil Nadu</span>
-      <span>Made with ❤️ for home bakers</span>
-    </div>
+    <div class="footer-bottom"><span>© 2026 <a href="#">Bakers Bridge</a> · Chennai, Tamil Nadu</span><span>Made with ❤️ for home bakers</span></div>
   </div>
 </footer>
 
-<a href="https://wa.me/916369380977" class="wa-float" target="_blank">💬</a>
+<a href="https://wa.me/919999999999" class="wa-float" target="_blank">💬</a>
 
 <script>
-const LOGO = <img src="https://i.imgur.com/rpZYtkx.jpeg" alt="Logo" style="width:100%; height:100%; object-fit:cover;">
-const bakers = {
-  pastry: {
-    logo: LOGO,
-    logoIsImg: true,
-    name: "The Pastry Bay",
-    spec: "Custom Fondant Cakes & Cupcakes",
-    rating: "★★★★★ 4.9",
-    loc: "📍 Anna Nagar",
-    whatsapp: "916369380977",
-    about: "The Pastry Bay is one of Chennai's finest home bakeries, specialising in custom fondant cakes, cupcakes, and eggless options. Every product is made fresh to order using quality imported ingredients with great attention to detail.",
-    exp: "3 Years",
-    orders: "1000+",
-    happy: "98%",
-    areas: "Anna Nagar, Kilpauk",
-    products: {
-      "Custom Cakes": [
-        {n:"Birthday Cake", p:"From ₹800", e:"🎂"},
-        {n:"Anniversary Cake", p:"From ₹1200", e:"💍"},
-        {n:"Fondant Cake", p:"From ₹1500", e:"🎨"},
-        {n:"Photo Cake", p:"From ₹1000", e:"📸"}
-      ],
-      "Cupcakes": [
-        {n:"Vanilla Cupcake", p:"₹60 each", e:"🧁"},
-        {n:"Chocolate Cupcake", p:"₹70 each", e:"🍫"},
-        {n:"Red Velvet", p:"₹80 each", e:"❤️"},
-        {n:"Box of 12", p:"From ₹700", e:"📦"}
-      ],
-      "Desserts": [
-        {n:"Cheesecake", p:"₹600", e:"🍰"},
-        {n:"Tiramisu", p:"₹550", e:"☕"},
-        {n:"Brownie Box", p:"₹400", e:"🍫"}
-      ],
-      "Custom Orders": [
-        {n:"Wedding Cake", p:"From ₹3000", e:"💒"},
-        {n:"Baby Shower", p:"From ₹1500", e:"👶"},
-        {n:"Corporate Order", p:"From ₹2000", e:"🏢"}
-      ]
+// Product SVG image IDs mapped to product names
+const productImages = {
+  'Birthday Cake':'prod-birthday-cake',
+  'Anniversary Cake':'prod-fondant-cake',
+  'Fondant Cake':'prod-fondant-cake',
+  'Photo Cake':'prod-photo-cake',
+  'Vanilla Cupcake':'prod-cupcake',
+  'Chocolate Cupcake':'prod-cupcake',
+  'Red Velvet':'prod-redvelvet',
+  'Box of 12':'prod-cookie-box',
+  'Cheesecake':'prod-cheesecake',
+  'Tiramisu':'prod-tiramisu',
+  'Brownie Box':'prod-brownie',
+  'Cookie Gift Box':'prod-cookie-box',
+};
+
+function getProductSVG(name){
+  const id = productImages[name] || 'prod-birthday-cake';
+  return `<svg viewBox="0 0 140 110" style="width:100%;height:100%;"><use href="#${id}"/></svg>`;
+}
+
+const bakers={
+  pastry:{
+    logoSvg:'<svg viewBox="0 0 100 100"><use href="#pastry-bay-logo"/></svg>',
+    name:'The Pastry Bay',spec:'Custom Fondant Cakes & Cupcakes',
+    rating:'★★★★★ 4.9',loc:'📍 Anna Nagar',
+    about:"The Pastry Bay is one of Chennai's finest home bakeries, specialising in custom fondant cakes, cupcakes, and eggless options. Every product is made fresh to order using quality imported ingredients with attention to detail.",
+    exp:'3 Years',orders:'500+',happy:'98%',areas:'Anna Nagar, Kilpauk',
+    products:{
+      'Custom Cakes':[{n:'Birthday Cake',p:'From ₹800'},{n:'Anniversary Cake',p:'From ₹1200'},{n:'Fondant Cake',p:'From ₹1500'},{n:'Photo Cake',p:'From ₹1000'}],
+      'Cupcakes':[{n:'Vanilla Cupcake',p:'₹60 each'},{n:'Chocolate Cupcake',p:'₹70 each'},{n:'Red Velvet',p:'₹80 each'},{n:'Box of 12',p:'From ₹700'}],
+      'Desserts':[{n:'Cheesecake',p:'₹600'},{n:'Tiramisu',p:'₹550'},{n:'Brownie Box',p:'₹400'}],
     },
-    reviews: [
-      {name:"Kavitha R.", stars:"★★★★★", text:"Ordered a fondant birthday cake — it was stunning and tasted amazing! Will definitely order again.", date:"March 2026"},
-      {name:"Arun M.", stars:"★★★★★", text:"The Pastry Bay is so professional. Delivered on time and the cake was exactly as I imagined.", date:"Feb 2026"},
-      {name:"Sruthi P.", stars:"★★★★☆", text:"Lovely cupcakes for my daughter's birthday party. Kids absolutely loved them!", date:"Jan 2026"}
+    reviews:[
+      {name:'Kavitha R.',stars:'★★★★★',text:'Ordered a fondant birthday cake — it was stunning and tasted amazing! Will order again.',date:'March 2026'},
+      {name:'Arun M.',stars:'★★★★★',text:'The Pastry Bay is so professional. Delivered on time, cake was exactly as I imagined.',date:'Feb 2026'},
+      {name:'Sruthi P.',stars:'★★★★☆',text:"Lovely cupcakes for my daughter's birthday party. Kids absolutely loved them!",date:'Jan 2026'}
     ]
   }
 };
 
-let curBaker = null;
+let curBaker=null;
 
-function openModal(id) {
-  curBaker = id;
-  const b = bakers[id];
-
-  // Set logo
-  const logoEl = document.getElementById("modalLogo");
-  if (b.logoIsImg) {
-    logoEl.innerHTML = '<img src="' + b.logo + '" alt="' + b.name + '" style="width:100%;height:100%;object-fit:cover;border-radius:16px;">';
-  } else {
-    logoEl.textContent = b.logo;
-  }
-
-  document.getElementById("modalName").textContent = b.name;
-  document.getElementById("modalSpec").textContent = b.spec;
-  document.getElementById("modalRating").textContent = b.rating;
-  document.getElementById("modalLoc").textContent = b.loc;
-  document.getElementById("modalWaBtn").onclick = function() {
-    window.open("https://wa.me/" + b.whatsapp, "_blank");
-  };
-
-  document.querySelectorAll(".modal-tab").forEach((t, i) => t.classList.toggle("active", i === 0));
-  renderTab("products");
-  document.getElementById("modalOverlay").classList.add("open");
-  document.body.style.overflow = "hidden";
+function openModal(id){
+  curBaker=id;
+  const b=bakers[id];
+  document.getElementById('modalLogo').innerHTML=b.logoSvg;
+  document.getElementById('modalName').textContent=b.name;
+  document.getElementById('modalSpec').textContent=b.spec;
+  document.getElementById('modalRating').textContent=b.rating;
+  document.getElementById('modalLoc').textContent=b.loc;
+  document.querySelectorAll('.modal-tab').forEach((t,i)=>t.classList.toggle('active',i===0));
+  renderTab('products');
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
 }
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';}
+function closeModalOutside(e){if(e.target===document.getElementById('modalOverlay'))closeModal();}
+function switchTab(tab,el){document.querySelectorAll('.modal-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');renderTab(tab);}
 
-function closeModal() {
-  document.getElementById("modalOverlay").classList.remove("open");
-  document.body.style.overflow = "";
-}
-
-function closeModalOutside(e) {
-  if (e.target === document.getElementById("modalOverlay")) closeModal();
-}
-
-function switchTab(tab, el) {
-  document.querySelectorAll(".modal-tab").forEach(t => t.classList.remove("active"));
-  el.classList.add("active");
-  renderTab(tab);
-}
-
-function renderTab(tab) {
-  const b = bakers[curBaker];
-  let html = "";
-
-  if (tab === "products") {
-    Object.entries(b.products).forEach(function([cat, items]) {
-      html += '<div class="product-category"><div class="product-cat-title">' + cat + '</div><div class="products-row">';
-      items.forEach(function(p) {
-        html += '<div class="product-item"><span class="product-emoji">' + p.e + '</span><div class="product-name">' + p.n + '</div><div class="product-price">' + p.p + '</div></div>';
-      });
-      html += '</div></div>';
+function renderTab(tab){
+  const b=bakers[curBaker];let html='';
+  if(tab==='products'){
+    Object.entries(b.products).forEach(([cat,items])=>{
+      html+=`<div class="product-category"><div class="product-cat-title">${cat}</div><div class="products-row">
+        ${items.map(p=>`<div class="product-item">
+          <div class="product-img">${getProductSVG(p.n)}</div>
+          <div class="product-details"><div class="product-name">${p.n}</div><div class="product-price">${p.p}</div></div>
+        </div>`).join('')}
+      </div></div>`;
     });
-
-  } else if (tab === "about") {
-    html = '<div class="about-text">' + b.about + '</div>' +
-      '<div class="about-highlights">' +
-      '<div class="highlight-item"><div class="highlight-val">' + b.exp + '</div><div class="highlight-label">Experience</div></div>' +
-      '<div class="highlight-item"><div class="highlight-val">' + b.orders + '</div><div class="highlight-label">Orders Completed</div></div>' +
-      '<div class="highlight-item"><div class="highlight-val">' + b.happy + '</div><div class="highlight-label">Happy Customers</div></div>' +
-      '<div class="highlight-item"><div class="highlight-val" style="font-size:1rem;">📍</div><div class="highlight-label">' + b.areas + '</div></div>' +
-      '</div>';
-
-  } else {
-    html = b.reviews.map(function(r) {
-      return '<div class="review-item"><div class="review-top"><span class="reviewer-name">' + r.name + '</span><span class="review-stars">' + r.stars + '</span></div><div class="review-text">&ldquo;' + r.text + '&rdquo;</div><div class="review-date">' + r.date + '</div></div>';
-    }).join("");
+  }else if(tab==='about'){
+    html=`<div class="about-text">${b.about}</div><div class="about-highlights">
+      <div class="highlight-item"><div class="highlight-val">${b.exp}</div><div class="highlight-label">Experience</div></div>
+      <div class="highlight-item"><div class="highlight-val">${b.orders}</div><div class="highlight-label">Orders Completed</div></div>
+      <div class="highlight-item"><div class="highlight-val">${b.happy}</div><div class="highlight-label">Happy Customers</div></div>
+      <div class="highlight-item"><div class="highlight-val" style="font-size:1rem;">📍</div><div class="highlight-label">${b.areas}</div></div>
+    </div>`;
+  }else{
+    html=b.reviews.map(r=>`<div class="review-item"><div class="review-top"><span class="reviewer-name">${r.name}</span><span class="review-stars">${r.stars}</span></div><div class="review-text">"${r.text}"</div><div class="review-date">${r.date}</div></div>`).join('');
   }
-
-  document.getElementById("modalContent").innerHTML = html;
+  document.getElementById('modalContent').innerHTML=html;
 }
 
-window.addEventListener("scroll", function() {
-  document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 50);
-});
-document.querySelectorAll(".chip").forEach(function(c) {
-  c.addEventListener("click", function() {
-    document.querySelectorAll(".chip").forEach(x => x.classList.remove("active"));
-    this.classList.add("active");
-  });
-});
-document.querySelectorAll(".filter-tab").forEach(function(t) {
-  t.addEventListener("click", function() {
-    document.querySelectorAll(".filter-tab").forEach(x => x.classList.remove("active"));
-    this.classList.add("active");
-  });
-});
-function toggleFaq(el) {
-  const item = el.parentElement;
-  const open = item.classList.contains("open");
-  document.querySelectorAll(".faq-item").forEach(i => i.classList.remove("open"));
-  if (!open) item.classList.add("open");
-}
-document.addEventListener("keydown", function(e) { if (e.key === "Escape") closeModal(); });
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);});
+document.querySelectorAll('.chip').forEach(c=>{c.addEventListener('click',function(){document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));this.classList.add('active');});});
+document.querySelectorAll('.filter-tab').forEach(t=>{t.addEventListener('click',function(){document.querySelectorAll('.filter-tab').forEach(x=>x.classList.remove('active'));this.classList.add('active');});});
+function toggleFaq(el){const item=el.parentElement;const open=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!open)item.classList.add('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 </script>
 </body>
 </html>
