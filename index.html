@@ -107,7 +107,7 @@ nav.scrolled{box-shadow:0 4px 20px rgba(61,43,31,0.1);}
 @keyframes float2{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
-.search-bar-section{background:var(--white);padding:2.5rem 3rem;box-shadow:0 4px 20px rgba(61,43,31,0.07);position:sticky;top:68px;z-index:100;}
+.search-bar-section{background:var(--white);padding:2.5rem 3rem;box-shadow:0 4px 20px rgba(61,43,31,0.07);}
 .search-inner{max-width:800px;margin:0 auto;}
 .search-box{display:flex;background:var(--cream);border:1.5px solid var(--border);border-radius:50px;overflow:hidden;padding:6px 6px 6px 24px;transition:border-color 0.2s;}
 .search-box:focus-within{border-color:var(--gold);}
@@ -597,7 +597,7 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
       </div>
       <div><div class="footer-col-title">For Customers</div><ul class="footer-links"><li><a href="#bakers">Find Bakers</a></li><li><a href="#bakers">Search by Area</a></li><li><a href="#how">How It Works</a></li></ul></div>
       <div><div class="footer-col-title">For Bakers</div><ul class="footer-links"><li><a href="#packages">Join as Baker</a></li><li><a href="#packages">Our Packages</a></li><li><a href="#faq">FAQ</a></li></ul></div>
-      <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="#">About Us</a></li><li><a href="https://wa.me/916369380977" target="_blank">Contact</a></li><li><a href="https://instagram.com/bakersbridge.in" target="_blank">Instagram</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+      <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="#">About Us</a></li><li><a href="https://wa.me/916369380977" target="_blank">Contact</a></li><li><a href="https://www.instagram.com/bakersbridge.in?igsh=cjZqaW01MTF1MGQ=" target="_blank">Instagram</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
     </div>
     <div class="footer-bottom">
       <span>© 2026 <a href="#">Bakers Bridge</a> · Chennai, Tamil Nadu</span>
@@ -739,8 +739,107 @@ document.querySelectorAll(".chip").forEach(function(c) {
   c.addEventListener("click", function() {
     document.querySelectorAll(".chip").forEach(function(x) { x.classList.remove("active"); });
     this.classList.add("active");
+    var area = this.textContent.trim();
+    filterByArea(area);
+    // Scroll to bakers section smoothly
+    setTimeout(function() {
+      document.getElementById("bakers").scrollIntoView({behavior: "smooth", block: "start"});
+    }, 50);
   });
 });
+
+// Also wire up the search select dropdown
+document.querySelector(".search-select").addEventListener("change", function() {
+  var area = this.value;
+  var mapped = area === "All Areas" ? "All" : area;
+  filterByArea(mapped);
+  document.querySelectorAll(".chip").forEach(function(c) {
+    c.classList.toggle("active", c.textContent.trim() === mapped);
+  });
+  setTimeout(function() {
+    document.getElementById("bakers").scrollIntoView({behavior: "smooth", block: "start"});
+  }, 50);
+});
+
+// Also wire search button
+document.querySelector(".search-btn").addEventListener("click", function() {
+  var area = document.querySelector(".search-select").value;
+  filterByArea(area === "All Areas" ? "All" : area);
+  setTimeout(function() {
+    document.getElementById("bakers").scrollIntoView({behavior: "smooth", block: "start"});
+  }, 50);
+});
+
+function filterByArea(area) {
+  // Remove old empty state
+  var existing = document.getElementById("no-bakers-msg");
+  if (existing) existing.remove();
+
+  // Show/hide cards
+  var cards = document.querySelectorAll(".baker-card, .slot-card");
+  var visibleCount = 0;
+  cards.forEach(function(card) {
+    var locEl = card.querySelector(".baker-loc, .slot-loc");
+    var locText = locEl ? locEl.textContent : "";
+    var show = (area === "All") || (locText.toLowerCase().indexOf(area.toLowerCase()) !== -1);
+    card.style.display = show ? "" : "none";
+    if (show) visibleCount++;
+  });
+
+  // Sync chips active state
+  document.querySelectorAll(".chip").forEach(function(c) {
+    c.classList.toggle("active", c.textContent.trim() === area);
+  });
+
+  // Show empty state card if nothing visible
+  if (visibleCount === 0) {
+    var grid = document.querySelector(".bakers-grid");
+
+    var wrapper = document.createElement("div");
+    wrapper.id = "no-bakers-msg";
+    wrapper.style.gridColumn = "1 / -1";
+
+    var card = document.createElement("div");
+    card.style.cssText = "background:var(--card);border-radius:18px;border:2px dashed rgba(200,150,42,0.3);padding:3rem 2rem;text-align:center;animation:fadeUp 0.4s ease both;";
+
+    var icon = document.createElement("div");
+    icon.style.cssText = "width:80px;height:80px;border-radius:50%;background:rgba(200,150,42,0.1);border:2px dashed rgba(200,150,42,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-size:2rem;";
+    icon.textContent = "🔍";
+
+    var title = document.createElement("div");
+    title.style.cssText = "font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--brown);margin-bottom:0.5rem;";
+    title.textContent = "No Verified Bakers in " + area + " Yet";
+
+    var subtitle = document.createElement("div");
+    subtitle.style.cssText = "font-size:14px;color:var(--text-muted);margin-bottom:1.5rem;line-height:1.7;";
+    subtitle.textContent = "We are personally visiting and onboarding bakers in this area soon! Know a great home baker here?";
+
+    var btnRow = document.createElement("div");
+    btnRow.style.cssText = "display:flex;gap:10px;justify-content:center;flex-wrap:wrap;";
+
+    var referBtn = document.createElement("a");
+    referBtn.href = "https://wa.me/916369380977";
+    referBtn.target = "_blank";
+    referBtn.style.cssText = "background:var(--gold);color:white;text-decoration:none;padding:10px 24px;border-radius:25px;font-size:13px;font-weight:500;font-family:Outfit,sans-serif;";
+    referBtn.textContent = "💬 Refer a Baker";
+
+    var allBtn = document.createElement("button");
+    allBtn.style.cssText = "background:transparent;color:var(--brown);border:1.5px solid var(--border);padding:10px 24px;border-radius:25px;font-size:13px;font-weight:500;cursor:pointer;font-family:Outfit,sans-serif;";
+    allBtn.textContent = "View All Bakers";
+    allBtn.addEventListener("click", function() {
+      filterByArea("All");
+    });
+
+    btnRow.appendChild(referBtn);
+    btnRow.appendChild(allBtn);
+    card.appendChild(icon);
+    card.appendChild(title);
+    card.appendChild(subtitle);
+    card.appendChild(btnRow);
+    wrapper.appendChild(card);
+    grid.appendChild(wrapper);
+  }
+}
 document.querySelectorAll(".filter-tab").forEach(function(t) {
   t.addEventListener("click", function() {
     document.querySelectorAll(".filter-tab").forEach(function(x) { x.classList.remove("active"); });
