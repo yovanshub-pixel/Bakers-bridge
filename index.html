@@ -584,37 +584,50 @@ function filterByArea(area) {
 }
 
 function openModal(id) {
-  alert("Step 1: Button Clicked for ID: " + id);
+  console.log("Opening ID:", id);
   
-  if (!allBakers || allBakers.length === 0) {
-    alert("Step 2: Error - allBakers list is empty!");
-    return;
+  try {
+    if (!window.allBakers || window.allBakers.length === 0) {
+      console.error("No bakers loaded");
+      return;
+    }
+
+    // Find the baker using a very safe method
+    selectedBaker = window.allBakers.find(b => String(b.id) === String(id));
+    
+    if (!selectedBaker) {
+      console.error("Baker not found for ID:", id);
+      return;
+    }
+
+    // Fill the modal with data, with fallbacks for every single field
+    document.getElementById("modalLogo").src = selectedBaker.logo_url || "https://i.imgur.com/yteSy8p.jpeg";
+    document.getElementById("modalName").innerText = selectedBaker.name || "Baker Profile";
+    document.getElementById("modalSpec").innerText = selectedBaker.category || "Home Baker";
+    document.getElementById("modalRating").innerText = "★ " + (selectedBaker.rating || "4.8");
+    document.getElementById("modalLoc").innerText = "📍 " + (selectedBaker.location || "Chennai");
+    
+    document.getElementById("modalWaBtn").onclick = function() {
+      const wa = selectedBaker.whatsapp || "916369380977";
+      window.open("https://wa.me/" + wa);
+    };
+    
+    // Switch to products tab
+    const tabs = document.querySelectorAll('.modal-tab');
+    if (tabs && tabs.length > 0) {
+      switchTab('products', tabs[0]);
+    }
+    
+    // Show the modal
+    const overlay = document.getElementById("modalOverlay");
+    if (overlay) {
+      overlay.style.display = "flex";
+      overlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+  } catch (err) {
+    console.error("Modal Error:", err);
   }
-
-  selectedBaker = allBakers.find(b => b.id == id);
-  
-  if (!selectedBaker) {
-    alert("Step 2: Error - Could not find this baker in the list!");
-    return;
-  }
-
-  alert("Step 3: Found Baker - " + selectedBaker.name);
-
-  document.getElementById("modalLogo").src = selectedBaker.logo_url || IMAGES.BB_LOGO;
-  document.getElementById("modalName").textContent = selectedBaker.name || "Baker Profile";
-  document.getElementById("modalSpec").textContent = selectedBaker.category || "Home Baker";
-  document.getElementById("modalRating").textContent = "★ " + (selectedBaker.rating || "4.8");
-  document.getElementById("modalLoc").textContent = "📍 " + (selectedBaker.location || "Chennai");
-  document.getElementById("modalWaBtn").onclick = () => window.open("https://wa.me/" + (selectedBaker.whatsapp || "916369380977"));
-  
-  const tabs = document.querySelectorAll('.modal-tab');
-  if (tabs.length > 0) switchTab('products', tabs[0]);
-  
-  const overlay = document.getElementById("modalOverlay");
-  overlay.classList.add("open");
-  
-  alert("Step 4: Modal should be open now! Current classes: " + overlay.className);
-  document.body.style.overflow = "hidden";
 }
 
 function closeModal() { document.getElementById("modalOverlay").classList.remove("open"); document.body.style.overflow = "auto"; }
