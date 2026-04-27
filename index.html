@@ -516,7 +516,7 @@ const SUPABASE_URL = "https://qlkdxrryfpdmmbbqxkey.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsa2R4cnJ5ZnBkbW1iYnF4a2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMTUzMDQsImV4cCI6MjA5Mjc5MTMwNH0.9dFamA3asEEQ4KCBbfyx3vVw0KvEgh2hA3nGbIptLew";
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-let allBakers = [];
+window.allBakers = [];
 let selectedBaker = null;
 
 function applyImages() {
@@ -528,8 +528,8 @@ function applyImages() {
 async function loadBakers() {
   const { data, error } = await supabase.from('bakers').select('*').order('verified', { ascending: false });
   if (!error) {
-    allBakers = data;
-    renderBakers(allBakers);
+    window.allBakers = data;
+    renderBakers(window.allBakers);
   }
 }
 
@@ -568,9 +568,9 @@ function renderBakers(data) {
 function performSearch() {
   const query = document.getElementById("searchInput").value.toLowerCase();
   const area = document.getElementById("searchArea").value;
-  const filtered = allBakers.filter(b => {
-    const matchQuery = b.name.toLowerCase().includes(query) || b.category.toLowerCase().includes(query);
-    const matchArea = area === "All Areas" || b.location.includes(area);
+  const filtered = window.allBakers.filter(b => {
+    const matchQuery = (b.name || "").toLowerCase().includes(query) || (b.category || "").toLowerCase().includes(query);
+    const matchArea = area === "All Areas" || (b.location || "").includes(area);
     return matchQuery && matchArea;
   });
   renderBakers(filtered);
@@ -578,7 +578,7 @@ function performSearch() {
 
 function filterByArea(area) {
   document.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c.textContent === area));
-  const filtered = area === "All" ? allBakers : allBakers.filter(b => b.location.includes(area));
+  const filtered = area === "All" ? window.allBakers : window.allBakers.filter(b => (b.location || "").includes(area));
   renderBakers(filtered);
 }
 
@@ -645,7 +645,6 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  alert("Bakers Bridge: Site is Ready! Try clicking View Profile now.");
   applyImages();
   loadBakers();
 });
