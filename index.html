@@ -18,109 +18,115 @@ html{scroll-behavior:smooth;}
 body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
 ::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--warm);}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px;}
 
-nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(253,246,236,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 3rem;height:68px;display:flex;align-items:center;justify-content:space-between;transition:box-shadow 0.3s;}
+/* DECORATIONS */
+.bake-deco{position:absolute;pointer-events:none;opacity:0.055;}
+.bake-deco svg{width:100%;height:100%;}
+.spin-slow{animation:spinSlow 40s linear infinite;}
+.float-slow{animation:floatDeco 8s ease-in-out infinite;}
+@keyframes spinSlow{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes floatDeco{0%,100%{transform:translateY(0);}50%{transform:translateY(-18px);}}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(253,246,236,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 3rem;height:68px;display:flex;align-items:center;justify-content:space-between;transition:all 0.3s;}
 nav.scrolled{box-shadow:0 4px 20px rgba(61,43,31,0.1);}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
 .logo-img{width:44px;height:44px;border-radius:10px;object-fit:cover;border:1px solid var(--border);}
 .logo-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--brown);}
 .logo-text span{color:var(--gold);}
 .nav-links{display:flex;gap:2.5rem;list-style:none;}
-.nav-links a{text-decoration:none;color:var(--text-muted);font-size:14px;font-weight:500;transition:color 0.2s;position:relative;}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--gold);transition:width 0.2s;}
+.nav-links a{text-decoration:none;color:var(--text-muted);font-size:14px;font-weight:500;transition:color 0.2s;}
 .nav-links a:hover{color:var(--gold);}
-.nav-links a:hover::after{width:100%;}
-.nav-actions{display:flex;gap:10px;align-items:center;}
-.btn-nav-outline{background:transparent;color:var(--brown);border:1.5px solid var(--border);padding:8px 18px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
-.btn-nav-outline:hover{border-color:var(--gold);color:var(--gold);}
-.btn-nav-solid{background:var(--gold);color:var(--white);border:none;padding:8px 20px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
-.btn-nav-solid:hover{background:var(--gold-dark);}
+.btn-nav-outline{background:transparent;color:var(--brown);border:1.5px solid var(--border);padding:8px 18px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;}
 
+/* HERO */
 .hero{min-height:100vh;padding:120px 3rem 80px;display:flex;align-items:center;background:var(--cream);position:relative;overflow:hidden;}
-.hero-orb{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(200,150,42,0.12),transparent 70%);}
-.hero-orb.o1{width:700px;height:700px;top:-200px;right:-150px;}
-.hero-orb.o2{width:400px;height:400px;bottom:-100px;left:-100px;}
+.hero-pattern{position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);background-size:20px 20px;}
 .hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
-.hero-left{position:relative;z-index:1;}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,150,42,0.12);color:var(--gold-dark);padding:7px 18px;border-radius:30px;font-size:12px;font-weight:600;letter-spacing:0.5px;margin-bottom:1.5rem;border:1px solid rgba(200,150,42,0.25);}
 .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,4.2rem);font-weight:700;line-height:1.1;color:var(--brown);margin-bottom:1.5rem;}
 .hero h1 em{color:var(--gold);font-style:normal;}
 .hero-desc{font-size:1.05rem;color:var(--text-muted);line-height:1.75;margin-bottom:2rem;max-width:480px;}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
-.btn-primary{background:var(--gold);color:var(--white);border:none;padding:14px 32px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.25s;}
-.btn-primary:hover{background:var(--gold-dark);transform:translateY(-2px);box-shadow:0 8px 20px rgba(200,150,42,0.3);}
-.btn-outline{background:transparent;color:var(--brown);border:1.5px solid var(--brown-mid);padding:14px 32px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.25s;}
-.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
-.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);}
-.stat-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--gold);display:block;line-height:1;}
-.stat-label{font-size:12px;color:var(--text-muted);margin-top:4px;}
+.btn-primary{background:var(--gold);color:var(--white);border:none;padding:14px 32px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.25s;}
+.btn-primary:hover{background:var(--gold-dark);transform:translateY(-2px);}
 
-.hero-right{position:relative;height:600px;z-index:1;}
-.float-card{position:absolute;background:var(--card);border-radius:18px;border:1px solid var(--border);padding:1.25rem;box-shadow:0 8px 32px rgba(61,43,31,0.1);}
-.float-card.main{width:270px;top:20px;left:10px;animation:float1 4s ease-in-out infinite;}
-.float-card.side{width:230px;top:220px;right:0;animation:float2 5s ease-in-out infinite;}
-.float-card.bottom{width:260px;bottom:20px;left:30px;animation:float1 6s ease-in-out infinite;}
-.fc-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
-.fc-logo{width:48px;height:48px;border-radius:12px;flex-shrink:0;overflow:hidden;border:1px solid var(--border);}
-.fc-logo img{width:100%;height:100%;object-fit:cover;display:block;}
-.fc-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--brown);line-height:1.2;}
-.fc-spec{font-size:10px;color:var(--text-muted);margin-top:2px;}
-.fc-bottom{display:flex;justify-content:space-between;align-items:center;}
-.fc-stars{color:var(--gold);font-size:12px;font-weight:600;}
-.fc-loc{font-size:11px;color:var(--text-muted);}
-@keyframes float1{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
-@keyframes float2{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+/* SEARCH */
+.search-bar-section{background:var(--white);padding:2.5rem 3rem;box-shadow:0 4px 20px rgba(61,43,31,0.07);position:relative;}
+.search-inner{max-width:800px;margin:0 auto;}
+.search-box{display:flex;background:var(--cream);border:1.5px solid var(--border);border-radius:50px;overflow:hidden;padding:6px 6px 6px 24px;}
+.search-box input{flex:1;border:none;background:transparent;font-size:15px;outline:none;font-family:'Outfit',sans-serif;}
+.search-btn{background:var(--gold);color:var(--white);border:none;padding:10px 28px;border-radius:40px;font-size:14px;font-weight:500;cursor:pointer;}
+.area-chips{display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap;}
+.chip{background:var(--warm);color:var(--brown-mid);border:none;padding:6px 16px;border-radius:20px;font-size:12px;cursor:pointer;}
+.chip.active{background:var(--gold);color:var(--white);}
 
+/* BAKERS */
 section{padding:6rem 3rem;}
 .section-inner{max-width:1100px;margin:0 auto;}
 .section-header{text-align:center;margin-bottom:3.5rem;}
-.section-tag{font-size:11px;font-weight:600;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.75rem;}
-.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);color:var(--brown);margin-bottom:0.75rem;}
-.section-sub{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.7;}
-
-.bakers-section{background:var(--cream);}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);color:var(--brown);}
 .bakers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;}
-.baker-card{background:var(--card);border-radius:18px;border:1px solid var(--border);overflow:hidden;transition:transform 0.25s,box-shadow 0.25s;cursor:pointer;}
+
+.baker-card{background:var(--card);border-radius:18px;border:1px solid var(--border);overflow:hidden;transition:all 0.25s;cursor:pointer;}
 .baker-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(61,43,31,0.12);}
-.baker-card-header{height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#FFF3DC,#F5E6CC);position:relative;}
-.baker-brand-logo{width:90px;height:90px;border-radius:16px;overflow:hidden;border:2px solid rgba(200,150,42,0.2);box-shadow:0 4px 16px rgba(61,43,31,0.12);background:var(--white);}
-.baker-brand-logo img{width:100%;height:100%;object-fit:cover;display:block;}
-.baker-brand-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--brown);text-align:center;padding:0 1rem;}
-.verified-badge{position:absolute;top:12px;right:12px;background:var(--gold);color:var(--white);font-size:10px;font-weight:600;padding:4px 12px;border-radius:12px;}
+.baker-card-header{height:190px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#FFF3DC,#F5E6CC);}
+.baker-brand-logo{width:90px;height:90px;border-radius:16px;overflow:hidden;border:2px solid rgba(200,150,42,0.2);background:var(--white);}
+.baker-brand-logo img{width:100%;height:100%;object-fit:cover;}
+.baker-brand-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--brown);text-align:center;}
+.verified-badge{position:absolute;top:12px;right:12px;background:var(--gold);color:var(--white);font-size:10px;padding:4px 12px;border-radius:12px;}
+
 .baker-body{padding:1.25rem;}
 .baker-spec{font-size:12px;color:var(--text-muted);margin-bottom:0.75rem;}
-.baker-row{display:flex;align-items:center;justify-content:space-between;}
-.baker-loc{font-size:12px;color:var(--text-muted);}
-.baker-rating{display:flex;align-items:center;gap:4px;}
-.stars{color:var(--gold);font-size:12px;}
-.rating-val{font-size:12px;font-weight:600;color:var(--brown);}
-.baker-tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
-.tag{background:rgba(200,150,42,0.1);color:var(--gold-dark);font-size:10px;padding:3px 10px;border-radius:10px;font-weight:500;}
-.baker-footer{display:flex;gap:8px;padding:1rem 1.25rem;border-top:1px solid var(--border);}
-.btn-enquire{flex:1;background:var(--gold);color:var(--white);border:none;padding:9px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;}
-.btn-enquire:hover{background:var(--gold-dark);}
-.btn-view{background:transparent;color:var(--brown);border:1px solid var(--border);padding:9px 16px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
-.btn-view:hover{border-color:var(--gold);color:var(--gold);}
+.baker-row{display:flex;align-items:center;justify-content:space-between;font-size:12px;}
+.baker-rating{color:var(--gold);font-weight:600;}
 
+.baker-footer{display:flex;gap:8px;padding:1rem 1.25rem;border-top:1px solid var(--border);}
+.btn-enquire{flex:1;background:var(--gold);color:var(--white);border:none;padding:10px;border-radius:10px;font-size:13px;cursor:pointer;}
+
+/* MODAL (AS PER OLD CODE) */
 .modal-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(30,15,5,0.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:1rem;}
 .modal-overlay.open{display:flex;}
-.modal{background:var(--card);border-radius:24px;width:100%;max-width:420px;position:relative;box-shadow:0 24px 60px rgba(61,43,31,0.25);padding:2rem;}
-.modal-close{position:absolute;top:16px;right:16px;z-index:10;width:36px;height:36px;border-radius:50%;background:var(--warm);border:none;cursor:pointer;font-size:16px;color:var(--brown);display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
-.modal-close:hover{background:var(--gold);color:var(--white);}
+.modal{background:var(--card);border-radius:24px;width:100%;max-width:760px;max-height:90vh;overflow-y:auto;position:relative;}
+.modal-close{position:absolute;top:16px;right:16px;z-index:10;width:36px;height:36px;border-radius:50%;background:var(--warm);border:none;cursor:pointer;}
+.modal-header{padding:2rem;border-bottom:1px solid var(--border);display:flex;gap:1.5rem;}
+.modal-logo{width:90px;height:90px;border-radius:18px;overflow:hidden;border:2px solid var(--border);}
+.modal-logo img{width:100%;height:100%;object-fit:cover;}
+.modal-info{flex:1;}
+.modal-wa-btn{background:var(--gold);color:white;border:none;padding:10px 22px;border-radius:20px;font-size:13px;cursor:pointer;margin-top:10px;}
+.modal-tabs{display:flex;border-bottom:1px solid var(--border);}
+.modal-tab{flex:1;padding:1rem;text-align:center;font-size:13px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;}
+.modal-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.modal-content{padding:2rem;}
+.products-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;}
+.product-item{background:var(--cream);border-radius:14px;overflow:hidden;border:1px solid var(--border);}
+.product-item img{width:100%;height:110px;object-fit:cover;}
+.product-details{padding:8px;}
+.product-name{font-size:12px;font-weight:600;}
+.product-price{font-size:11px;color:var(--gold);}
 
+/* FOOTER */
 footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13px;}
 .footer-inner{max-width:1100px;margin:0 auto;}
-.wa-float{position:fixed;bottom:24px;right:24px;z-index:999;width:54px;height:54px;border-radius:50%;background:#25D366;color:var(--white);display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 4px 16px rgba(37,211,102,0.4);cursor:pointer;transition:transform 0.2s;text-decoration:none;}
-.wa-float:hover{transform:scale(1.1);}
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:999;width:54px;height:54px;border-radius:50%;background:#25D366;color:var(--white);display:flex;align-items:center;justify-content:center;font-size:26px;text-decoration:none;}
 
-@media(max-width:900px){.hero-inner{grid-template-columns:1fr;}.hero-right{display:none;}section{padding:4rem 1.5rem;}}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;}.hero-right{display:none;}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- REUSABLE SYMBOLS -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="deco-whisk" viewBox="0 0 80 160">
+    <ellipse cx="40" cy="55" rx="18" ry="28" fill="none" stroke="#C8962A" stroke-width="2"/>
+    <line x1="40" y1="80" x2="40" y2="150" stroke="#C8962A" stroke-width="3"/>
+  </symbol>
+  <symbol id="deco-cupcake" viewBox="0 0 100 120">
+    <path d="M25 65 L30 100 L70 100 L75 65 Z" fill="none" stroke="#C8962A" stroke-width="2"/>
+    <path d="M22 57 Q35 25 50 20 Q65 25 78 57" fill="none" stroke="#C8962A" stroke-width="2"/>
+  </symbol>
+</svg>
+
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <img id="img-bb-logo-nav" class="logo-img" src="https://i.imgur.com/yteSy8p.jpeg" alt="Bakers Bridge"/>
+    <img class="logo-img" src="https://i.imgur.com/yteSy8p.jpeg" alt="Bakers Bridge"/>
     <span class="logo-text">Bakers <span>Bridge</span></span>
   </a>
   <ul class="nav-links">
@@ -129,287 +135,230 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
     <li><a href="#packages">For Bakers</a></li>
   </ul>
   <div class="nav-actions">
-    <!-- Buttons handled by JS for auth state -->
-    <button class="btn-nav-outline" id="authBtn" onclick="openLoginModal()">Login</button>
-    <button class="btn-nav-solid" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">Join as Baker</button>
+    <button class="btn-nav-outline" id="authBtn">Login</button>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-orb o1"></div><div class="hero-orb o2"></div>
+  <div class="hero-pattern"></div>
+  <div class="bake-deco float-slow" style="width:90px;bottom:80px;left:2%;"><svg viewBox="0 0 80 160"><use href="#deco-whisk"/></svg></div>
+  <div class="bake-deco spin-slow" style="width:70px;top:140px;left:5%;"><svg viewBox="0 0 100 120"><use href="#deco-cupcake"/></svg></div>
   <div class="hero-inner">
     <div class="hero-left">
-      <div class="hero-badge">🏅 Chennai's Most Trusted Home Baker Hub</div>
       <h1>Discover the <em>Best Home Bakers</em> Near You</h1>
       <p class="hero-desc">Every baker on Bakers Bridge is personally visited, quality-checked, and verified. Fresh, local, and made with love.</p>
-      <div class="hero-btns">
-        <button class="btn-primary" onclick="document.getElementById('bakers').scrollIntoView({behavior:'smooth'})">Find Bakers Near Me</button>
-        <button class="btn-outline" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">Join as a Baker</button>
-      </div>
-      <div class="hero-stats">
-        <div><span class="stat-num">50+</span><div class="stat-label">Verified Bakers</div></div>
-        <div><span class="stat-num">10+</span><div class="stat-label">Chennai Areas</div></div>
-        <div><span class="stat-num">100%</span><div class="stat-label">Quality Verified</div></div>
-      </div>
-    </div>
-    <div class="hero-right">
-      <div class="float-card main">
-        <div class="fc-top">
-          <div class="fc-logo"><img src="https://i.imgur.com/aVHYGRF.png" alt="The Pastry Bay"/></div>
-          <div><div class="fc-name">The Pastry Bay</div><div class="fc-spec">Custom Cakes & Cupcakes</div></div>
-        </div>
-        <div class="fc-bottom"><span class="fc-stars">★★★★★ 4.9</span><span class="fc-loc">📍 Anna Nagar</span></div>
-      </div>
-      <div class="float-card side">
-        <div class="fc-top">
-          <div class="fc-logo" style="background:var(--cream);border:2px dashed rgba(200,150,42,0.3);display:flex;align-items:center;justify-content:center;">+</div>
-          <div><div class="fc-name" style="color:var(--brown-light);">Slot Available</div><div class="fc-spec">Your Bakery Here</div></div>
-        </div>
-        <div class="fc-bottom"><span style="color:var(--brown-light);font-size:11px;">Apply to Join</span><span class="fc-loc">📍 Chennai</span></div>
-      </div>
+      <button class="btn-primary" onclick="document.getElementById('bakers').scrollIntoView({behavior:'smooth'})">Find Bakers Near Me</button>
     </div>
   </div>
 </section>
 
-<!-- BAKERS -->
-<section class="bakers-section" id="bakers">
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">Featured Bakers</div>
-      <div class="section-title">Meet Our Verified Bakers</div>
-      <div class="section-sub">Hand-picked, personally visited, and monthly quality-checked — only the best make it here.</div>
+<!-- SEARCH -->
+<div class="search-bar-section">
+  <div class="search-inner">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search baker name, specialty..."/>
+      <button class="search-btn" onclick="performSearch()">Search</button>
     </div>
-    <div class="bakers-grid" id="bakersGrid">
-      <div style="text-align:center; grid-column: 1/-1; padding: 3rem; color: var(--text-muted);">
-        Loading bakers...
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LOGIN MODAL -->
-<div class="modal-overlay" id="loginOverlay" onclick="closeLoginModalOutside(event)">
-  <div class="modal" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeLoginModal()">✕</button>
-    <div style="text-align:center;margin-bottom:2rem;">
-      <img id="img-bb-logo-login" style="width:60px;height:60px;border-radius:12px;margin-bottom:1rem;object-fit:cover;" src="https://i.imgur.com/yteSy8p.jpeg" alt="Bakers Bridge"/>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--brown);margin-bottom:0.5rem;">Bakers Bridge</h2>
-      <p style="color:var(--text-muted);font-size:14px;">Sign in to your account</p>
-    </div>
-    <form id="loginForm" style="display:flex;flex-direction:column;gap:1rem;">
-      <div>
-        <label style="display:block;font-size:13px;font-weight:600;color:var(--brown);margin-bottom:0.5rem;">Email</label>
-        <input type="email" id="loginEmail" placeholder="your@email.com" style="width:100%;padding:12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'Outfit',sans-serif;outline:none;" required/>
-      </div>
-      <div>
-        <label style="display:block;font-size:13px;font-weight:600;color:var(--brown);margin-bottom:0.5rem;">Password</label>
-        <input type="password" id="loginPassword" placeholder="Enter your password" style="width:100%;padding:12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'Outfit',sans-serif;outline:none;" required/>
-      </div>
-      <div id="loginError" style="color: #ff4444; font-size: 13px; display: none;"></div>
-      <button type="submit" id="submitBtn" style="background:var(--gold);color:white;border:none;padding:12px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;">Sign In</button>
-    </form>
-    <div style="text-align:center;margin-top:1.5rem;">
-      <p style="font-size:13px;color:var(--text-muted);">Contact us on <a href="https://wa.me/916369380977" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:600;">WhatsApp</a></p>
+    <div class="area-chips">
+      <button class="chip active" onclick="filterByArea('All')">All</button>
+      <button class="chip" onclick="filterByArea('Anna Nagar')">Anna Nagar</button>
+      <button class="chip" onclick="filterByArea('Adyar')">Adyar</button>
+      <button class="chip" onclick="filterByArea('Velachery')">Velachery</button>
+      <button class="chip" onclick="filterByArea('T Nagar')">T Nagar</button>
     </div>
   </div>
 </div>
 
-<!-- PACKAGES SECTION -->
-<section id="packages" style="background:var(--white);padding:6rem 3rem;">
+<!-- BAKERS -->
+<section id="bakers">
   <div class="section-inner">
     <div class="section-header">
-      <div class="section-tag">For Home Bakers</div>
-      <div class="section-title">Grow Your Baking Business</div>
-      <div class="section-sub">Choose a plan that fits your baking journey.</div>
+      <div class="section-title">Verified Home Bakers</div>
     </div>
-    <p style="text-align:center;color:var(--text-muted);">Contact us on WhatsApp for pricing and details → <a href="https://wa.me/916369380977" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:600;">916369380977</a></p>
+    <div class="bakers-grid" id="bakersGrid">
+      <!-- Loaded from Supabase -->
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- HOW IT WORKS (AS PER OLD CODE) -->
+<section id="how" style="background:white;">
+  <div class="section-inner">
+    <div class="section-header"><div class="section-title">Simple. Trusted. Delicious.</div></div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:2rem; text-align:center;">
+      <div><div style="font-size:2rem;">🔍</div><h3>Search Your Area</h3><p style="font-size:13px; color:var(--text-muted);">Discover verified home bakers near you.</p></div>
+      <div><div style="font-size:2rem;">💬</div><h3>Connect Directly</h3><p style="font-size:13px; color:var(--text-muted);">Contact them on WhatsApp directly.</p></div>
+      <div><div style="font-size:2rem;">🎉</div><h3>Enjoy Fresh Bakes</h3><p style="font-size:13px; color:var(--text-muted);">Freshly baked goodness at your door.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES (AS PER OLD CODE) -->
+<section id="packages" style="background:var(--cream);">
+  <div class="section-inner">
+    <div class="section-header"><div class="section-title">For Home Bakers</div></div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:2rem;">
+      <div style="background:white; padding:2rem; border-radius:20px; border:1px solid var(--border);">
+        <h3 style="color:var(--gold);">Standard Plan</h3>
+        <p style="font-size:2rem; font-weight:700;">₹1999 <small>/ month</small></p>
+        <button class="btn-primary" style="width:100%; margin-top:1rem;" onclick="window.open('https://wa.me/916369380977')">Join Now</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this) closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-header">
+      <div class="modal-logo"><img id="modalLogo" src="" alt=""/></div>
+      <div class="modal-info">
+        <div class="modal-baker-name" id="modalName"></div>
+        <div id="modalSpec" style="font-size:13px; color:var(--text-muted);"></div>
+        <button class="modal-wa-btn" id="modalWaBtn">💬 WhatsApp Enquiry</button>
+      </div>
+    </div>
+    <div class="modal-tabs">
+      <button class="modal-tab active" onclick="switchTab('products', this)">🛍 Products</button>
+      <button class="modal-tab" onclick="switchTab('about', this)">👩🍳 About</button>
+    </div>
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="loginOverlay" onclick="if(event.target===this) closeLoginModal()">
+  <div class="modal" style="max-width:400px; padding:2rem;">
+    <h2 style="margin-bottom:1.5rem; font-family:'Cormorant Garamond',serif;">Login</h2>
+    <form id="loginForm" style="display:flex; flex-direction:column; gap:1rem;">
+      <input type="email" id="loginEmail" placeholder="Email" style="padding:12px; border:1px solid var(--border); border-radius:8px;" required>
+      <input type="password" id="loginPassword" placeholder="Password" style="padding:12px; border:1px solid var(--border); border-radius:8px;" required>
+      <div id="loginError" style="color:red; font-size:12px; display:none;"></div>
+      <button type="submit" class="btn-primary" id="submitBtn">Sign In</button>
+    </form>
+  </div>
+</div>
+
 <footer>
   <div class="footer-inner">
-    <div style="text-align:center;padding:2rem 0;border-top:1px solid rgba(245,230,204,0.1);">
-      <p>© 2026 Bakers Bridge · Chennai, Tamil Nadu · Made with ❤️ for home bakers</p>
-    </div>
+    <span>© 2026 Bakers Bridge · Chennai</span>
   </div>
 </footer>
 
 <a href="https://wa.me/916369380977" class="wa-float" target="_blank">💬</a>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.3/dist/umd/supabase.min.js"></script>
-
 <script>
-// ============================================================
-// SUPABASE INITIALIZATION
-// ============================================================
-// Vercel will inject these if prefixed with NEXT_PUBLIC_
-// We use window fallback for static deployments
-const SUPABASE_URL = window.NEXT_PUBLIC_SUPABASE_URL || "https://qlkdxrryfpdmmbbqxkey.supabase.co";
-const SUPABASE_ANON_KEY = window.NEXT_PUBLIC_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsa2R4cnJ5ZnBkbW1iYnF4a2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMTUzMDQsImV4cCI6MjA5Mjc5MTMwNH0.9dFamA3asEEQ4KCBbfyx3vVw0KvEgh2hA3nGbIptLew"; 
+const SUPABASE_URL = "https://qlkdxrryfpdmmbbqxkey.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsa2R4cnJ5ZnBkbW1iYnF4a2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMTUzMDQsImV4cCI6MjA5Mjc5MTMwNH0.9dFamA3asEEQ4KCBbfyx3vVw0KvEgh2hA3nGbIptLew";
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-let supabase = null;
+let allBakers = [];
+let selectedBaker = null;
 
-if (window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY) {
-  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-} else {
-  console.error("Supabase configuration missing! Check Vercel environment variables.");
+async function loadData() {
+  const { data, error } = await supabase.from('bakers').select('*').order('verified', { ascending: false });
+  if (error) return;
+  allBakers = data;
+  renderBakers(allBakers);
 }
 
-// ============================================================
-// AUTH LOGIC
-// ============================================================
-function updateAuthUI(user) {
-  const authBtn = document.getElementById("authBtn");
-  if (user) {
-    authBtn.textContent = "Logout";
-    authBtn.onclick = handleLogout;
-  } else {
-    authBtn.textContent = "Login";
-    authBtn.onclick = openLoginModal;
-  }
-}
-
-async function handleLogout() {
-  await supabase.auth.signOut();
-  window.location.reload();
-}
-
-async function handleLogin(e) {
-  e.preventDefault();
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
-  const submitBtn = document.getElementById("submitBtn");
-  const errorDiv = document.getElementById("loginError");
-
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Signing in...";
-  errorDiv.style.display = "none";
-
-  try {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    });
-
-    if (error) {
-      console.error("Login Error:", error);
-      errorDiv.textContent = error.message;
-      errorDiv.style.display = "block";
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Sign In";
-    } else {
-      console.log("Login Success:", data);
-      window.location.href = "admin.html";
-    }
-  } catch (err) {
-    console.error("Unexpected Error:", err);
-    errorDiv.textContent = "Connection failed. Are you opening this from a local file? Try testing on Vercel.";
-    errorDiv.style.display = "block";
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Sign In";
-  }
-}
-
-document.getElementById("loginForm").addEventListener("submit", handleLogin);
-
-// Check auth state on load
-if (supabase) {
-  supabase.auth.getUser().then(({ data: { user } }) => {
-    updateAuthUI(user);
-  });
-}
-
-// ============================================================
-// MODAL FUNCTIONS
-// ============================================================
-function openLoginModal() {
-  document.getElementById("loginOverlay").classList.add("open");
-  document.body.style.overflow = "hidden";
-}
-
-function closeLoginModal() {
-  document.getElementById("loginOverlay").classList.remove("open");
-  document.body.style.overflow = "";
-  document.getElementById("loginForm").reset();
-  document.getElementById("loginError").style.display = "none";
-}
-
-function closeLoginModalOutside(e) {
-  if (e.target === document.getElementById("loginOverlay")) closeLoginModal();
-}
-
-// ============================================================
-// BAKERS LOADING
-// ============================================================
-async function loadBakers() {
-  if (!supabase) return;
-  
-  try {
-    const { data, error } = await supabase
-      .from('bakers')
-      .select('*')
-      .order('verified', { ascending: false });
-
-    if (error) throw error;
-    renderBakers(data);
-  } catch (err) {
-    console.error('Error loading bakers:', err);
-    document.getElementById("bakersGrid").innerHTML = 
-      `<div style="text-align:center; grid-column: 1/-1; padding: 3rem; color: var(--gold);">
-        Error: ${err.message || "Connection failed"}. 
-        <br><small>Make sure your table is named 'bakers' and RLS is disabled.</small>
-      </div>`;
-  }
-}
-
-function renderBakers(bakersData) {
+function renderBakers(data) {
   const grid = document.getElementById("bakersGrid");
-  if (!bakersData || bakersData.length === 0) {
-    grid.innerHTML = '<div style="text-align:center; grid-column: 1/-1; padding: 3rem; color: var(--text-muted);">No bakers found yet.</div>';
-    return;
-  }
-
   grid.innerHTML = "";
-  bakersData.forEach(function(baker) {
+  data.forEach(b => {
     const card = document.createElement("div");
     card.className = "baker-card";
-    
+    card.onclick = () => openModal(b.id);
     card.innerHTML = `
       <div class="baker-card-header">
-        <div class="baker-brand-logo"><img src="${baker.logo_url || "https://i.imgur.com/yteSy8p.jpeg"}" alt="${baker.name || 'Baker'}"/></div>
-        <div class="baker-brand-name">${baker.name || 'Delicious Bakery'}</div>
-        ${baker.verified ? '<span class="verified-badge">✓ Verified</span>' : ''}
+        <div class="baker-brand-logo"><img src="${b.logo_url || 'https://i.imgur.com/yteSy8p.jpeg'}" /></div>
+        <div class="baker-brand-name">${b.name}</div>
+        ${b.verified ? '<span class="verified-badge">✓ Verified</span>' : ''}
       </div>
       <div class="baker-body">
-        <div class="baker-spec">${baker.category || "Home Baker"}</div>
+        <div class="baker-spec">${b.category || "Home Baker"}</div>
         <div class="baker-row">
-          <div class="baker-loc">📍 ${baker.location || "Chennai"}</div>
-          <div class="baker-rating">
-            <span class="stars">★★★★★</span>
-            <span class="rating-val">${baker.rating || "4.8"}</span>
-          </div>
+          <div class="baker-loc">📍 ${b.location}</div>
+          <div class="baker-rating">★ ${b.rating}</div>
         </div>
       </div>
       <div class="baker-footer">
-        <button class="btn-enquire" onclick="window.open('https://wa.me/${baker.whatsapp || "916369380977"}', '_blank')">💬 WhatsApp</button>
-        <button class="btn-view">View Profile</button>
+        <button class="btn-enquire" onclick="event.stopPropagation(); window.open('https://wa.me/'+'${b.whatsapp}')">WhatsApp</button>
       </div>`;
-    
     grid.appendChild(card);
   });
 }
 
-// Load on page ready
-document.addEventListener("DOMContentLoaded", function() {
-  loadBakers();
+function filterByArea(area) {
+  document.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c.textContent === area));
+  const filtered = area === 'All' ? allBakers : allBakers.filter(b => b.location.includes(area));
+  renderBakers(filtered);
+}
+
+function performSearch() {
+  const query = document.getElementById("searchInput").value.toLowerCase();
+  const filtered = allBakers.filter(b => b.name.toLowerCase().includes(query) || b.category.toLowerCase().includes(query));
+  renderBakers(filtered);
+}
+
+function openModal(id) {
+  selectedBaker = allBakers.find(b => b.id === id);
+  document.getElementById("modalLogo").src = selectedBaker.logo_url || 'https://i.imgur.com/yteSy8p.jpeg';
+  document.getElementById("modalName").textContent = selectedBaker.name;
+  document.getElementById("modalSpec").textContent = selectedBaker.category;
+  document.getElementById("modalWaBtn").onclick = () => window.open('https://wa.me/' + selectedBaker.whatsapp);
+  switchTab('products', document.querySelector('.modal-tab'));
+  document.getElementById("modalOverlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  document.getElementById("modalOverlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function switchTab(tab, el) {
+  document.querySelectorAll(".modal-tab").forEach(t => t.classList.remove("active"));
+  el.classList.add("active");
+  const content = document.getElementById("modalContent");
+  if (tab === 'products') {
+    const products = selectedBaker.products || [];
+    if (products.length === 0) { content.innerHTML = "<p>No products listed yet.</p>"; return; }
+    let html = '<div class="products-row">';
+    products.forEach(p => {
+      html += `<div class="product-item"><img src="${p.image || 'https://i.imgur.com/yteSy8p.jpeg'}"/><div class="product-details"><div class="product-name">${p.name}</div><div class="product-price">${p.price}</div></div></div>`;
+    });
+    content.innerHTML = html + '</div>';
+  } else {
+    content.innerHTML = `<div><h3>About ${selectedBaker.name}</h3><p>${selectedBaker.about || 'Coming soon...'}</p><br><p><strong>Experience:</strong> ${selectedBaker.experience || 'N/A'}</p><p><strong>Orders:</strong> ${selectedBaker.orders_completed || 'N/A'}</p></div>`;
+  }
+}
+
+// LOGIN
+function closeLoginModal() { document.getElementById("loginOverlay").classList.remove("open"); }
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) { document.getElementById("loginError").textContent = error.message; document.getElementById("loginError").style.display = "block"; }
+  else { window.location.href = "admin.html"; }
 });
 
-// Navbar scroll effect
-window.addEventListener("scroll", function() {
-  document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 50);
+document.addEventListener("DOMContentLoaded", () => {
+  loadData();
+  supabase.auth.getUser().then(({ data: { user } }) => {
+    if (user) {
+      document.getElementById("authBtn").textContent = "Admin";
+      document.getElementById("authBtn").onclick = () => window.location.href = "admin.html";
+    } else {
+      document.getElementById("authBtn").onclick = () => document.getElementById("loginOverlay").classList.add("open");
+    }
+  });
 });
+
+window.addEventListener("scroll", () => { document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 50); });
 </script>
 </body>
 </html>
