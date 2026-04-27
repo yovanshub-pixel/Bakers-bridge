@@ -166,7 +166,8 @@ async function handleLogout() {
 }
 
 async function loadBakers() {
-  const { data, error } = await supabase.from('bakers').select('*').order('created_at', { ascending: false });
+  // Only select summary fields for faster listing
+  const { data, error } = await supabase.from('bakers').select('id, name, logo_key, loc').order('created_at', { ascending: false });
   if (error) return;
   allBakers = data;
   const list = document.getElementById("bakerList");
@@ -180,7 +181,7 @@ async function loadBakers() {
         <div><strong>${b.name}</strong><br><small>${b.loc || 'Chennai'}</small></div>
       </div>
       <div class="baker-actions">
-        <button class="btn-edit" onclick="editBaker('${b.id}')">Edit</button>
+        <button class="btn-edit" id="edit-btn-${b.id}" onclick="editBaker('${b.id}')">Edit</button>
         <button class="btn-delete" onclick="deleteBaker('${b.id}')">Delete</button>
       </div>
     `;
@@ -188,9 +189,22 @@ async function loadBakers() {
   });
 }
 
-function editBaker(id) {
-  const b = allBakers.find(x => x.id === id);
-  if (!b) return;
+async function editBaker(id) {
+  const btn = document.getElementById(`edit-btn-${id}`);
+  const originalText = btn.textContent;
+  btn.textContent = "Loading...";
+  btn.disabled = true;
+
+  // Fetch full details only when editing
+  const { data: b, error } = await supabase.from('bakers').select('*').eq('id', id).single();
+  
+  btn.textContent = originalText;
+  btn.disabled = false;
+
+  if (error || !b) {
+    alert("Error fetching baker details: " + (error ? error.message : "Not found"));
+    return;
+  }
   
   document.getElementById("editingId").value = b.id;
   document.getElementById("name").value = b.name || "";
