@@ -112,7 +112,11 @@ nav{background:var(--white); border-bottom:1px solid var(--border); padding:0 3r
         </div>
         <div class="form-group" style="grid-column: 1/-1;">
           <label>Products (JSON format)</label>
-          <textarea id="products" rows="6" placeholder='[{"name":"Cake", "price":"₹800", "image":""}]'></textarea>
+          <textarea id="products" rows="4" placeholder='[{"name":"Cake", "price":"₹800", "image":""}]'></textarea>
+        </div>
+        <div class="form-group" style="grid-column: 1/-1;">
+          <label>Reviews (JSON format)</label>
+          <textarea id="reviews" rows="4" placeholder='[{"reviewer_name":"John", "rating":5, "comment":"Amazing!"}]'></textarea>
         </div>
         <div class="form-group">
           <label>Areas Served (comma separated)</label>
@@ -199,6 +203,7 @@ function editBaker(id) {
   document.getElementById("rating").value = b.rating || 4.8;
   document.getElementById("about").value = b.about || "";
   document.getElementById("products").value = JSON.stringify(b.products || [], null, 2);
+  document.getElementById("reviews").value = JSON.stringify(b.reviews || [], null, 2);
   document.getElementById("areas").value = b.areas || "";
   document.getElementById("verified").checked = b.happy;
   
@@ -234,6 +239,10 @@ document.getElementById("bakerForm").addEventListener("submit", async (e) => {
   try { productsJson = JSON.parse(document.getElementById("products").value || "[]"); }
   catch(err) { alert("Invalid Products JSON format!"); btn.disabled = false; return; }
 
+  let reviewsJson = [];
+  try { reviewsJson = JSON.parse(document.getElementById("reviews").value || "[]"); }
+  catch(err) { alert("Invalid Reviews JSON format!"); btn.disabled = false; return; }
+
   const bakerData = {
     name: document.getElementById("name").value,
     spec: document.getElementById("category").value,
@@ -245,6 +254,7 @@ document.getElementById("bakerForm").addEventListener("submit", async (e) => {
     rating: parseFloat(document.getElementById("rating").value),
     about: document.getElementById("about").value,
     products: productsJson,
+    reviews: reviewsJson,
     areas: document.getElementById("areas").value,
     happy: document.getElementById("verified").checked
   };
