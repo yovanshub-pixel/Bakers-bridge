@@ -1,5 +1,3 @@
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,64 +11,66 @@
 :root{
   --cream:#FDF6EC;--warm:#F5E6CC;--gold:#C8962A;--gold-light:#E8B84B;
   --gold-dark:#9A7020;--brown:#3D2B1F;--brown-mid:#6B4C35;--brown-light:#9A7B65;
-  --text:#2C1A0E;--text-muted:#7A5C45;--white:#FFFFFF;--card:#FFFDF8;
+  --text:#2C1A0E;--text-muted:#7A5C45;--white:#FFF;--card:#FFFDF8;
   --border:rgba(200,150,42,0.18);
 }
 html{scroll-behavior:smooth;}
 body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
 ::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--warm);}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px;}
 
-nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(253,246,236,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 3rem;height:68px;display:flex;align-items:center;justify-content:space-between;transition:box-shadow 0.3s;}
-nav.scrolled{box-shadow:0 4px 20px rgba(61,43,31,0.1);}
+/* ---------- navigation ---------- */
+nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(253,246,236,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 3rem;height:68px;display:flex;align-items:center;justify-content:space-between;transition:box-shadow .3s;}
+nav.scrolled{box-shadow:0 4px 20px rgba(61,43,31,.1);}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
 .logo-img{width:44px;height:44px;border-radius:10px;object-fit:cover;border:1px solid var(--border);}
 .logo-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--brown);}
 .logo-text span{color:var(--gold);}
 .nav-links{display:flex;gap:2.5rem;list-style:none;}
-.nav-links a{text-decoration:none;color:var(--text-muted);font-size:14px;font-weight:500;transition:color 0.2s;position:relative;}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--gold);transition:width 0.2s;}
+.nav-links a{text-decoration:none;color:var(--text-muted);font-size:14px;font-weight:500;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--gold);transition:width .2s;}
 .nav-links a:hover{color:var(--gold);}
 .nav-links a:hover::after{width:100%;}
 .nav-actions{display:flex;gap:10px;align-items:center;}
-.btn-nav-outline{background:transparent;color:var(--brown);border:1.5px solid var(--border);padding:8px 18px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
+.btn-nav-outline{background:transparent;color:var(--brown);border:1.5px solid var(--border);padding:8px 18px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;}
 .btn-nav-outline:hover{border-color:var(--gold);color:var(--gold);}
-.btn-nav-solid{background:var(--gold);color:var(--white);border:none;padding:8px 20px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
+.btn-nav-solid{background:var(--gold);color:var(--white);border:none;padding:8px 20px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;}
 .btn-nav-solid:hover{background:var(--gold-dark);}
 
-/* ------------------- existing page styles ------------------- */
+/* ---------- hero ---------- */
 .hero{min-height:100vh;padding:120px 3rem 80px;display:flex;align-items:center;background:var(--cream);position:relative;overflow:hidden;}
-.hero-pattern{position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);background-size:20px 20px;}
-.hero-orb{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(200,150,42,0.12),transparent 70%);}
+.hero-pattern{position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);background-size:20px 20px;}
+.hero-orb{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(200,150,42,.12),transparent 70%);}
 .hero-orb.o1{width:700px;height:700px;top:-200px;right:-150px;}
 .hero-orb.o2{width:400px;height:400px;bottom:-100px;left:-100px;}
 .hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
 .hero-left{position:relative;z-index:1;}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,150,42,0.12);color:var(--gold-dark);padding:7px 18px;border-radius:30px;font-size:12px;font-weight:600;letter-spacing:0.5px;margin-bottom:1.5rem;border:1px solid rgba(200,150,42,0.25);animation:fadeUp 0.6s ease both;}
-.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,4.2rem);font-weight:700;line-height:1.1;color:var(--brown);margin-bottom:1.5rem;animation:fadeUp 0.6s ease 0.1s both;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,150,42,.12);color:var(--gold-dark);padding:7px 18px;border-radius:30px;font-size:12px;font-weight:600;letter-spacing:.5px;margin-bottom:1.5rem;border:1px solid rgba(200,150,42,.25);animation:fadeUp .6s ease both;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,4.2rem);font-weight:700;line-height:1.1;color:var(--brown);margin-bottom:1.5rem;animation:fadeUp .6s ease .1s both;}
 .hero h1 em{color:var(--gold);font-style:normal;}
-.hero-desc{font-size:1.05rem;color:var(--text-muted);line-height:1.75;margin-bottom:2rem;max-width:480px;animation:fadeUp 0.6s ease 0.2s both;}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp 0.6s ease 0.3s both;}
-.btn-primary{background:var(--gold);color:var(--white);border:none;padding:14px 32px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.25s;}
-.btn-primary:hover{background:var(--gold-dark);transform:translateY(-2px);box-shadow:0 8px 20px rgba(200,150,42,0.3);}
-.btn-outline{background:transparent;color:var(--brown);border:1.5px solid var(--brown-mid);padding:14px 32px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.25s;}
+.hero-desc{font-size:1.05rem;color:var(--text-muted);line-height:1.75;margin-bottom:2rem;max-width:480px;animation:fadeUp .6s ease .2s both;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp .6s ease .3s both;}
+.btn-primary{background:var(--gold);color:var(--white);border:none;padding:14px 32px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;transition:all .25s;}
+.btn-primary:hover{background:var(--gold-dark);transform:translateY(-2px);box-shadow:0 8px 20px rgba(200,150,42,.3);}
+.btn-outline{background:transparent;color:var(--brown);border:1.5px solid var(--brown-mid);padding:14px 32px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;transition:all .25s;}
 .btn-outline:hover{border-color:var(--gold);color:var(--gold);}
-.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);animation:fadeUp 0.6s ease 0.4s both;}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);animation:fadeUp .6s ease .4s both;}
 .stat-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--gold);display:block;line-height:1;}
 .stat-label{font-size:12px;color:var(--text-muted);margin-top:4px;}
 
-.hero-right{position:relative;height:600px;z-index:1;animation:fadeUp 0.6s ease 0.2s both;}
-.float-card{position:absolute;background:var(--card);border-radius:18px;border:1px solid var(--border);padding:1.25rem;box-shadow:0 8px 32px rgba(61,43,31,0.1);}
+/* ---------- hero right (floating cards) ---------- */
+.hero-right{position:relative;height:600px;z-index:1;animation:fadeUp .6s ease .2s both;}
+.float-card{position:absolute;background:var(--card);border-radius:18px;border:1px solid var(--border);padding:1.25rem;box-shadow:0 8px 32px rgba(61,43,31,.1);}
 .float-card.main{width:270px;top:20px;left:10px;animation:float1 4s ease-in-out infinite;}
-.float-card.side{width:230px;top:220px;right:0px;animation:float2 5s ease-in-out infinite;}
+.float-card.side{width:230px;top:220px;right:0;animation:float2 5s ease-in-out infinite;}
 .float-card.bottom{width:260px;bottom:20px;left:30px;animation:float1 6s ease-in-out infinite;}
 .fc-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
 .fc-logo{width:48px;height:48px;border-radius:12px;flex-shrink:0;overflow:hidden;border:1px solid var(--border);}
 .fc-logo img{width:100%;height:100%;object-fit:cover;display:block;}
-.fc-logo.empty{background:var(--cream);border:2px dashed rgba(200,150,42,0.3);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:18px;}
+.fc-logo.empty{background:var(--cream);border:2px dashed rgba(200,150,42,.3);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:18px;}
 .fc-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--brown);line-height:1.2;}
 .fc-spec{font-size:10px;color:var(--text-muted);margin-top:2px;}
-.fc-badge{display:inline-block;background:rgba(200,150,42,0.15);color:var(--gold-dark);font-size:10px;padding:4px 12px;border-radius:10px;font-weight:600;margin-bottom:8px;}
-.fc-badge.slot{background:rgba(61,43,31,0.07);color:var(--brown);}
+.fc-badge{display:inline-block;background:rgba(200,150,42,.15);color:var(--gold-dark);font-size:10px;padding:4px 12px;border-radius:10px;font-weight:600;margin-bottom:8px;}
+.fc-badge.slot{background:rgba(61,43,31,.07);color:var(--brown);}
 .fc-bottom{display:flex;justify-content:space-between;align-items:center;}
 .fc-stars{color:var(--gold);font-size:12px;font-weight:600;}
 .fc-loc{font-size:11px;color:var(--text-muted);}
@@ -78,57 +78,325 @@ nav.scrolled{box-shadow:0 4px 20px rgba(61,43,31,0.1);}
 @keyframes float2{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
-.search-bar-section{background:var(--white);padding:2.5rem 3rem;box-shadow:0 4px 20px rgba(61,43,31,0.07);}
-.search-inner{max-width:800px;margin:0 auto;}
-.search-box{display:flex;background:var(--cream);border:1.5px solid var(--border);border-radius:50px;overflow:hidden;padding:6px 6px 6px 24px;transition:border-color 0.2s;}
-.search-box:focus-within{border-color:var(--gold);}
-.search-box input{flex:1;border:none;background:transparent;font-size:15px;color:var(--text);outline:none;font-family:'Outfit',sans-serif;}
-.search-box input::placeholder{color:var(--text-muted);}
-.search-select{border:none;background:transparent;font-size:14px;color:var(--text-muted);outline:none;padding:0 12px;font-family:'Outfit',sans-serif;cursor:pointer;border-left:1px solid var(--border);}
-.search-btn{background:var(--gold);color:var(--white);border:none;padding:10px 28px;border-radius:40px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;white-space:nowrap;}
-.search-btn:hover{background:var(--gold-dark);}
-.area-chips{display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap;}
-.chip{background:var(--warm);color:var(--brown-mid);border:none;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
-.chip:hover,.chip.active{background:var(--gold);color:var(--white);}
-
-/* -------------- other sections (bakers, modal, etc.) -------------- */
+/* ---------- generic sections ---------- */
 section{padding:6rem 3rem;}
 .section-inner{max-width:1100px;margin:0 auto;}
 .section-header{text-align:center;margin-bottom:3.5rem;}
-.section-tag{font-size:11px;font-weight:600;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.75rem;}
-.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);color:var(--brown);margin-bottom:0.75rem;}
+.section-tag{font-size:11px;font-weight:600;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:.75rem;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);color:var(--brown);margin-bottom:.75rem;}
 .section-sub{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.7;}
 
+/* ---------- bakers list ---------- */
 .bakers-section{background:var(--cream);}
 .filter-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:2.5rem;flex-wrap:wrap;}
-.filter-tab{background:transparent;color:var(--text-muted);border:1px solid var(--border);padding:8px 20px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
+.filter-tab{background:transparent;color:var(--text-muted);border:1px solid var(--border);padding:8px 20px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;}
 .filter-tab:hover,.filter-tab.active{background:var(--gold);color:var(--white);border-color:var(--gold);}
 .bakers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;}
-
-.baker-card{background:var(--card);border-radius:18px;border:1px solid var(--border);overflow:hidden;transition:transform 0.25s,box-shadow 0.25s;cursor:pointer;}
-.baker-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(61,43,31,0.12);}
-.baker-card-header{height:190px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#FFF3DC,#F5E6CC);}
-.baker-brand-logo{width:90px;height:90px;border-radius:16px;overflow:hidden;border:2px solid rgba(200,150,42,0.2);box-shadow:0 4px 16px rgba(61,43,31,0.12);background:var(--white);}
+.baker-card{background:var(--card);border-radius:18px;border:1px solid var(--border);overflow:hidden;transition:transform .25s,box-shadow .25s;cursor:pointer;}
+.baker-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(61,43,31,.12);}
+.baker-card-header{height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#FFF3DC,#F5E6CC);}
+.baker-brand-logo{width:90px;height:90px;border-radius:16px;overflow:hidden;border:2px solid rgba(200,150,42,.2);box-shadow:0 4px 16px rgba(61,43,31,.12);background:var(--white);}
 .baker-brand-logo img{width:100%;height:100%;object-fit:cover;display:block;}
 .baker-brand-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--brown);text-align:center;padding:0 1rem;}
 .verified-badge{position:absolute;top:12px;right:12px;background:var(--gold);color:var(--white);font-size:10px;font-weight:600;padding:4px 12px;border-radius:12px;}
 
-.slot-card{background:var(--card);border-radius:18px;border:2px dashed rgba(200,150,42,0.25);overflow:hidden;transition:all 0.25s;cursor:pointer;}
-.slot-card:hover{border-color:var(--gold);box-shadow:0 8px 24px rgba(200,150,42,0.12);transform:translateY(-3px);}
-.slot-card-header{height:190px;background:linear-gradient(135deg,#FAFAF8,#F5F0E8);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;}
-.slot-logo-frame{width:80px;height:80px;border-radius:16px;border:2px dashed rgba(200,150,42,0.4);background:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
-.slot-logo-frame .frame-icon{font-size:22px;opacity:0.5;}
-.slot-logo-frame .frame-text{font-size:8px;color:var(--brown-light);text-align:center;line-height:1.3;padding:0 4px;}
-.slot-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--brown-light);text-align:center;}
-.slot-available-badge{position:absolute;top:12px;right:12px;background:rgba(61,43,31,0.08);color:var(--brown-light);font-size:10px;font-weight:600;padding:4px 12px;border-radius:12px;border:1px dashed rgba(61,43,31,0.15);}
-.slot-body{padding:1.25rem;}
-.slot-spec{font-size:12px;color:var(--brown-light);margin-bottom:0.75rem;font-style:italic;}
-.slot-loc{font-size:11px;color:rgba(122,92,69,0.5);}
-.slot-tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
-.slot-tag{background:rgba(200,150,42,0.06);color:rgba(154,112><div class="stat-label">Quality Verified</div></div>
+/* ---------- login modal ---------- */
+.modal-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.45);
+  backdrop-filter:blur(4px);
+  align-items:center;
+  justify-content:center;
+  z-index:2100;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--card);
+  border-radius:18px;
+  max-width:380px;
+  width:90%;
+  padding:2rem;
+  position:relative;
+}
+.modal-close{
+  position:absolute;
+  top:12px;
+  right:12px;
+  width:34px;
+  height:34px;
+  border:none;
+  border-radius:50%;
+  background:var(--warm);
+  cursor:pointer;
+  font-size:16px;
+  line-height:34px;
+  text-align:center;
+}
+.modal-close:hover{background:var(--gold);}
+.modal-header{padding-bottom:1rem;border-bottom:1px solid var(--border);margin-bottom:1rem;}
+.modal-header h2{font-family:'Cormorant Garamond',serif;color:var(--brown);margin:0;}
+.modal-content{margin-top:1rem;}
+</style>
+</head>
+<body>
+
+<!-- ==================== NAVIGATION ==================== -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">
+    <img src="https://i.imgur.com/yteSy8p.jpeg" alt="Bakers Bridge Logo" class="logo-img">
+    <span class="logo-text">Bakers <span>Bridge</span></span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#bakers">Bakers</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <button class="btn-nav-outline">Login</button>
+    <button class="btn-nav-solid">Get Started</button>
+  </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="home">
+  <div class="hero-orb o1"></div>
+  <div class="hero-orb o2"></div>
+
+  <div class="hero-inner">
+    <!-- left side -->
+    <div class="hero-left">
+      <div class="hero-badge">Explore 🧁</div>
+      <h1>Discover the <em>Best</em> Home Bakers in Chennai</h1>
+      <p class="hero-desc">Find authentic, homemade delights from trusted local bakers. Browse menus, read reviews, and order directly.</p>
+
+      <div class="hero-btns">
+        <button class="btn-primary">Browse Bakers</button>
+        <button class="btn-outline">How It Works</button>
+      </div>
+
+      <div class="hero-stats">
+        <div><span class="stat-num">4.9</span><span class="stat-label">Average Rating</span></div>
+        <div><span class="stat-num">357</span><span class="stat-label">Bakers Onboard</span></div>
+        <div><span class="stat-num">1.2k</span><span class="stat-label">Happy Customers</span></div>
+        <div><span class="stat-num">98%</span><span class="stat-label">Quality Verified</span></div>
       </div>
     </div>
+
+    <!-- right side (floating cards) -->
     <div class="hero-right">
       <div class="float-card main">
         <div class="fc-top">
-          <div class
+          <div class="fc-logo"><img src="https://i.imgur.com/0ZwP7O4.jpeg" alt="Baker 1"></div>
+          <div>
+            <div class="fc-name">Madhura’s Classics</div>
+            <div class="fc-spec">Specialty: Traditional sweets</div>
+          </div>
+        </div>
+        <div class="fc-bottom">
+          <span class="fc-stars">★★★★✰</span>
+          <span class="fc-loc">Velachery, Chennai</span>
+        </div>
+      </div>
+
+      <div class="float-card side">
+        <div class="fc-top">
+          <div class="fc-logo"><img src="https://i.imgur.com/n4YgVjk.jpeg" alt="Baker 2"></div>
+          <div>
+            <div class="fc-name">The Sweet Spot</div>
+            <div class="fc-spec">Specialty: Fusion desserts</div>
+          </div>
+        </div>
+        <div class="fc-bottom">
+          <span class="fc-stars">★★★★✰</span>
+          <span class="fc-loc">Adyar, Chennai</span>
+        </div>
+      </div>
+
+      <div class="float-card bottom">
+        <div class="fc-top">
+          <div class="fc-logo"><img src="https://i.imgur.com/JCkZfAo.jpeg" alt="Baker 3"></div>
+          <div>
+            <div class="fc-name">Baker’s Dream</div>
+            <div class="fc-spec">Specialty: Gluten‑free treats</div>
+          </div>
+        </div>
+        <div class="fc-bottom">
+          <span class="fc-stars">★★★★✰</span>
+          <span class="fc-loc">Porur, Chennai</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BAKERS SECTION ==================== -->
+<section class="bakers-section" id="bakers">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">Our Bakers</div>
+      <h2 class="section-title">Featured Home Bakers</h2>
+      <p class="section-sub">Hand‑picked bakers with proven quality and customer love.</p>
+    </div>
+
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all">All</button>
+      <button class="filter-tab" data-filter="sweets">Sweets</button>
+      <button class="filter-tab" data-filter="cakes">Cakes</button>
+      <button class="filter-tab" data-filter="vegan">Vegan</button>
+    </div>
+
+    <div class="bakers-grid" id="bakersGrid">
+      <!-- cards are injected by JavaScript -->
+    </div>
+  </div>
+</section>
+
+<!-- ==================== LOGIN MODAL ==================== -->
+<div class="modal-overlay" id="loginOverlay" onclick="closeLoginOutside(event)">
+  <div class="modal login-modal">
+    <button class="modal-close" onclick="closeLogin()">✕</button>
+    <div class="modal-header"><h2>Login</h2></div>
+    <div class="modal-content">
+      <form id="loginForm">
+        <div style="margin-bottom:1rem;">
+          <label for="loginEmail" style="display:block;font-size:13px;color:var(--text-muted);margin-bottom:4px;">Email</label>
+          <input id="loginEmail" type="email" required placeholder="you@domain.com"
+                 style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;background:var(--cream);color:var(--text);font-family:'Outfit',sans-serif;">
+        </div>
+
+        <div style="margin-bottom:1rem;">
+          <label for="loginPassword" style="display:block;font-size:13px;color:var(--text-muted);margin-bottom:4px;">Password</label>
+          <input id="loginPassword" type="password" required placeholder="••••••••"
+                 style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;background:var(--cream);color:var(--text);font-family:'Outfit',sans-serif;">
+        </div>
+
+        <div id="loginMessage" style="margin-bottom:1rem;color:var(--gold);font-size:13px;display:none;"></div>
+
+        <button type="submit"
+                style="background:var(--gold);color:var(--white);border:none;padding:10px 20px;border-radius:20px;font-size:14px;font-weight:500;cursor:pointer;width:100%;">Log in</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SUPABASE SDK ==================== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.3/dist/umd/supabase.min.js"></script>
+
+<script>
+/* -------------------------------------------------------
+   Supabase initialization – uses Vercel environment variables
+   ------------------------------------------------------- */
+const supabaseUrl = import.meta.env?.NEXT_PUBLIC_SUPABASE_URL || (window.NEXT_PUBLIC_SUPABASE_URL || undefined);
+const supabaseAnonKey = import.meta.env?.NEXT_PUBLIC_SUPABASE_ANON_KEY || (window.NEXT_PUBLIC_SUPABASE_ANON_KEY || undefined);
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('Supabase environment variables missing. Check Vercel dashboard.');
+}
+
+/* Create the client */
+const supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
+
+/* -------------------------------------------------------
+   Helper: scroll‑nav shadow
+   ------------------------------------------------------- */
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('mainNav');
+  if (window.scrollY > 20) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+/* -------------------------------------------------------
+   1️⃣ Open / close login modal
+   ------------------------------------------------------- */
+function openLoginModal() {
+  const overlay = document.getElementById('loginOverlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // reset any prior messages/inputs
+  document.getElementById('loginMessage').style.display = 'none';
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginPassword').value = '';
+}
+function closeLogin() {
+  const overlay = document.getElementById('loginOverlay');
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeLoginOutside(e) {
+  if (e.target.id === 'loginOverlay') closeLogin();
+}
+
+/* Attach click listener to the nav login button */
+document.querySelector('.btn-nav-outline').addEventListener('click', e => {
+  e.preventDefault();
+  openLoginModal();
+});
+
+/* -------------------------------------------------------
+   2️⃣ Login form submission – Supabase Auth
+   ------------------------------------------------------- */
+const loginForm = document.getElementById('loginForm');
+loginForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const msgEl = document.getElementById('loginMessage');
+
+  msgEl.style.display = 'none';
+  msgEl.textContent = '';
+
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      msgEl.textContent = error.message;
+      msgEl.style.display = 'block';
+      return;
+    }
+
+    // SUCCESS
+    msgEl.textContent = `✅ Logged in as ${data.user.email}`;
+    msgEl.style.display = 'block';
+
+    // short pause then close modal
+    setTimeout(() => {
+      closeLogin();
+    }, 1500);
+  } catch (err) {
+    console.error('Login error', err);
+    msgEl.textContent = 'Unexpected error – try again.';
+    msgEl.style.display = 'block';
+  }
+});
+
+/* -------------------------------------------------------
+   3️⃣ Render baker cards from Supabase table 'bakers'
+   ------------------------------------------------------- */
+async function loadBakers(filter = 'all') {
+  const { data, error } = await supabase.from('bakers').select('*');
+
+  if (error) {
+    console.error('Error loading bakers:', error);
+    return;
+  }
+
+  const grid = document.getElementById('bakersGrid');
+  grid.innerHTML = '';
+
+  const filtered = data.filter(item => {
+    if (filter === 'all') return true;
+    // assume each baker row has a `category` column (e.g., 'sweets', 'cakes', 'vegan')
+    return item.category && item.category.toLowerCase() === filter;
+  });
+
+  filtered.forEach(baker => {
+    const card = document.createElement('div');
+    card.className = 'baker-card';
+    card.innerHTML = `
+      <div class="baker-card-header">
+        <div class="baker-brand-logo"><img src="${baker.logo_url}" alt="${baker.name}"></div>
+        <div class="baker-brand-name">${baker.name}</div>
+        ${baker.verified ? '<div class="verified-badge">✔
