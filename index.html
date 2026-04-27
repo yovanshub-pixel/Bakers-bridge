@@ -357,7 +357,10 @@ async function loadBakers() {
   } catch (err) {
     console.error('Error loading bakers:', err);
     document.getElementById("bakersGrid").innerHTML = 
-      '<div style="text-align:center; grid-column: 1/-1; padding: 3rem; color: var(--gold);">Error loading bakers. Please try again later.</div>';
+      `<div style="text-align:center; grid-column: 1/-1; padding: 3rem; color: var(--gold);">
+        Error: ${err.message || "Connection failed"}. 
+        <br><small>Make sure your table is named 'bakers' and RLS is disabled.</small>
+      </div>`;
   }
 }
 
