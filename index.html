@@ -2442,17 +2442,17 @@
           card.className = "baker-card";
           card.innerHTML = `
         <div class="baker-card-header" onclick="bbOpenProfile('${b.id}')">
-          <div class="baker-brand-logo"><img src="${b.logo_url || IMAGES.BB_LOGO}"/></div>
+          <div class="baker-brand-logo"><img src="${b.logo_key || IMAGES.BB_LOGO}"/></div>
           <div class="baker-brand-name">${b.name || 'Delicious Baker'}</div>
-          ${b.verified ? '<span class="verified-badge">✓ Verified</span>' : ''}
+          ${b.happy ? '<span class="verified-badge">✓ Verified</span>' : ''}
         </div>
         <div class="baker-body" onclick="bbOpenProfile('${b.id}')">
-          <div class="baker-spec">${b.category || 'Home Baker'}</div>
+          <div class="baker-spec">${b.spec || 'Home Baker'}</div>
           <div class="baker-row">
-            <div class="baker-loc">📍 ${b.location || 'Chennai'}</div>
+            <div class="baker-loc">📍 ${b.loc || 'Chennai'}</div>
             <div class="baker-rating"><span class="stars">★★★★★</span><span class="rating-val">${b.rating || '4.8'}</span></div>
           </div>
-          <div class="baker-tags"><span class="tag">${b.category || 'Baker'}</span><span class="tag">${b.experience || 'Verified'}</span></div>
+          <div class="baker-tags"><span class="tag">${b.spec || 'Baker'}</span><span class="tag">${b.exp || 'Verified'}</span></div>
         </div>
         <div class="baker-footer">
           <button class="btn-enquire" onclick="event.stopPropagation(); window.open('https://wa.me/${b.whatsapp || '916369380977'}')">💬 WhatsApp</button>
@@ -2503,8 +2503,8 @@
       const query = document.getElementById("searchInput").value.toLowerCase();
       const area = document.getElementById("searchArea").value;
       const filtered = window.allBakers.filter(b => {
-        const matchQuery = (b.name || "").toLowerCase().includes(query) || (b.category || "").toLowerCase().includes(query);
-        const matchArea = area === "All Areas" || (b.location || "").includes(area);
+        const matchQuery = (b.name || "").toLowerCase().includes(query) || (b.spec || "").toLowerCase().includes(query);
+        const matchArea = area === "All Areas" || (b.loc || "").includes(area);
         return matchQuery && matchArea;
       });
       renderBakers(filtered);
@@ -2512,7 +2512,7 @@
 
     function filterByArea(area) {
       document.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c.textContent === area));
-      const filtered = area === "All" ? window.allBakers : window.allBakers.filter(b => (b.location || "").includes(area));
+      const filtered = area === "All" ? window.allBakers : window.allBakers.filter(b => (b.loc || "").includes(area));
       renderBakers(filtered);
     }
 
@@ -2528,11 +2528,11 @@
           alert("Error: Baker not found!");
           return;
         }
-        document.getElementById("modalLogo").src = selectedBaker.logo_url || "https://i.imgur.com/yteSy8p.jpeg";
+        document.getElementById("modalLogo").src = selectedBaker.logo_key || "https://i.imgur.com/yteSy8p.jpeg";
         document.getElementById("modalName").innerText = selectedBaker.name || "Baker Profile";
-        document.getElementById("modalSpec").innerText = selectedBaker.category || "Home Baker";
+        document.getElementById("modalSpec").innerText = selectedBaker.spec || "Home Baker";
         document.getElementById("modalRating").innerText = "★ " + (selectedBaker.rating || "4.8");
-        document.getElementById("modalLoc").innerText = "📍 " + (selectedBaker.location || "Chennai");
+        document.getElementById("modalLoc").innerText = "📍 " + (selectedBaker.loc || "Chennai");
         document.getElementById("modalWaBtn").onclick = function () {
           window.open("https://wa.me/" + (selectedBaker.whatsapp || "916369380977"));
         };
@@ -2580,7 +2580,7 @@
         });
         content.innerHTML = html + '</div>';
       } else if (tab === 'about') {
-        content.innerHTML = `<div class="about-text">${selectedBaker.about || 'Coming soon...'}</div><div class="about-highlights"><div class="highlight-item"><div class="highlight-val">${selectedBaker.experience || 'Verified'}</div><div class="highlight-label">Experience</div></div><div class="highlight-item"><div class="highlight-val">${selectedBaker.orders_completed || '50+'}</div><div class="highlight-label">Orders</div></div></div>`;
+        content.innerHTML = `<div class="about-text">${selectedBaker.about || 'Coming soon...'}</div><div class="about-highlights"><div class="highlight-item"><div class="highlight-val">${selectedBaker.exp || 'Verified'}</div><div class="highlight-label">Experience</div></div><div class="highlight-item"><div class="highlight-val">${selectedBaker.orders || '50+'}</div><div class="highlight-label">Orders</div></div></div>`;
       } else if (tab === 'reviews') {
         let html = `
       <div class="review-form">
