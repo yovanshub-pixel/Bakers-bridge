@@ -1568,12 +1568,17 @@
 
     .pkg-card {
       background: var(--card);
-      border-radius: 20px;
+      border-radius: 24px;
       border: 1px solid var(--border);
-      padding: 2rem;
-      transition: transform 0.25s;
+      padding: 2.5rem 2rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      height: 100%;
     }
 
     .pkg-card:hover {
@@ -1691,13 +1696,14 @@
 
     .pkg-btn {
       width: 100%;
-      padding: 12px;
-      border-radius: 25px;
+      padding: 14px;
+      border-radius: 30px;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
       font-family: 'Outfit', sans-serif;
-      transition: all 0.2s;
+      transition: all 0.25s;
+      margin-top: auto;
     }
 
     .pkg-btn-outline {
@@ -2298,24 +2304,44 @@
         <div class="pkg-card">
           <div class="pkg-icon">🌱</div>
           <div class="pkg-name">Basic</div>
-          <div class="pkg-price">₹999 <span class="pkg-price-period">/ month</span></div><button
-            class="pkg-btn pkg-btn-outline" onclick="window.open('https://wa.me/916369380977','_blank')">Get
-            Started</button>
+          <div class="pkg-price">₹999 <span class="pkg-price-period">/ month</span></div>
+          <div class="pkg-desc">Perfect for hobbyists and weekend bakers.</div>
+          <div class="pkg-divider"></div>
+          <ul class="pkg-features">
+            <li class="pkg-feature">Verified Profile Badge</li>
+            <li class="pkg-feature">Showcase up to 5 products</li>
+            <li class="pkg-feature">WhatsApp Connect</li>
+          </ul>
+          <button class="pkg-btn pkg-btn-outline" onclick="window.open('https://wa.me/916369380977','_blank')">Get Started</button>
         </div>
         <div class="pkg-card featured">
           <div class="pkg-popular">Most Popular</div>
           <div class="pkg-icon">🚀</div>
           <div class="pkg-name">Standard</div>
-          <div class="pkg-price">₹1999 <span class="pkg-price-period">/ month</span></div><button
-            class="pkg-btn pkg-btn-solid" onclick="window.open('https://wa.me/916369380977','_blank')">Get
-            Started</button>
+          <div class="pkg-price">₹1999 <span class="pkg-price-period">/ month</span></div>
+          <div class="pkg-desc">Grow your brand with more visibility.</div>
+          <div class="pkg-divider"></div>
+          <ul class="pkg-features">
+            <li class="pkg-feature">Everything in Basic</li>
+            <li class="pkg-feature">Showcase up to 15 products</li>
+            <li class="pkg-feature">Priority Search Results</li>
+            <li class="pkg-feature">Monthly Quality Check</li>
+          </ul>
+          <button class="pkg-btn pkg-btn-solid" onclick="window.open('https://wa.me/916369380977','_blank')">Get Started</button>
         </div>
         <div class="pkg-card">
           <div class="pkg-icon">👑</div>
           <div class="pkg-name">Premium</div>
-          <div class="pkg-price">₹3000 <span class="pkg-price-period">/ month</span></div><button
-            class="pkg-btn pkg-btn-outline" onclick="window.open('https://wa.me/916369380977','_blank')">Get
-            Started</button>
+          <div class="pkg-price">₹3000 <span class="pkg-price-period">/ month</span></div>
+          <div class="pkg-desc">Dominate your area with maximum exposure.</div>
+          <div class="pkg-divider"></div>
+          <ul class="pkg-features">
+            <li class="pkg-feature">Everything in Standard</li>
+            <li class="pkg-feature">Unlimited Products</li>
+            <li class="pkg-feature">Featured Homepage Spot</li>
+            <li class="pkg-feature">Analytics Dashboard</li>
+          </ul>
+          <button class="pkg-btn pkg-btn-outline" onclick="window.open('https://wa.me/916369380977','_blank')">Get Started</button>
         </div>
       </div>
     </div>
