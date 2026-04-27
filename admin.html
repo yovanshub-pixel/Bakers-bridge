@@ -62,7 +62,7 @@
       padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 12px;
       font-size: 1rem; font-family: inherit; background: #FAFAFA;
     }
-    input:focus, textarea:focus { border: 2px solid var(--accent) !important; outline: none; background: white; }
+    input:focus, textarea:focus, select:focus { border: 2px solid var(--accent) !important; outline: none; background: white; }
     
     .btn {
       padding: 12px 28px; border-radius: 30px; font-weight: 600; cursor: pointer;
@@ -91,6 +91,12 @@
     .table-logo { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
 
     .hidden { display: none !important; }
+
+    /* PLAN BADGES */
+    .plan-badge { padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+    .plan-Premium { background: #FFF3DC; color: var(--accent-dark); border: 1px solid var(--accent); }
+    .plan-Standard { background: #E0F2FE; color: #0369A1; border: 1px solid #BAE6FD; }
+    .plan-Basic { background: #F1F5F9; color: #475569; border: 1px solid #E2E8F0; }
   </style>
 </head>
 <body>
@@ -114,7 +120,7 @@
         <div class="card">
           <table class="baker-table">
             <thead>
-              <tr><th>Baker</th><th>Location</th><th>Status</th><th>Actions</th></tr>
+              <tr><th>Baker</th><th>Location</th><th>Plan</th><th>Actions</th></tr>
             </thead>
             <tbody id="bakerList"></tbody>
           </table>
@@ -139,19 +145,31 @@
                 <label>Specialization</label>
                 <input type="text" id="spec" placeholder="e.g. Wedding Cakes">
               </div>
+              
+              <!-- SUBSCRIPTION PLAN -->
+              <div class="form-group">
+                <label>Subscription Plan</label>
+                <select id="plan" style="font-weight: 600;">
+                  <option value="Basic">🍰 Basic Plan</option>
+                  <option value="Standard">🚀 Standard Plan</option>
+                  <option value="Premium">👑 Premium Plan</option>
+                </select>
+              </div>
+
               <div class="form-group">
                 <label>Logo (URL or Upload)</label>
                 <div style="display:flex; gap:10px; align-items:center;">
                   <div class="logo-preview-box"><img id="logoPreview" src="https://i.imgur.com/yteSy8p.jpeg"></div>
                   <div style="flex:1; display:flex; flex-direction:column; gap:5px;">
                     <input type="url" id="logo_key" placeholder="URL..." oninput="updateLogoPreview(this.value)">
-                    <button type="button" class="btn-upload" onclick="triggerUpload('logo_file')">📁 Upload from Gallery</button>
+                    <button type="button" class="btn-upload" onclick="triggerUpload('logo_file')">📁 Upload Logo</button>
                     <input type="file" id="logo_file" class="hidden" accept="image/*" onchange="handleFileUpload(this, 'logo_key', 'logoPreview')">
                   </div>
                 </div>
               </div>
+
               <div class="form-group">
-                <label>Location</label>
+                <label>Primary Location</label>
                 <input type="text" id="loc">
               </div>
               <div class="form-group">
@@ -173,8 +191,13 @@
                 <div id="productRows"></div>
               </div>
 
-              <div class="form-group" style="flex-direction:row; align-items:center; gap:10px;">
-                <input type="checkbox" id="happy" checked> <label style="margin:0; cursor:pointer;">Verified Baker</label>
+              <div class="form-group" style="flex-direction:row; align-items:center; gap:20px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <input type="checkbox" id="happy" checked> <label style="margin:0; cursor:pointer;">Verified Baker</label>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <input type="checkbox" id="is_hero"> <label style="margin:0; cursor:pointer; color: var(--accent-dark); font-weight:bold;">🌟 Feature in Home Hero</label>
+                </div>
               </div>
             </div>
             <div style="margin-top: 2rem; display: flex; gap: 1rem;">
@@ -212,12 +235,14 @@
     function switchSection(id) {
       document.getElementById('section-manage').classList.toggle('hidden', id !== 'manage');
       document.getElementById('section-form').classList.toggle('hidden', id !== 'form');
+      const navItems = document.querySelectorAll('.nav-item');
+      navItems[0].classList.toggle('active', id === 'manage');
+      navItems[1].classList.toggle('active', id === 'form');
       if (id === 'manage') loadBakers();
     }
 
     function updateLogoPreview(url) { document.getElementById('logoPreview').src = url || 'https://i.imgur.com/yteSy8p.jpeg'; }
 
-    // UPLOAD LOGIC
     function triggerUpload(id) { document.getElementById(id).click(); }
 
     async function handleFileUpload(input, targetUrlId, previewImgId) {
@@ -225,15 +250,12 @@
       if (!file) return;
       const originalText = input.previousElementSibling.textContent;
       input.previousElementSibling.textContent = "⌛ Uploading...";
-      
       try {
         const fileExt = file.name.split('.').pop();
         const fileName = `${Math.random()}.${fileExt}`;
         const filePath = `uploads/${fileName}`;
-
         const { error: uploadError } = await supabase.storage.from('bakers').upload(filePath, file);
         if (uploadError) throw uploadError;
-
         const { data: { publicUrl } } = supabase.storage.from('bakers').getPublicUrl(filePath);
         document.getElementById(targetUrlId).value = publicUrl;
         if (previewImgId) document.getElementById(previewImgId).src = publicUrl;
@@ -244,7 +266,6 @@
       }
     }
 
-    // PRODUCT EDITOR
     let rowCount = 0;
     function addProductRow(data = { name: '', price: '', image: '' }) {
       rowCount++;
@@ -277,7 +298,7 @@
 
     async function loadBakers() {
       try {
-        const { data, error } = await supabase.from('bakers').select('id, name, loc, happy, logo_key').order('created_at', { ascending: false });
+        const { data, error } = await supabase.from('bakers').select('id, name, loc, happy, logo_key, plan').order('created_at', { ascending: false });
         if (error) throw error;
         const list = document.getElementById("bakerList");
         list.innerHTML = "";
@@ -288,7 +309,7 @@
           tr.innerHTML = `
             <td><div style="display:flex;align-items:center;gap:10px;"><img src="${b.logo_key || ''}" class="table-logo"><b>${b.name}</b></div></td>
             <td>📍 ${b.loc || 'Chennai'}</td>
-            <td>${b.happy ? 'Verified' : ''}</td>
+            <td><span class="plan-badge plan-${b.plan || 'Basic'}">${b.plan || 'Basic'}</span></td>
             <td><button class="btn btn-sm btn-secondary" onclick="editBaker('${b.id}')">Edit</button></td>
           `;
           list.appendChild(tr);
@@ -302,13 +323,12 @@
       try {
         btn.textContent = "⌛...";
         btn.disabled = true;
-
         const { data: b, error } = await supabase.from('bakers').select('*').eq('id', id).single();
         if (error) throw error;
-        
         document.getElementById("editingId").value = b.id;
         document.getElementById("name").value = b.name || "";
         document.getElementById("spec").value = b.spec || "";
+        document.getElementById("plan").value = b.plan || "Basic";
         document.getElementById("logo_key").value = b.logo_key || "";
         document.getElementById("loc").value = b.loc || "";
         document.getElementById("whatsapp").value = b.whatsapp || "";
@@ -318,26 +338,16 @@
         document.getElementById("areas").value = b.areas || "";
         document.getElementById("baker_bio").value = b.about || "";
         document.getElementById("happy").checked = b.happy;
-        
+        document.getElementById("is_hero").checked = b.is_hero || false;
         document.getElementById('productRows').innerHTML = '';
-        if (b.products && b.products.length > 0) {
-          b.products.forEach(p => addProductRow(p));
-        } else {
-          addProductRow();
-        }
-        
+        if (b.products) b.products.forEach(p => addProductRow(p)); else addProductRow();
         updateLogoPreview(b.logo_key);
         document.getElementById("formTitle").textContent = "✏️ Editing: " + b.name;
         document.getElementById("saveBtn").textContent = "Update Baker Profile";
-        
         switchSection('form');
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      } catch (err) {
-        alert("Edit failed: " + err.message);
-      } finally {
-        btn.textContent = originalText;
-        btn.disabled = false;
-      }
+      } catch (err) { alert(err.message); }
+      finally { btn.textContent = originalText; btn.disabled = false; }
     }
 
     document.getElementById("bakerForm").addEventListener("submit", async (e) => {
@@ -348,6 +358,7 @@
         const bakerData = {
           name: document.getElementById("name").value,
           spec: document.getElementById("spec").value,
+          plan: document.getElementById("plan").value,
           logo_key: document.getElementById("logo_key").value,
           loc: document.getElementById("loc").value,
           whatsapp: document.getElementById("whatsapp").value,
@@ -357,8 +368,9 @@
           about: document.getElementById("baker_bio").value,
           areas: document.getElementById("areas").value,
           happy: document.getElementById("happy").checked,
+          is_hero: document.getElementById("is_hero").checked,
           products: getProductsData(),
-          reviews: [] // Keeping simple for now
+          reviews: [] 
         };
         const id = document.getElementById("editingId").value;
         const { error } = id ? await supabase.from('bakers').update(bakerData).eq('id', id) : await supabase.from('bakers').insert([bakerData]);
