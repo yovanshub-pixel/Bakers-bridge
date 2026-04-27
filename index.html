@@ -1065,26 +1065,34 @@
 
     .modal-close {
       position: absolute;
-      top: 16px;
-      right: 16px;
-      z-index: 10;
-      width: 36px;
-      height: 36px;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background: var(--warm);
-      border: none;
+      background: var(--white);
+      border: 1px solid var(--border);
       cursor: pointer;
-      font-size: 16px;
       color: var(--brown);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 8px rgba(61, 43, 31, 0.08);
     }
 
     .modal-close:hover {
       background: var(--gold);
       color: var(--white);
+      transform: rotate(90deg) scale(1.1);
+      border-color: var(--gold);
+      box-shadow: 0 4px 12px rgba(200, 150, 42, 0.25);
+    }
+
+    .modal-close svg {
+      width: 18px;
+      height: 18px;
     }
 
     .modal-header {
@@ -2331,7 +2339,9 @@
 
   <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this) closeModal()">
     <div class="modal">
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close Profile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
       <div class="modal-header">
         <div class="modal-logo"><img id="modalLogo" src="" alt="Baker Logo" /></div>
         <div class="modal-info">
@@ -2513,7 +2523,14 @@
       }
     }
 
-    function closeModal() { document.getElementById("modalOverlay").classList.remove("open"); document.body.style.overflow = "auto"; }
+    function closeModal() { 
+      const overlay = document.getElementById("modalOverlay");
+      if (overlay) {
+        overlay.classList.remove("open"); 
+        overlay.style.display = "none";
+      }
+      document.body.style.overflow = "auto"; 
+    }
     function openLoginModal() { document.getElementById("loginOverlay").classList.add("open"); }
     function closeLoginModal() { document.getElementById("loginOverlay").classList.remove("open"); }
 
