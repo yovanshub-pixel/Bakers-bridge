@@ -18,6 +18,8 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; position: relative; padding-top: 110px; }
+    a { color: inherit; text-decoration: none; transition: 0.3s; }
+    a:hover { color: var(--gold); }
 
     /* ── VIBRANT TICKER (VERY VISIBLE) ── */
     .ticker { background: var(--gold); color: var(--white); height: 35px; display: flex; align-items: center; overflow: hidden; position: fixed; top: 0; left: 0; right: 0; z-index: 1100; font-size: 11px; letter-spacing: 1px; font-weight: 800; text-transform: uppercase; border-bottom: 1px solid rgba(0,0,0,0.1); }
@@ -34,6 +36,9 @@
     .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
     .logo-img { width: 44px; height: 44px; border-radius: 12px; object-fit: cover; }
     .logo-text { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: var(--brown); }
+    .logo-text span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 14px; font-weight: 500; }
     .btn-nav { background: var(--gold); color: white; border: none; padding: 10px 24px; border-radius: 30px; font-weight: 600; cursor: pointer; font-size: 13px; }
 
     /* ── HERO (NO OVERLAP) ── */
