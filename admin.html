@@ -100,7 +100,7 @@
       <a href="index.html" class="logo">Bakers<span>Bridge</span></a>
       <ul class="nav-links">
         <li class="nav-item active" onclick="switchSection('manage')">📋 Manage Listings</li>
-        <li class="nav-item" onclick="switchSection('form')">✨ Add New Baker</li>
+        <li class="nav-item" onclick="prepareAddForm()">✨ Add New Baker</li>
       </ul>
       <button class="logout-btn" onclick="handleLogout()">← Logout</button>
     </aside>
@@ -109,7 +109,7 @@
       <section id="section-manage">
         <header>
           <h1>Manage Bakers</h1>
-          <button class="btn btn-primary" onclick="switchSection('form')">+ New Baker</button>
+          <button class="btn btn-primary" onclick="prepareAddForm()">+ New Baker</button>
         </header>
         <div class="card">
           <table class="baker-table">
@@ -195,6 +195,18 @@
     async function checkAuth() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) window.location.href = "index.html"; else loadBakers();
+    }
+
+    function prepareAddForm() {
+      document.getElementById("bakerForm").reset();
+      document.getElementById("editingId").value = "";
+      document.getElementById("formTitle").textContent = "✨ Create New Listing";
+      document.getElementById("saveBtn").textContent = "Save Baker Profile";
+      document.getElementById('productRows').innerHTML = '';
+      addProductRow();
+      updateLogoPreview('');
+      switchSection('form');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function switchSection(id) {
