@@ -285,24 +285,47 @@
     }
 
     async function editBaker(id) {
-      const { data: b, error } = await supabase.from('bakers').select('*').eq('id', id).single();
-      if (error) return alert(error.message);
-      document.getElementById("editingId").value = b.id;
-      document.getElementById("name").value = b.name || "";
-      document.getElementById("spec").value = b.spec || "";
-      document.getElementById("logo_key").value = b.logo_key || "";
-      document.getElementById("loc").value = b.loc || "";
-      document.getElementById("whatsapp").value = b.whatsapp || "";
-      document.getElementById("exp").value = b.exp || "";
-      document.getElementById("orders").value = b.orders || "";
-      document.getElementById("rating").value = b.rating || 4.8;
-      document.getElementById("areas").value = b.areas || "";
-      document.getElementById("baker_bio").value = b.about || "";
-      document.getElementById("happy").checked = b.happy;
-      document.getElementById('productRows').innerHTML = '';
-      if (b.products) b.products.forEach(p => addProductRow(p)); else addProductRow();
-      updateLogoPreview(b.logo_key);
-      switchSection('form');
+      const btn = event.target;
+      const originalText = btn.textContent;
+      try {
+        btn.textContent = "⌛...";
+        btn.disabled = true;
+
+        const { data: b, error } = await supabase.from('bakers').select('*').eq('id', id).single();
+        if (error) throw error;
+        
+        document.getElementById("editingId").value = b.id;
+        document.getElementById("name").value = b.name || "";
+        document.getElementById("spec").value = b.spec || "";
+        document.getElementById("logo_key").value = b.logo_key || "";
+        document.getElementById("loc").value = b.loc || "";
+        document.getElementById("whatsapp").value = b.whatsapp || "";
+        document.getElementById("exp").value = b.exp || "";
+        document.getElementById("orders").value = b.orders || "";
+        document.getElementById("rating").value = b.rating || 4.8;
+        document.getElementById("areas").value = b.areas || "";
+        document.getElementById("baker_bio").value = b.about || "";
+        document.getElementById("happy").checked = b.happy;
+        
+        document.getElementById('productRows').innerHTML = '';
+        if (b.products && b.products.length > 0) {
+          b.products.forEach(p => addProductRow(p));
+        } else {
+          addProductRow();
+        }
+        
+        updateLogoPreview(b.logo_key);
+        document.getElementById("formTitle").textContent = "✏️ Editing: " + b.name;
+        document.getElementById("saveBtn").textContent = "Update Baker Profile";
+        
+        switchSection('form');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        alert("Edit failed: " + err.message);
+      } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
     }
 
     document.getElementById("bakerForm").addEventListener("submit", async (e) => {
