@@ -20,7 +20,7 @@ nav{background:var(--white); border-bottom:1px solid var(--border); padding:0 3r
 .logo-text{font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:700; color:var(--brown); text-decoration:none;}
 .logo-text span{color:var(--gold);}
 
-.container{max-width:1000px; margin:3rem auto; padding:0 2rem;}
+.container{max-width:1100px; margin:3rem auto; padding:0 2rem;}
 .header{margin-bottom:3rem; display:flex; justify-content:space-between; align-items:flex-end;}
 .header h1{font-family:'Cormorant Garamond',serif; font-size:2.5rem; color:var(--brown);}
 
@@ -33,18 +33,14 @@ nav{background:var(--white); border-bottom:1px solid var(--border); padding:0 3r
 .form-group input, .form-group select, .form-group textarea{
   padding:12px; border:1.5px solid var(--border); border-radius:8px; font-size:14px; font-family:'Outfit',sans-serif; outline:none;
 }
-.form-group input:focus{border-color:var(--gold);}
+.form-group input:focus, .form-group textarea:focus{border-color:var(--gold);}
 
-.btn-primary{background:var(--gold); color:var(--white); border:none; padding:12px 24px; border-radius:30px; font-size:15px; font-weight:600; cursor:pointer; font-family:'Outfit',sans-serif; transition:all 0.2s; margin-top:1rem;}
+.btn-primary{background:var(--gold); color:var(--white); border:none; padding:12px 24px; border-radius:30px; font-size:15px; font-weight:600; cursor:pointer; font-family:'Outfit',sans-serif; transition:all 0.2s;}
 .btn-primary:hover{background:var(--gold-dark); transform:translateY(-2px);}
 
-.btn-outline{background:transparent; color:var(--brown); border:1.5px solid var(--border); padding:8px 18px; border-radius:20px; font-size:13px; font-weight:500; cursor:pointer; font-family:'Outfit',sans-serif; text-decoration:none;}
-
-.baker-list{display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:1rem;}
+.baker-list{display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:1rem;}
 .baker-item{background:var(--white); padding:1rem; border-radius:12px; border:1px solid var(--border); display:flex; align-items:center; gap:1rem;}
 .baker-item img{width:50px; height:50px; border-radius:8px; object-fit:cover;}
-.baker-item-info h3{font-size:1rem; color:var(--brown);}
-.baker-item-info p{font-size:12px; color:var(--text-muted);}
 
 #loadingOverlay{position:fixed; inset:0; background:rgba(253,246,236,0.8); display:flex; align-items:center; justify-content:center; z-index:1000;}
 
@@ -59,95 +55,94 @@ nav{background:var(--white); border-bottom:1px solid var(--border); padding:0 3r
 
 <nav>
   <a href="index.html" class="logo-text">Bakers <span>Bridge</span> Admin</a>
-  <button class="btn-outline" onclick="handleLogout()">Logout</button>
+  <button class="btn-primary" onclick="handleLogout()" style="padding:8px 20px; font-size:13px;">Logout</button>
 </nav>
 
 <div class="container">
   <div class="header">
-    <div>
-      <p style="color:var(--gold); font-weight:600; font-size:14px; text-transform:uppercase; letter-spacing:1px;">Dashboard</p>
-      <h1 id="welcomeText">Welcome Back</h1>
-    </div>
-    <a href="index.html" class="btn-outline">View Live Site</a>
+    <h1 id="welcomeText">Welcome Back</h1>
+    <a href="index.html" class="btn-primary" style="padding:10px 20px; text-decoration:none; font-size:14px;">View Live Site</a>
   </div>
 
   <div class="card">
-    <h2>Add New Baker listing</h2>
-    <form id="addBakerForm" class="form-grid">
-      <div class="form-group">
-        <label>Baker Name</label>
-        <input type="text" id="name" placeholder="e.g. Madhura's Classics" required>
+    <h2>Add / Update Baker Profile</h2>
+    <form id="bakerForm">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Baker Name</label>
+          <input type="text" id="name" required>
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <input type="text" id="category" placeholder="e.g. Cakes & Pastries">
+        </div>
+        <div class="form-group">
+          <label>Logo URL</label>
+          <input type="url" id="logo_url">
+        </div>
+        <div class="form-group">
+          <label>Location</label>
+          <input type="text" id="location">
+        </div>
+        <div class="form-group">
+          <label>WhatsApp (with 91)</label>
+          <input type="text" id="whatsapp">
+        </div>
+        <div class="form-group">
+          <label>Experience (e.g. 3 Years)</label>
+          <input type="text" id="experience">
+        </div>
+        <div class="form-group">
+          <label>Orders Completed (e.g. 500+)</label>
+          <input type="text" id="orders_completed">
+        </div>
+        <div class="form-group">
+          <label>Rating (1-5)</label>
+          <input type="number" id="rating" step="0.1" value="4.8">
+        </div>
+        <div class="form-group" style="grid-column: 1/-1;">
+          <label>About The Baker</label>
+          <textarea id="about" rows="4" placeholder="Tell customers about your story and baking style..."></textarea>
+        </div>
+        
+        <div class="form-group" style="grid-column: 1/-1;">
+          <label>Products (JSON List)</label>
+          <p style="font-size:11px; color:var(--text-muted); margin-bottom:5px;">Paste your products list here. Example: [{"name":"Chocolate Cake", "price":"₹800", "image":""}]</p>
+          <textarea id="products" rows="4" placeholder='[{"name":"Cake Name", "price":"₹Price", "image":"URL"}]'></textarea>
+        </div>
+
+        <div class="form-group" style="grid-column: 1/-1;">
+          <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+            <input type="checkbox" id="verified" checked style="width:auto;"> This baker is verified
+          </label>
+        </div>
       </div>
-      <div class="form-group">
-        <label>Category</label>
-        <select id="category">
-          <option value="cakes">Cakes & Pastries</option>
-          <option value="sweets">Traditional Sweets</option>
-          <option value="vegan">Vegan / Healthy</option>
-          <option value="breads">Artisanal Breads</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Logo URL</label>
-        <input type="url" id="logo_url" placeholder="https://i.imgur.com/your-image.jpg">
-      </div>
-      <div class="form-group">
-        <label>Location</label>
-        <input type="text" id="location" placeholder="e.g. Adyar, Chennai">
-      </div>
-      <div class="form-group">
-        <label>WhatsApp Number (with 91)</label>
-        <input type="text" id="whatsapp" placeholder="e.g. 916369380977">
-      </div>
-      <div class="form-group">
-        <label>Rating (1-5)</label>
-        <input type="number" id="rating" step="0.1" min="1" max="5" value="4.8">
-      </div>
-      <div class="form-group" style="grid-column: 1/-1;">
-        <label>Verified Status</label>
-        <label style="font-weight:400; display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
-          <input type="checkbox" id="verified" checked style="width:auto;"> This baker is quality-verified by us
-        </label>
-      </div>
-      <div style="grid-column: 1/-1;">
-        <button type="submit" class="btn-primary" id="saveBtn">Save Listing</button>
-      </div>
+      <button type="submit" class="btn-primary" id="saveBtn" style="margin-top:1.5rem;">Save Baker Profile</button>
     </form>
   </div>
 
   <div class="card">
     <h2>Your Listings</h2>
     <div id="bakerList" class="baker-list">
-      <!-- Listings will load here -->
+      <!-- Listings -->
     </div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.3/dist/umd/supabase.min.js"></script>
 <script>
-// INITIALIZATION
-const SUPABASE_URL = window.NEXT_PUBLIC_SUPABASE_URL || "https://qlkdxrryfpdmmbbqxkey.supabase.co";
-const SUPABASE_ANON_KEY = window.NEXT_PUBLIC_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsa2R4cnJ5ZnBkbW1iYnF4a2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMTUzMDQsImV4cCI6MjA5Mjc5MTMwNH0.9dFamA3asEEQ4KCBbfyx3vVw0KvEgh2hA3nGbIptLew"; 
-
+const SUPABASE_URL = "https://qlkdxrryfpdmmbbqxkey.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsa2R4cnJ5ZnBkbW1iYnF4a2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMTUzMDQsImV4cCI6MjA5Mjc5MTMwNH0.9dFamA3asEEQ4KCBbfyx3vVw0KvEgh2hA3nGbIptLew";
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// AUTH PROTECTION
 async function checkUser() {
-  try {
-    const { data: { user }, error } = await supabase.auth.getUser();
-    
-    if (error || !user) {
-      console.log("No user found, redirecting to home...");
-      window.location.href = "index.html";
-    } else {
-      console.log("User verified:", user.email);
-      document.getElementById("welcomeText").textContent = "Welcome, " + user.email.split('@')[0];
-      document.getElementById("loadingOverlay").style.display = "none";
-      loadBakers();
-    }
-  } catch (err) {
-    console.error("Auth check failed:", err);
-    document.getElementById("loadingOverlay").innerHTML = "<p>Connection error. Please try refreshing or checking your Vercel URL.</p>";
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    window.location.href = "index.html";
+  } else {
+    document.getElementById("welcomeText").textContent = "Welcome, " + user.email.split('@')[0];
+    document.getElementById("loadingOverlay").style.display = "none";
+    loadBakers();
   }
 }
 
@@ -156,62 +151,60 @@ async function handleLogout() {
   window.location.href = "index.html";
 }
 
-// LOAD LISTINGS
 async function loadBakers() {
   const { data, error } = await supabase.from('bakers').select('*').order('created_at', { ascending: false });
-  if (error) {
-    document.getElementById("bakerList").innerHTML = `<p style="color:red;">Error: ${error.message}</p>`;
-    return;
-  }
-  
+  if (error) return;
   const list = document.getElementById("bakerList");
   list.innerHTML = "";
-  if (!data || data.length === 0) {
-    list.innerHTML = "<p>No bakers found yet.</p>";
-    return;
-  }
-  data.forEach(baker => {
-    const item = document.createElement("div");
-    item.className = "baker-item";
-    item.innerHTML = `
-      <img src="${baker.logo_url || "https://i.imgur.com/yteSy8p.jpeg"}" alt="">
-      <div class="baker-item-info">
-        <h3>${baker.name || "Untitled Baker"}</h3>
-        <p>${baker.location || "No Location"} • ${baker.category || "General"}</p>
-      </div>
-    `;
-    list.appendChild(item);
+  data.forEach(b => {
+    const div = document.createElement("div");
+    div.className = "baker-item";
+    div.innerHTML = `<img src="${b.logo_url || 'https://i.imgur.com/yteSy8p.jpeg'}"> <div><strong>${b.name}</strong><br><small>${b.location}</small></div>`;
+    list.appendChild(div);
   });
 }
 
-// SAVE LISTING
-document.getElementById("addBakerForm").addEventListener("submit", async (e) => {
+document.getElementById("bakerForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-  const saveBtn = document.getElementById("saveBtn");
-  saveBtn.disabled = true;
-  saveBtn.textContent = "Saving...";
+  const btn = document.getElementById("saveBtn");
+  btn.disabled = true;
+  btn.textContent = "Saving...";
 
-  const newBaker = {
+  let productsJson = [];
+  try {
+    const val = document.getElementById("products").value.trim();
+    productsJson = val ? JSON.parse(val) : [];
+  } catch(e) {
+    alert("Error in Products JSON! Please check the format.");
+    btn.disabled = false;
+    btn.textContent = "Save Baker Profile";
+    return;
+  }
+
+  const bakerData = {
     name: document.getElementById("name").value,
     category: document.getElementById("category").value,
     logo_url: document.getElementById("logo_url").value,
     location: document.getElementById("location").value,
     whatsapp: document.getElementById("whatsapp").value,
+    experience: document.getElementById("experience").value,
+    orders_completed: document.getElementById("orders_completed").value,
     rating: parseFloat(document.getElementById("rating").value),
+    about: document.getElementById("about").value,
+    products: productsJson,
     verified: document.getElementById("verified").checked
   };
 
-  const { error } = await supabase.from('bakers').insert([newBaker]);
-
+  const { error } = await supabase.from('bakers').insert([bakerData]);
   if (error) {
     alert("Error: " + error.message);
   } else {
-    alert("Listing added successfully!");
-    document.getElementById("addBakerForm").reset();
+    alert("Baker added successfully!");
+    document.getElementById("bakerForm").reset();
     loadBakers();
   }
-  saveBtn.disabled = false;
-  saveBtn.textContent = "Save Listing";
+  btn.disabled = false;
+  btn.textContent = "Save Baker Profile";
 });
 
 document.addEventListener("DOMContentLoaded", checkUser);
