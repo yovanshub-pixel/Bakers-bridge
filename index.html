@@ -214,6 +214,15 @@ section{padding:6rem 3rem;}
 .review-stars{color:var(--gold);font-size:12px;}
 .review-text{font-size:13px;color:var(--text-muted);line-height:1.6;font-style:italic;}
 .review-date{font-size:11px;color:var(--brown-light);margin-top:4px;}
+.review-form{background:var(--cream);padding:1.5rem;border-radius:14px;margin-bottom:2rem;border:1px solid var(--border);}
+.review-form h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--brown);margin-bottom:1rem;}
+.review-input{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:'Outfit',sans-serif;margin-bottom:10px;background:var(--white);}
+.review-input:focus{outline:none;border-color:var(--gold);}
+.star-rating{display:flex;gap:4px;margin-bottom:12px;}
+.star-rating span{color:var(--border);font-size:20px;cursor:pointer;transition:color 0.2s;}
+.star-rating span.active{color:var(--gold);}
+.btn-submit-review{background:var(--gold);color:var(--white);border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;}
+.btn-submit-review:hover{background:var(--gold-dark);}
 
 .how-section{background:var(--white);position:relative;overflow:hidden;}
 .steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;}
@@ -413,11 +422,29 @@ input::placeholder{color:var(--text-muted);}
   <div class="search-inner">
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="Search baker name, specialty..."/>
-      <select class="search-select" id="searchArea"><option>All Areas</option><option>Anna Nagar</option><option>Adyar</option><option>Velachery</option><option>T Nagar</option></select>
+      <select class="search-select" id="searchArea">
+        <option>All Areas</option>
+        <option>Anna Nagar</option>
+        <option>Adyar</option>
+        <option>Velachery</option>
+        <option>T Nagar</option>
+        <option>Alwarpet</option>
+        <option>Besant Nagar</option>
+        <option>Nungambakkam</option>
+        <option>Mylapore</option>
+      </select>
       <button class="search-btn" onclick="performSearch()">Search</button>
     </div>
     <div class="area-chips" id="areaChips">
-      <button class="chip active" onclick="filterByArea('All')">All</button><button class="chip" onclick="filterByArea('Anna Nagar')">Anna Nagar</button><button class="chip" onclick="filterByArea('Adyar')">Adyar</button>
+      <button class="chip active" onclick="filterByArea('All')">All</button>
+      <button class="chip" onclick="filterByArea('Anna Nagar')">Anna Nagar</button>
+      <button class="chip" onclick="filterByArea('Adyar')">Adyar</button>
+      <button class="chip" onclick="filterByArea('Velachery')">Velachery</button>
+      <button class="chip" onclick="filterByArea('T Nagar')">T Nagar</button>
+      <button class="chip" onclick="filterByArea('Alwarpet')">Alwarpet</button>
+      <button class="chip" onclick="filterByArea('Besant Nagar')">Besant Nagar</button>
+      <button class="chip" onclick="filterByArea('Nungambakkam')">Nungambakkam</button>
+      <button class="chip" onclick="filterByArea('Mylapore')">Mylapore</button>
     </div>
   </div>
 </div>
@@ -488,6 +515,7 @@ input::placeholder{color:var(--text-muted);}
     <div class="modal-tabs">
       <button class="modal-tab active" onclick="switchTab('products',this)">🛍 Products</button>
       <button class="modal-tab" onclick="switchTab('about',this)">👩🍳 About</button>
+      <button class="modal-tab" onclick="switchTab('reviews',this)">⭐ Reviews</button>
     </div>
     <div class="modal-content" id="modalContent"></div>
   </div>
@@ -536,33 +564,68 @@ async function loadBakers() {
 function renderBakers(data) {
   const grid = document.getElementById("bakersGrid");
   grid.innerHTML = "";
-  if (!data || data.length === 0) {
-    grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);">No bakers found. Try a different area!</div>';
-    return;
-  }
-  data.forEach(b => {
-    const card = document.createElement("div");
-    card.className = "baker-card";
-    card.innerHTML = `
-      <div class="baker-card-header" onclick="bbOpenProfile('${b.id}')">
-        <div class="baker-brand-logo"><img src="${b.logo_url || IMAGES.BB_LOGO}"/></div>
-        <div class="baker-brand-name">${b.name || 'Delicious Baker'}</div>
-        ${b.verified ? '<span class="verified-badge">✓ Verified</span>' : ''}
-      </div>
-      <div class="baker-body" onclick="bbOpenProfile('${b.id}')">
-        <div class="baker-spec">${b.category || 'Home Baker'}</div>
-        <div class="baker-row">
-          <div class="baker-loc">📍 ${b.location || 'Chennai'}</div>
-          <div class="baker-rating"><span class="stars">★★★★★</span><span class="rating-val">${b.rating || '4.8'}</span></div>
+  
+  if (data && data.length > 0) {
+    data.forEach(b => {
+      const card = document.createElement("div");
+      card.className = "baker-card";
+      card.innerHTML = `
+        <div class="baker-card-header" onclick="bbOpenProfile('${b.id}')">
+          <div class="baker-brand-logo"><img src="${b.logo_url || IMAGES.BB_LOGO}"/></div>
+          <div class="baker-brand-name">${b.name || 'Delicious Baker'}</div>
+          ${b.verified ? '<span class="verified-badge">✓ Verified</span>' : ''}
         </div>
-        <div class="baker-tags"><span class="tag">${b.category || 'Baker'}</span><span class="tag">${b.experience || 'Verified'}</span></div>
-      </div>
-      <div class="baker-footer">
-        <button class="btn-enquire" onclick="event.stopPropagation(); window.open('https://wa.me/${b.whatsapp || '916369380977'}')">💬 WhatsApp</button>
-        <button class="btn-view" onclick="bbOpenProfile('${b.id}')">View Profile</button>
-      </div>`;
-    grid.appendChild(card);
-  });
+        <div class="baker-body" onclick="bbOpenProfile('${b.id}')">
+          <div class="baker-spec">${b.category || 'Home Baker'}</div>
+          <div class="baker-row">
+            <div class="baker-loc">📍 ${b.location || 'Chennai'}</div>
+            <div class="baker-rating"><span class="stars">★★★★★</span><span class="rating-val">${b.rating || '4.8'}</span></div>
+          </div>
+          <div class="baker-tags"><span class="tag">${b.category || 'Baker'}</span><span class="tag">${b.experience || 'Verified'}</span></div>
+        </div>
+        <div class="baker-footer">
+          <button class="btn-enquire" onclick="event.stopPropagation(); window.open('https://wa.me/${b.whatsapp || '916369380977'}')">💬 WhatsApp</button>
+          <button class="btn-view" onclick="bbOpenProfile('${b.id}')">View Profile</button>
+        </div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  // Always add Available Slots at the end
+  const slot1 = document.createElement("div");
+  slot1.className = "slot-card";
+  slot1.innerHTML = `
+    <div class="slot-card-header">
+      <span class="slot-available-badge">Available Slot</span>
+      <div class="slot-logo-frame"><div class="frame-icon">🍰</div><div class="frame-text">Your Logo Here</div></div>
+      <div class="slot-name">Join Bakers Bridge</div>
+    </div>
+    <div class="slot-body">
+      <div class="slot-spec">Showcase your best bakes</div>
+      <div class="baker-row"><div class="slot-loc">📍 Your Area</div></div>
+      <div class="slot-tags"><span class="slot-tag">New Baker</span><span class="slot-tag">Verified</span></div>
+    </div>
+    <div class="slot-footer"><button class="btn-apply" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">Claim This Spot</button></div>
+  `;
+  
+  const slot2 = document.createElement("div");
+  slot2.className = "slot-card";
+  slot2.innerHTML = `
+    <div class="slot-card-header" style="background: linear-gradient(135deg, #FDF6EC, #F5E6CC);">
+      <span class="slot-available-badge" style="background:var(--gold);color:white;border:none;">Premium Slot</span>
+      <div class="slot-logo-frame" style="border-color:var(--gold);"><div class="frame-icon" style="opacity:1;">👑</div><div class="frame-text" style="color:var(--gold-dark);">Premium Baker</div></div>
+      <div class="slot-name" style="color:var(--gold-dark);">Featured Profile</div>
+    </div>
+    <div class="slot-body">
+      <div class="slot-spec" style="color:var(--gold-dark);">Get 5x more enquiries</div>
+      <div class="baker-row"><div class="slot-loc">📍 Top Placement</div></div>
+      <div class="slot-tags"><span class="slot-tag" style="background:var(--gold);color:white;border:none;">Premium</span></div>
+    </div>
+    <div class="slot-footer"><div class="slot-coming">Available Now</div></div>
+  `;
+  
+  grid.appendChild(slot1);
+  grid.appendChild(slot2);
 }
 
 function performSearch() {
@@ -623,16 +686,80 @@ function switchTab(tab, el) {
   document.querySelectorAll(".modal-tab").forEach(t => t.classList.remove("active"));
   el.classList.add("active");
   const content = document.getElementById("modalContent");
+  
   if (tab === 'products') {
     const prods = selectedBaker.products || [];
     let html = '<div class="products-row">';
+    if(prods.length === 0) html += '<p style="color:var(--text-muted); grid-column:1/-1;">No products listed yet.</p>';
     prods.forEach(p => {
       html += `<div class="product-item"><img src="${p.image || IMAGES.BB_LOGO}"/><div class="product-details"><div class="product-name">${p.name}</div><div class="product-price">${p.price}</div></div></div>`;
     });
     content.innerHTML = html + '</div>';
-  } else {
+  } else if (tab === 'about') {
     content.innerHTML = `<div class="about-text">${selectedBaker.about || 'Coming soon...'}</div><div class="about-highlights"><div class="highlight-item"><div class="highlight-val">${selectedBaker.experience || 'Verified'}</div><div class="highlight-label">Experience</div></div><div class="highlight-item"><div class="highlight-val">${selectedBaker.orders_completed || '50+'}</div><div class="highlight-label">Orders</div></div></div>`;
+  } else if (tab === 'reviews') {
+    let html = `
+      <div class="review-form">
+        <h3>Leave a Review</h3>
+        <input type="text" id="revName" class="review-input" placeholder="Your Name" required />
+        <div class="star-rating" id="revStars" data-rating="5">
+          <span data-val="1" class="active">★</span><span data-val="2" class="active">★</span><span data-val="3" class="active">★</span><span data-val="4" class="active">★</span><span data-val="5" class="active">★</span>
+        </div>
+        <textarea id="revText" class="review-input" rows="3" placeholder="Write your review here..." required></textarea>
+        <button class="btn-submit-review" onclick="submitReview()">Post Review</button>
+      </div>
+      <div id="reviewsList"><div style="text-align:center;color:var(--text-muted);padding:2rem;">Loading reviews...</div></div>
+    `;
+    content.innerHTML = html;
+    
+    document.querySelectorAll('#revStars span').forEach(star => {
+      star.onclick = function() {
+        let val = parseInt(this.getAttribute('data-val'));
+        document.querySelectorAll('#revStars span').forEach(s => {
+          if(parseInt(s.getAttribute('data-val')) <= val) s.classList.add('active');
+          else s.classList.remove('active');
+        });
+        document.getElementById('revStars').setAttribute('data-rating', val);
+      };
+    });
+    
+    loadReviews(selectedBaker.id);
   }
+}
+
+async function loadReviews(bakerId) {
+  const list = document.getElementById("reviewsList");
+  if (!list) return;
+  const { data, error } = await supabase.from('reviews').select('*').eq('baker_id', bakerId).order('created_at', { ascending: false });
+  if (error || !data || data.length === 0) {
+    list.innerHTML = '<div style="color:var(--text-muted); padding:1rem;">No reviews yet. Be the first!</div>';
+    return;
+  }
+  let html = '';
+  data.forEach(r => {
+    let stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+    let date = new Date(r.created_at).toLocaleDateString();
+    html += `<div class="review-item"><div class="review-top"><div class="reviewer-name">${r.reviewer_name}</div><div class="review-stars">${stars}</div></div><div class="review-text">"${r.comment}"</div><div class="review-date">${date}</div></div>`;
+  });
+  list.innerHTML = html;
+}
+
+async function submitReview() {
+  const name = document.getElementById("revName").value;
+  const text = document.getElementById("revText").value;
+  const rating = parseInt(document.getElementById("revStars").getAttribute("data-rating")) || 5;
+  
+  if (!name || !text) { alert("Please enter your name and review."); return; }
+  
+  const { error } = await supabase.from('reviews').insert([
+    { baker_id: selectedBaker.id, reviewer_name: name, rating: rating, comment: text }
+  ]);
+  
+  if (error) { alert("Error saving review: " + error.message); return; }
+  
+  document.getElementById("revName").value = '';
+  document.getElementById("revText").value = '';
+  loadReviews(selectedBaker.id);
 }
 
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
