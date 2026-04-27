@@ -22,10 +22,9 @@
     .hero-orb.o1 { width: 800px; height: 800px; top: -300px; right: -200px; }
     .hero-orb.o2 { width: 500px; height: 500px; bottom: -100px; left: -150px; }
 
-    /* Floating Artisan Tools */
-    .bg-tool { position: absolute; pointer-events: none; opacity: 0.08; color: var(--brown); z-index: 0; }
-    .bg-tool.baker-silhouette { width: 300px; opacity: 0.06; }
-    
+    /* Floating Artisan Tools (MORE VISIBLE) */
+    .bg-tool { position: absolute; pointer-events: none; opacity: 0.15; color: var(--brown); z-index: 1; }
+    .bg-tool.baker-silhouette { width: 350px; opacity: 0.12; }
     @keyframes floatSlow { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(3deg); } }
     .float-anim { animation: floatSlow 10s ease-in-out infinite; }
 
@@ -41,26 +40,26 @@
 
     /* ── HERO ── */
     .hero { min-height: 90vh; padding: 100px 5% 50px; display: flex; align-items: center; position: relative; overflow: hidden; }
-    .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; z-index: 2; }
+    .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; z-index: 5; position: relative; }
     .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 4.2rem); font-weight: 700; line-height: 1.1; color: var(--brown); margin-bottom: 1rem; }
     .hero h1 em { color: var(--gold); font-style: normal; }
     .hero-desc { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem; max-width: 500px; }
     
     .hero-right { position: relative; height: 450px; }
-    .float-card { position: absolute; background: white; border-radius: 20px; border: 1px solid var(--border); padding: 1.25rem; box-shadow: 0 12px 40px rgba(61,43,31,0.08); width: 250px; transition: 0.4s; cursor: pointer; }
+    .float-card { position: absolute; background: white; border-radius: 20px; border: 1px solid var(--border); padding: 1.25rem; box-shadow: 0 15px 45px rgba(61,43,31,0.1); width: 250px; transition: 0.4s; cursor: pointer; z-index: 10; }
     .float-card.main { top: 10px; left: 0; animation: float 5s infinite; }
     .float-card.side { top: 160px; right: 0; animation: float 6s infinite; }
     .float-card.bottom { bottom: 0; left: 40px; animation: float 7s infinite; }
     @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
     /* ── SEARCH ── */
-    .search-section { background: white; padding: 4rem 5%; position: relative; z-index: 2; border-top: 1px solid #f0f0f0; }
+    .search-section { background: white; padding: 4rem 5%; position: relative; z-index: 5; border-top: 1px solid #f0f0f0; }
     .search-inner { max-width: 800px; margin: 0 auto; display: flex; background: var(--cream); padding: 8px; border-radius: 60px; border: 2px solid var(--border); gap: 10px; }
     .search-inner input { flex: 1.5; border: none; background: transparent; padding-left: 25px; outline: none; font-size: 16px; font-family: inherit; }
     .search-inner select { flex: 1; border: none; background: transparent; border-left: 1.5px solid var(--border); padding-left: 15px; outline: none; color: var(--text-muted); font-family: inherit; }
 
     /* ── BAKER GRID ── */
-    section { padding: 4rem 5%; position: relative; z-index: 2; }
+    section { padding: 4rem 5%; position: relative; z-index: 5; }
     .section-title { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; text-align: center; margin-bottom: 3rem; color: var(--brown); }
     .bakers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
 
@@ -81,18 +80,23 @@
     .card-spec { font-size: 13px; color: var(--text-muted); margin-bottom: 15px; }
     .card-meta { display: flex; justify-content: space-between; border-top: 1px solid rgba(0,0,0,0.04); padding-top: 12px; font-size: 12px; color: var(--text-muted); }
 
+    /* SLOT CARDS */
+    .slot-card { background: var(--cream); border: 2.5px dashed var(--border); border-radius: 20px; padding: 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 350px; opacity: 0.8; }
+    .slot-icon { font-size: 32px; margin-bottom: 1rem; opacity: 0.4; }
+    .btn-apply { background: var(--gold); color: white; border: none; padding: 10px 25px; border-radius: 30px; margin-top: 1.5rem; font-weight: 600; cursor: pointer; }
+
     /* LOAD MORE */
     .load-more-container { text-align: center; margin-top: 3rem; }
     .btn-load-more { background: white; border: 1.5px solid var(--gold); color: var(--gold); padding: 10px 35px; border-radius: 30px; font-weight: 600; cursor: pointer; transition: 0.2s; min-width: 200px; }
 
-    /* ── TRUST SECTION ── */
-    .trust-section { background: var(--brown); color: white; padding: 4rem 5%; text-align: center; position: relative; z-index: 2; }
+    /* TRUST SECTION */
+    .trust-section { background: var(--brown); color: white; padding: 4rem 5%; text-align: center; position: relative; z-index: 5; }
     .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; max-width: 1100px; margin: 0 auto; }
     .trust-item h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--gold-light); margin-bottom: 10px; }
     .trust-item p { color: rgba(255,255,255,0.6); font-size: 14px; }
 
     /* FOOTER */
-    footer { background: #2C1A0E; color: white; padding: 5rem 5% 2rem; position: relative; z-index: 2; }
+    footer { background: #2C1A0E; color: white; padding: 5rem 5% 2rem; position: relative; z-index: 5; }
     .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 4rem; }
     .footer-brand h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--gold-light); margin-bottom: 1rem; }
     .footer-brand p { color: rgba(255,255,255,0.4); font-size: 13px; line-height: 1.6; }
@@ -103,7 +107,6 @@
     .footer-col ul li a:hover { color: var(--gold-light); }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); margin-top: 3rem; padding-top: 2rem; text-align: center; color: rgba(255,255,255,0.2); font-size: 12px; }
 
-    /* MODAL */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
     .modal { background: white; width: 92%; max-width: 800px; border-radius: 30px; position: relative; max-height: 90vh; overflow-y: auto; padding: 2.5rem; }
     .modal-close { position: absolute; top: 20px; right: 25px; cursor: pointer; font-size: 24px; }
@@ -122,13 +125,11 @@
   <div class="hero-orb o2"></div>
 
   <!-- Master Baker Silhouette -->
-  <div class="bg-tool baker-silhouette float-anim" style="bottom: 10%; left: 2%;"><svg viewBox="0 0 100 100" fill="currentColor"><path d="M50 10 C40 10 35 15 35 25 C35 35 40 40 50 40 C60 40 65 35 65 25 C65 15 60 10 50 10 M30 40 L20 90 L80 90 L70 40 Z M40 45 L60 45 L60 55 L40 55 Z"/></svg></div>
+  <div class="bg-tool baker-silhouette float-anim" style="bottom: 15%; left: 3%;"><svg viewBox="0 0 100 100" fill="currentColor"><path d="M50 10 C40 10 35 15 35 25 C35 35 40 40 50 40 C60 40 65 35 65 25 C65 15 60 10 50 10 M30 40 L20 90 L80 90 L70 40 Z"/></svg></div>
   <!-- Stand Mixer -->
-  <div class="bg-tool float-anim" style="top: 20%; right: 5%; width: 120px;"><svg viewBox="0 0 100 100" fill="currentColor"><path d="M20 80 L80 80 L80 70 L70 70 C70 50 60 40 40 40 L40 30 L60 30 L60 20 L20 20 Z M30 70 L60 70 L60 60 L30 60 Z"/></svg></div>
+  <div class="bg-tool float-anim" style="top: 25%; right: 5%; width: 130px;"><svg viewBox="0 0 100 100" fill="currentColor"><path d="M20 80 L80 80 L80 70 L70 70 C70 50 60 40 40 40 L40 30 L60 30 L60 20 L20 20 Z"/></svg></div>
   <!-- Whisk -->
-  <div class="bg-tool float-anim" style="top: 15%; left: 5%; width: 80px;"><svg viewBox="0 0 100 100" fill="currentColor"><path d="M50 10 L50 40 M40 20 C30 20 25 30 25 45 C25 65 50 85 50 85 C50 85 75 65 75 45 C75 30 70 20 60 20"/></svg></div>
-  <!-- Cake Stand -->
-  <div class="bg-tool float-anim" style="bottom: 30%; right: 5%; width: 110px;"><svg viewBox="0 0 100 100" fill="currentColor"><path d="M20 60 L80 60 L80 50 L20 50 Z M45 60 L45 80 L35 85 L65 85 L55 80 L55 60 Z"/></svg></div>
+  <div class="bg-tool float-anim" style="top: 18%; left: 5%; width: 90px;"><svg viewBox="0 0 100 100" fill="currentColor"><path d="M50 10 L50 40 M40 20 C30 20 25 30 25 45 C25 65 50 85 50 85"/></svg></div>
 
   <nav>
     <a href="#" class="nav-logo">
@@ -165,7 +166,6 @@
         <option value="T Nagar">T Nagar</option>
         <option value="Alwarpet">Alwarpet</option>
         <option value="Besant Nagar">Besant Nagar</option>
-        <option value="Nungambakkam">Nungambakkam</option>
       </select>
     </div>
   </div>
@@ -180,9 +180,9 @@
 
   <section class="trust-section">
     <div class="trust-grid">
-      <div class="trust-item"><h3>Vetted & Verified</h3><p>Every baker is personally visited by our quality team before being listed.</p></div>
-      <div class="trust-item"><h3>Freshly Made</h3><p>No preservatives. No stale cakes. Made specifically for your order.</p></div>
-      <div class="trust-item"><h3>Direct Pricing</h3><p>No middlemen commission. Talk directly to the baker and save money.</p></div>
+      <div class="trust-item"><h3>Vetted & Verified</h3><p>Every baker is personally visited by our quality team.</p></div>
+      <div class="trust-item"><h3>Freshly Made</h3><p>No preservatives. Made specifically for your order.</p></div>
+      <div class="trust-item"><h3>Direct Pricing</h3><p>Talk directly to the baker and save money.</p></div>
     </div>
   </section>
 
@@ -190,7 +190,7 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <h2>Bakers <span>Bridge</span></h2>
-        <p>Providing the bridge between passionate home bakers and dessert lovers in Chennai. Every baker is a verified master of their craft.</p>
+        <p>Connecting passionate home bakers with dessert lovers in Chennai.</p>
       </div>
       <div class="footer-col">
         <h4>Explore</h4>
@@ -200,7 +200,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Support</h4>
+        <h4>Social</h4>
         <ul>
           <li><a href="https://wa.me/916369380977">WhatsApp</a></li>
           <li><a href="https://instagram.com/bakersbridge_chennai" target="_blank">Instagram</a></li>
@@ -282,6 +282,14 @@
         grid.appendChild(card);
       });
 
+      // Always show slots
+      for (let i = toShow.length; i < 6; i++) {
+        const slot = document.createElement('div');
+        slot.className = "slot-card";
+        slot.innerHTML = `<div class="slot-icon">🍪</div><h3>Slot Available</h3><p>Join our Hub</p><button class="btn-apply">Join Now</button>`;
+        grid.appendChild(slot);
+      }
+
       const btnContainer = document.getElementById('loadMoreContainer');
       const btn = document.getElementById('btnLoadMore');
       if (filtered.length > displayedCount) {
@@ -320,7 +328,7 @@
           card.onclick = () => openProfile(b);
           card.innerHTML = `<div style="display:flex;gap:12px;align-items:center;"><img src="${b.logo_key}" style="width:45px;height:45px;border-radius:10px;"><div><div style="font-weight:800;font-size:14px;">${b.name}</div><div style="font-size:10px;color:var(--gold);font-weight:800;">TOP RATED</div></div></div>`;
         } else {
-          card.innerHTML = `<div style="display:flex;gap:12px;align-items:center;opacity:0.6;"><div style="font-size:22px;">🍰</div><div><div style="font-weight:700;font-size:13px;">Next Spot</div><div style="font-size:10px;">Join Now</div></div></div>`;
+          card.innerHTML = `<div style="display:flex;gap:12px;align-items:center;opacity:0.6;"><div style="font-size:22px;">🍰</div><div><div style="font-weight:700;font-size:13px;">Premium Spot</div><div style="font-size:10px;">Join Hub</div></div></div>`;
         }
         hero.appendChild(card);
       }
