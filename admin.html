@@ -79,7 +79,7 @@
       transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
       background: #FAFAFA;
     }
-    input:focus, textarea:focus { border-color: var(--accent); outline: none; background: white; box-shadow: 0 0 0 4px rgba(200, 150, 42, 0.1); }
+    input:focus, textarea:focus { border: 2px solid var(--accent) !important; outline: none; background: white; }
     
     .btn {
       padding: 14px 32px;
@@ -147,10 +147,7 @@
 </head>
 <body>
 
-  <div id="loadingOverlay">
-    <div class="spinner"></div>
-    <p style="font-weight: 500; color: var(--text-muted)">Verifying Security Access...</p>
-  </div>
+  <!-- Overlay Removed for Maximum Performance -->
 
   <div class="dashboard">
     <aside>
@@ -244,7 +241,7 @@
               </div>
               <div class="form-group full">
                 <label>About The Baker (The bio shown in profile)</label>
-                <textarea id="about" rows="6" spellcheck="false" placeholder="Share the story and passion behind the baking..."></textarea>
+                <textarea id="baker_bio" rows="6" spellcheck="false" style="border: 2px solid #ccc !important; position: relative; z-index: 10;" placeholder="Share the story and passion behind the baking..."></textarea>
               </div>
               <div class="form-group full">
                 <label>Products (JSON format)</label>
@@ -310,8 +307,7 @@
           window.location.href = "index.html";
           return;
         }
-        document.getElementById('loadingOverlay').style.opacity = '0';
-        setTimeout(() => document.getElementById('loadingOverlay').classList.add('hidden'), 400);
+        // Overlay Logic Removed for Performance
         loadBakers();
       } catch (err) {
         alert("Access Check Failed: " + err.message);
@@ -391,7 +387,7 @@
         document.getElementById("exp").value = b.exp || "";
         document.getElementById("orders").value = b.orders || "";
         document.getElementById("rating").value = b.rating || 4.8;
-        document.getElementById("about").value = b.about || "";
+        document.getElementById("baker_bio").value = b.about || "";
         document.getElementById("areas").value = b.areas || "";
         document.getElementById("happy").checked = b.happy;
         document.getElementById("products").value = JSON.stringify(b.products || [], null, 2);
@@ -439,7 +435,7 @@
           exp: document.getElementById("exp").value || "Professional",
           orders: document.getElementById("orders").value || "0",
           rating: parseFloat(document.getElementById("rating").value) || 4.8,
-          about: document.getElementById("about").value || "Baker bio coming soon...",
+          about: document.getElementById("baker_bio").value || "Baker bio coming soon...",
           areas: document.getElementById("areas").value || "Chennai",
           happy: document.getElementById("happy").checked || false,
           products: productsJson,
