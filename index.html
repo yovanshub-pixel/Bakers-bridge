@@ -287,19 +287,28 @@ async function handleLogin(e) {
   submitBtn.textContent = "Signing in...";
   errorDiv.style.display = "none";
 
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: email,
-    password: password,
-  });
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
 
-  if (error) {
-    errorDiv.textContent = error.message;
+    if (error) {
+      console.error("Login Error:", error);
+      errorDiv.textContent = error.message;
+      errorDiv.style.display = "block";
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Sign In";
+    } else {
+      console.log("Login Success:", data);
+      window.location.href = "admin.html";
+    }
+  } catch (err) {
+    console.error("Unexpected Error:", err);
+    errorDiv.textContent = "Connection failed. Are you opening this from a local file? Try testing on Vercel.";
     errorDiv.style.display = "block";
     submitBtn.disabled = false;
     submitBtn.textContent = "Sign In";
-  } else {
-    closeLoginModal();
-    window.location.href = "admin.html";
   }
 }
 
@@ -366,8 +375,8 @@ function renderBakers(bakersData) {
     
     card.innerHTML = `
       <div class="baker-card-header">
-        <div class="baker-brand-logo"><img src="${baker.logo_url || "https://i.imgur.com/yteSy8p.jpeg"}" alt="${baker.name}"/></div>
-        <div class="baker-brand-name">${baker.name}</div>
+        <div class="baker-brand-logo"><img src="${baker.logo_url || "https://i.imgur.com/yteSy8p.jpeg"}" alt="${baker.name || 'Baker'}"/></div>
+        <div class="baker-brand-name">${baker.name || 'Delicious Bakery'}</div>
         ${baker.verified ? '<span class="verified-badge">✓ Verified</span>' : ''}
       </div>
       <div class="baker-body">
