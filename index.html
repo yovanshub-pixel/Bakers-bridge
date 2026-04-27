@@ -6,68 +6,97 @@
 <title>Bakers Bridge | Chennai's Home Baker Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+<script>
+const IMAGES = {
+  BB_LOGO:  "https://i.imgur.com/yteSy8p.jpeg",
+  PB_LOGO:  "https://i.imgur.com/aVHYGRF.png",
+  BIRTHDAY_CAKE:    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&q=80",
+  ANNIVERSARY_CAKE: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=300&q=80",
+  FONDANT_CAKE:     "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=300&q=80",
+  PHOTO_CAKE:       "https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=300&q=80",
+  VANILLA_CUPCAKE:  "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=300&q=80",
+  CHOCO_CUPCAKE:    "https://images.unsplash.com/photo-1599785209707-a456fc1337bb?w=300&q=80",
+  RED_VELVET:       "https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?w=300&q=80",
+  BOX_OF_12:        "https://images.unsplash.com/photo-1587668178277-295251f900ce?w=300&q=80",
+  CHEESECAKE:       "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=300&q=80",
+  TIRAMISU:         "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=300&q=80",
+  BROWNIE_BOX:      "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=300&q=80",
+  WEDDING_CAKE:     "https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=300&q=80",
+  BABY_SHOWER:      "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&q=80",
+  CORPORATE_CAKE:   "https://images.unsplash.com/photo-1562777717-dc6984f65a63?w=300&q=80",
+};
+</script>
+
 <style>
-/* ---------- Core design tokens ---------- */
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
   --cream:#FDF6EC;--warm:#F5E6CC;--gold:#C8962A;--gold-light:#E8B84B;
   --gold-dark:#9A7020;--brown:#3D2B1F;--brown-mid:#6B4C35;--brown-light:#9A7B65;
-  --text:#2C1A0E;--text-muted:#7A5C45;--white:#FFF;--card:#FFFDF8;
+  --text:#2C1A0E;--text-muted:#7A5C45;--white:#FFFFFF;--card:#FFFDF8;
   --border:rgba(200,150,42,0.18);
 }
 html{scroll-behavior:smooth;}
 body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
 ::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--warm);}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px;}
 
-/* ---------- navigation ---------- */
-nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(253,246,236,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 3rem;height:68px;display:flex;align-items:center;justify-content:space-between;transition:box-shadow .3s;}
-nav.scrolled{box-shadow:0 4px 20px rgba(61,43,31,.1);}
+/* ── BAKING EQUIPMENT DECORATIONS ── */
+.bake-deco{position:absolute;pointer-events:none;opacity:0.055;}
+.bake-deco svg{width:100%;height:100%;}
+.bake-deco.spin-slow{animation:spinSlow 40s linear infinite;}
+.bake-deco.float-slow{animation:floatDeco 8s ease-in-out infinite;}
+.bake-deco.float-slow2{animation:floatDeco 11s ease-in-out infinite reverse;}
+@keyframes spinSlow{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes floatDeco{0%,100%{transform:translateY(0);}50%{transform:translateY(-18px);}}
+
+nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(253,246,236,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 3rem;height:68px;display:flex;align-items:center;justify-content:space-between;transition:box-shadow 0.3s;}
+nav.scrolled{box-shadow:0 4px 20px rgba(61,43,31,0.1);}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
 .logo-img{width:44px;height:44px;border-radius:10px;object-fit:cover;border:1px solid var(--border);}
 .logo-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--brown);}
 .logo-text span{color:var(--gold);}
 .nav-links{display:flex;gap:2.5rem;list-style:none;}
-.nav-links a{text-decoration:none;color:var(--text-muted);font-size:14px;font-weight:500;position:relative;}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--gold);transition:width .2s;}
+.nav-links a{text-decoration:none;color:var(--text-muted);font-size:14px;font-weight:500;transition:color 0.2s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--gold);transition:width 0.2s;}
 .nav-links a:hover{color:var(--gold);}
 .nav-links a:hover::after{width:100%;}
 .nav-actions{display:flex;gap:10px;align-items:center;}
-.btn-nav-outline{background:transparent;color:var(--brown);border:1.5px solid var(--border);padding:8px 18px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;}
+.btn-nav-outline{background:transparent;color:var(--brown);border:1.5px solid var(--border);padding:8px 18px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
 .btn-nav-outline:hover{border-color:var(--gold);color:var(--gold);}
-.btn-nav-solid{background:var(--gold);color:var(--white);border:none;padding:8px 20px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;}
+.btn-nav-solid{background:var(--gold);color:var(--white);border:none;padding:8px 20px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
 .btn-nav-solid:hover{background:var(--gold-dark);}
 
-/* ---------- hero ---------- */
 .hero{min-height:100vh;padding:120px 3rem 80px;display:flex;align-items:center;background:var(--cream);position:relative;overflow:hidden;}
-.hero-orb{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(200,150,42,.12),transparent 70%);}
+.hero-pattern{position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);background-size:20px 20px;}
+.hero-orb{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(200,150,42,0.12),transparent 70%);}
 .hero-orb.o1{width:700px;height:700px;top:-200px;right:-150px;}
 .hero-orb.o2{width:400px;height:400px;bottom:-100px;left:-100px;}
 .hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
 .hero-left{position:relative;z-index:1;}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,150,42,.12);color:var(--gold-dark);padding:7px 18px;border-radius:30px;font-size:12px;font-weight:600;letter-spacing:.5px;margin-bottom:1.5rem;border:1px solid rgba(200,150,42,.25);animation:fadeUp .6s ease both;}
-.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,4.2rem);font-weight:700;line-height:1.1;color:var(--brown);margin-bottom:1.5rem;animation:fadeUp .6s ease .1s both;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,150,42,0.12);color:var(--gold-dark);padding:7px 18px;border-radius:30px;font-size:12px;font-weight:600;letter-spacing:0.5px;margin-bottom:1.5rem;border:1px solid rgba(200,150,42,0.25);animation:fadeUp 0.6s ease both;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,4.2rem);font-weight:700;line-height:1.1;color:var(--brown);margin-bottom:1.5rem;animation:fadeUp 0.6s ease 0.1s both;}
 .hero h1 em{color:var(--gold);font-style:normal;}
-.hero-desc{font-size:1.05rem;color:var(--text-muted);line-height:1.75;margin-bottom:2rem;max-width:480px;animation:fadeUp .6s ease .2s both;}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp .6s ease .3s both;}
-.btn-primary{background:var(--gold);color:var(--white);border:none;padding:14px 32px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;transition:all .25s;}
-.btn-primary:hover{background:var(--gold-dark);transform:translateY(-2px);box-shadow:0 8px 20px rgba(200,150,42,.3);}
-.btn-outline{background:transparent;color:var(--brown);border:1.5px solid var(--brown-mid);padding:14px 32px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;transition:all .25s;}
+.hero-desc{font-size:1.05rem;color:var(--text-muted);line-height:1.75;margin-bottom:2rem;max-width:480px;animation:fadeUp 0.6s ease 0.2s both;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp 0.6s ease 0.3s both;}
+.btn-primary{background:var(--gold);color:var(--white);border:none;padding:14px 32px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.25s;}
+.btn-primary:hover{background:var(--gold-dark);transform:translateY(-2px);box-shadow:0 8px 20px rgba(200,150,42,0.3);}
+.btn-outline{background:transparent;color:var(--brown);border:1.5px solid var(--brown-mid);padding:14px 32px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.25s;}
 .btn-outline:hover{border-color:var(--gold);color:var(--gold);}
-.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);animation:fadeUp .6s ease .4s both;}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);animation:fadeUp 0.6s ease 0.4s both;}
 .stat-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--gold);display:block;line-height:1;}
 .stat-label{font-size:12px;color:var(--text-muted);margin-top:4px;}
-
-/* ---------- floating cards (right side) ---------- */
-.hero-right{position:relative;height:600px;z-index:1;animation:fadeUp .6s ease .2s both;}
-.float-card{position:absolute;background:var(--card);border-radius:18px;border:1px solid var(--border);padding:1.25rem;box-shadow:0 8px 32px rgba(61,43,31,.1);}
+.hero-right{position:relative;height:600px;z-index:1;animation:fadeUp 0.6s ease 0.2s both;}
+.float-card{position:absolute;background:var(--card);border-radius:18px;border:1px solid var(--border);padding:1.25rem;box-shadow:0 8px 32px rgba(61,43,31,0.1);}
 .float-card.main{width:270px;top:20px;left:10px;animation:float1 4s ease-in-out infinite;}
-.float-card.side{width:230px;top:220px;right:0;animation:float2 5s ease-in-out infinite;}
+.float-card.side{width:230px;top:220px;right:0px;animation:float2 5s ease-in-out infinite;}
 .float-card.bottom{width:260px;bottom:20px;left:30px;animation:float1 6s ease-in-out infinite;}
 .fc-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
 .fc-logo{width:48px;height:48px;border-radius:12px;flex-shrink:0;overflow:hidden;border:1px solid var(--border);}
 .fc-logo img{width:100%;height:100%;object-fit:cover;display:block;}
+.fc-logo.empty{background:var(--cream);border:2px dashed rgba(200,150,42,0.3);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:18px;}
 .fc-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--brown);line-height:1.2;}
 .fc-spec{font-size:10px;color:var(--text-muted);margin-top:2px;}
+.fc-badge{display:inline-block;background:rgba(200,150,42,0.15);color:var(--gold-dark);font-size:10px;padding:4px 12px;border-radius:10px;font-weight:600;margin-bottom:8px;}
+.fc-badge.slot{background:rgba(61,43,31,0.07);color:var(--brown-light);}
 .fc-bottom{display:flex;justify-content:space-between;align-items:center;}
 .fc-stars{color:var(--gold);font-size:12px;font-weight:600;}
 .fc-loc{font-size:11px;color:var(--text-muted);}
@@ -75,204 +104,934 @@ nav.scrolled{box-shadow:0 4px 20px rgba(61,43,31,.1);}
 @keyframes float2{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
-/* ---------- generic sections ---------- */
+.search-bar-section{background:var(--white);padding:2.5rem 3rem;box-shadow:0 4px 20px rgba(61,43,31,0.07);position:relative;overflow:hidden;}
+.search-inner{max-width:800px;margin:0 auto;position:relative;z-index:1;}
+.search-box{display:flex;background:var(--cream);border:1.5px solid var(--border);border-radius:50px;overflow:hidden;padding:6px 6px 6px 24px;transition:border-color 0.2s;}
+.search-box:focus-within{border-color:var(--gold);}
+.search-box input{flex:1;border:none;background:transparent;font-size:15px;color:var(--text);outline:none;font-family:'Outfit',sans-serif;}
+.search-box input::placeholder{color:var(--text-muted);}
+.search-select{border:none;background:transparent;font-size:14px;color:var(--text-muted);outline:none;padding:0 12px;font-family:'Outfit',sans-serif;cursor:pointer;border-left:1px solid var(--border);}
+.search-btn{background:var(--gold);color:var(--white);border:none;padding:10px 28px;border-radius:40px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;white-space:nowrap;}
+.search-btn:hover{background:var(--gold-dark);}
+.area-chips{display:flex;gap:8px;margin-top:1rem;flex-wrap:wrap;}
+.chip{background:var(--warm);color:var(--brown-mid);border:none;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
+.chip:hover,.chip.active{background:var(--gold);color:var(--white);}
+
 section{padding:6rem 3rem;}
-.section-inner{max-width:1100px;margin:0 auto;}
+.section-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;}
 .section-header{text-align:center;margin-bottom:3.5rem;}
-.section-tag{font-size:11px;font-weight:600;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:.75rem;}
-.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);color:var(--brown);margin-bottom:.75rem;}
+.section-tag{font-size:11px;font-weight:600;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.75rem;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);color:var(--brown);margin-bottom:0.75rem;}
 .section-sub{color:var(--text-muted);font-size:1rem;max-width:520px;margin:0 auto;line-height:1.7;}
 
-/* ---------- bakers list ---------- */
-.bakers-section{background:var(--cream);}
+.bakers-section{background:var(--cream);position:relative;overflow:hidden;}
 .filter-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:2.5rem;flex-wrap:wrap;}
-.filter-tab{background:transparent;color:var(--text-muted);border:1px solid var(--border);padding:8px 20px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;}
+.filter-tab{background:transparent;color:var(--text-muted);border:1px solid var(--border);padding:8px 20px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
 .filter-tab:hover,.filter-tab.active{background:var(--gold);color:var(--white);border-color:var(--gold);}
 .bakers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;}
-.baker-card{background:var(--card);border-radius:18px;border:1px solid var(--border);overflow:hidden;transition:transform .25s,box-shadow .25s;cursor:pointer;}
-.baker-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(61,43,31,.12);}
-.baker-card-header{height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#FFF3DC,#F5E6CC);}
-.baker-brand-logo{width:90px;height:90px;border-radius:16px;overflow:hidden;border:2px solid rgba(200,150,42,.2);box-shadow:0 4px 16px rgba(61,43,31,.12);background:var(--white);}
+
+.baker-card{background:var(--card);border-radius:18px;border:1px solid var(--border);overflow:hidden;transition:transform 0.25s,box-shadow 0.25s;cursor:pointer;}
+.baker-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(61,43,31,0.12);}
+.baker-card-header{height:190px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#FFF3DC,#F5E6CC);}
+.baker-brand-logo{width:90px;height:90px;border-radius:16px;overflow:hidden;border:2px solid rgba(200,150,42,0.2);box-shadow:0 4px 16px rgba(61,43,31,0.12);background:var(--white);}
 .baker-brand-logo img{width:100%;height:100%;object-fit:cover;display:block;}
 .baker-brand-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--brown);text-align:center;padding:0 1rem;}
 .verified-badge{position:absolute;top:12px;right:12px;background:var(--gold);color:var(--white);font-size:10px;font-weight:600;padding:4px 12px;border-radius:12px;}
 
-/* ---------- login modal ---------- */
-.modal-overlay{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.45);
-  backdrop-filter:blur(4px);
-  align-items:center;
-  justify-content:center;
-  z-index:2100;
-}
+.slot-card{background:var(--card);border-radius:18px;border:2px dashed rgba(200,150,42,0.25);overflow:hidden;transition:all 0.25s;cursor:pointer;}
+.slot-card:hover{border-color:var(--gold);box-shadow:0 8px 24px rgba(200,150,42,0.12);transform:translateY(-3px);}
+.slot-card-header{height:190px;background:linear-gradient(135deg,#FAFAF8,#F5F0E8);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;}
+.slot-logo-frame{width:80px;height:80px;border-radius:16px;border:2px dashed rgba(200,150,42,0.4);background:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
+.slot-logo-frame .frame-icon{font-size:22px;opacity:0.5;}
+.slot-logo-frame .frame-text{font-size:8px;color:var(--brown-light);text-align:center;line-height:1.3;padding:0 4px;}
+.slot-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--brown-light);text-align:center;}
+.slot-available-badge{position:absolute;top:12px;right:12px;background:rgba(61,43,31,0.08);color:var(--brown-light);font-size:10px;font-weight:600;padding:4px 12px;border-radius:12px;border:1px dashed rgba(61,43,31,0.15);}
+.slot-body{padding:1.25rem;}
+.slot-spec{font-size:12px;color:var(--brown-light);margin-bottom:0.75rem;font-style:italic;}
+.slot-loc{font-size:12px;color:rgba(122,92,69,0.5);}
+.slot-tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.slot-tag{background:rgba(200,150,42,0.06);color:rgba(154,112,32,0.6);font-size:10px;padding:3px 10px;border-radius:10px;border:1px dashed rgba(200,150,42,0.2);}
+.slot-footer{display:flex;gap:8px;padding:1rem 1.25rem;border-top:1px dashed rgba(200,150,42,0.15);}
+.btn-apply{flex:1;background:var(--gold);color:var(--white);border:none;padding:9px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;}
+.btn-apply:hover{background:var(--gold-dark);}
+.slot-coming{font-size:12px;color:var(--brown-light);display:flex;align-items:center;justify-content:center;padding:9px 16px;border-radius:10px;border:1px dashed rgba(200,150,42,0.2);font-style:italic;}
+
+.baker-body{padding:1.25rem;}
+.baker-spec{font-size:12px;color:var(--text-muted);margin-bottom:0.75rem;}
+.baker-row{display:flex;align-items:center;justify-content:space-between;}
+.baker-loc{font-size:12px;color:var(--text-muted);}
+.baker-rating{display:flex;align-items:center;gap:4px;}
+.stars{color:var(--gold);font-size:12px;}
+.rating-val{font-size:12px;font-weight:600;color:var(--brown);}
+.baker-tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.tag{background:rgba(200,150,42,0.1);color:var(--gold-dark);font-size:10px;padding:3px 10px;border-radius:10px;font-weight:500;}
+.baker-footer{display:flex;gap:8px;padding:1rem 1.25rem;border-top:1px solid var(--border);}
+.btn-enquire{flex:1;background:var(--gold);color:var(--white);border:none;padding:9px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;}
+.btn-enquire:hover{background:var(--gold-dark);}
+.btn-view{background:transparent;color:var(--brown);border:1px solid var(--border);padding:9px 16px;border-radius:10px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
+.btn-view:hover{border-color:var(--gold);color:var(--gold);}
+
+.modal-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(30,15,5,0.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:1rem;}
 .modal-overlay.open{display:flex;}
-.modal{
-  background:var(--card);
-  border-radius:18px;
-  max-width:380px;
-  width:90%;
-  padding:2rem;
-  position:relative;
-}
-.modal-close{
-  position:absolute;
-  top:12px;
-  right:12px;
-  width:34px;
-  height:34px;
-  border:none;
-  border-radius:50%;
-  background:var(--warm);
-  cursor:pointer;
-  font-size:16px;
-  line-height:34px;
-  text-align:center;
-}
-.modal-close:hover{background:var(--gold);}
-.modal-header{padding-bottom:1rem;border-bottom:1px solid var(--border);margin-bottom:1rem;}
-.modal-header h2{font-family:'Cormorant Garamond',serif;color:var(--brown);margin:0;}
-.modal-content{margin-top:1rem;}
+.modal{background:var(--card);border-radius:24px;width:100%;max-width:760px;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 24px 60px rgba(61,43,31,0.25);}
+.modal-close{position:absolute;top:16px;right:16px;z-index:10;width:36px;height:36px;border-radius:50%;background:var(--warm);border:none;cursor:pointer;font-size:16px;color:var(--brown);display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.modal-close:hover{background:var(--gold);color:var(--white);}
+.modal-header{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--border);display:flex;gap:1.5rem;align-items:flex-start;}
+.modal-logo{width:90px;height:90px;border-radius:18px;overflow:hidden;flex-shrink:0;border:2px solid var(--border);}
+.modal-logo img{width:100%;height:100%;object-fit:cover;display:block;}
+.modal-info{flex:1;}
+.modal-baker-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:var(--brown);margin-bottom:4px;}
+.modal-spec{font-size:14px;color:var(--text-muted);margin-bottom:10px;}
+.modal-meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px;}
+.modal-badge{background:rgba(200,150,42,0.15);color:var(--gold-dark);font-size:11px;padding:4px 12px;border-radius:10px;font-weight:600;}
+.modal-loc{font-size:13px;color:var(--text-muted);}
+.modal-rating{font-size:13px;font-weight:600;color:var(--gold);}
+.modal-wa-btn{background:var(--gold);color:var(--white);border:none;padding:10px 22px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;}
+.modal-wa-btn:hover{background:var(--gold-dark);}
+.modal-tabs{display:flex;border-bottom:1px solid var(--border);}
+.modal-tab{flex:1;padding:1rem;text-align:center;font-size:13px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;border-bottom:2px solid transparent;transition:all 0.2s;background:none;font-family:'Outfit',sans-serif;}
+.modal-tab:hover{color:var(--gold);}
+.modal-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.modal-content{padding:1.5rem 2rem;}
+.product-category{margin-bottom:2rem;}
+.product-cat-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--brown);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);}
+.products-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;}
+.product-item{background:var(--cream);border-radius:14px;overflow:hidden;border:1px solid var(--border);transition:all 0.2s;cursor:pointer;}
+.product-item:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 6px 16px rgba(200,150,42,0.12);}
+.product-item img{width:100%;height:110px;object-fit:cover;display:block;}
+.product-details{padding:8px 10px;}
+.product-name{font-size:12px;font-weight:500;color:var(--brown);margin-bottom:3px;}
+.product-price{font-size:11px;color:var(--gold);font-weight:600;}
+.about-text{font-size:14px;color:var(--text-muted);line-height:1.75;margin-bottom:1.5rem;}
+.about-highlights{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.highlight-item{background:var(--cream);border-radius:10px;padding:0.75rem 1rem;border:1px solid var(--border);}
+.highlight-val{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--gold);}
+.highlight-label{font-size:11px;color:var(--text-muted);margin-top:2px;}
+.review-item{padding:1rem 0;border-bottom:1px solid var(--border);}
+.review-item:last-child{border-bottom:none;}
+.review-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.reviewer-name{font-size:14px;font-weight:500;color:var(--brown);}
+.review-stars{color:var(--gold);font-size:12px;}
+.review-text{font-size:13px;color:var(--text-muted);line-height:1.6;font-style:italic;}
+.review-date{font-size:11px;color:var(--brown-light);margin-top:4px;}
+
+.how-section{background:var(--white);position:relative;overflow:hidden;}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;}
+.step{text-align:center;padding:2.5rem 1.5rem;border-radius:16px;transition:background 0.2s;}
+.step:hover{background:var(--cream);}
+.step-num{width:60px;height:60px;border-radius:50%;background:rgba(200,150,42,0.1);border:2px solid rgba(200,150,42,0.25);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--gold);}
+.step-icon{font-size:1.5rem;margin-bottom:0.5rem;}
+.step-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--brown);margin-bottom:0.5rem;}
+.step-desc{font-size:13px;color:var(--text-muted);line-height:1.65;}
+
+.why-section{background:var(--cream);position:relative;overflow:hidden;}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.why-visual{background:var(--brown);border-radius:24px;padding:3rem;display:flex;flex-direction:column;gap:1.5rem;}
+.why-item{display:flex;gap:1rem;align-items:flex-start;background:rgba(255,255,255,0.07);border-radius:12px;padding:1rem;}
+.why-item-icon{font-size:1.5rem;flex-shrink:0;}
+.why-item-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--warm);margin-bottom:3px;}
+.why-item-desc{font-size:12px;color:rgba(245,230,204,0.6);line-height:1.5;}
+.why-points{display:flex;flex-direction:column;gap:1rem;}
+.why-point{display:flex;gap:1rem;align-items:flex-start;}
+.why-point-icon{width:36px;height:36px;border-radius:10px;background:rgba(200,150,42,0.12);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.why-point-title{font-size:15px;font-weight:500;color:var(--brown);margin-bottom:3px;}
+.why-point-desc{font-size:13px;color:var(--text-muted);line-height:1.5;}
+
+.packages-section{background:var(--white);position:relative;overflow:hidden;}
+.packages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
+.pkg-card{background:var(--card);border-radius:20px;border:1px solid var(--border);padding:2rem;transition:transform 0.25s;position:relative;overflow:hidden;}
+.pkg-card:hover{transform:translateY(-4px);}
+.pkg-card.featured{background:var(--brown);border-color:var(--brown);}
+.pkg-popular{position:absolute;top:0;right:0;background:var(--gold);color:var(--white);font-size:10px;font-weight:600;padding:6px 16px;border-bottom-left-radius:12px;}
+.pkg-icon{font-size:2rem;margin-bottom:1rem;}
+.pkg-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;margin-bottom:0.25rem;}
+.pkg-card:not(.featured) .pkg-name{color:var(--brown);}
+.pkg-card.featured .pkg-name{color:var(--warm);}
+.pkg-price{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:700;color:var(--gold);line-height:1;}
+.pkg-price-period{font-size:13px;color:var(--text-muted);font-family:'Outfit',sans-serif;font-weight:400;}
+.pkg-card.featured .pkg-price-period{color:rgba(245,230,204,0.5);}
+.pkg-desc{font-size:13px;margin:0.75rem 0 1.25rem;}
+.pkg-card:not(.featured) .pkg-desc{color:var(--text-muted);}
+.pkg-card.featured .pkg-desc{color:rgba(245,230,204,0.6);}
+.pkg-divider{height:1px;background:var(--border);margin-bottom:1.25rem;}
+.pkg-card.featured .pkg-divider{background:rgba(255,255,255,0.1);}
+.pkg-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:1.5rem;}
+.pkg-feature{font-size:13px;display:flex;align-items:center;gap:8px;}
+.pkg-card:not(.featured) .pkg-feature{color:var(--text);}
+.pkg-card.featured .pkg-feature{color:var(--warm);}
+.pkg-feature::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0;}
+.pkg-btn{width:100%;padding:12px;border-radius:25px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
+.pkg-btn-outline{background:transparent;color:var(--gold);border:1.5px solid var(--gold);}
+.pkg-btn-outline:hover{background:var(--gold);color:var(--white);}
+.pkg-btn-solid{background:var(--gold);color:var(--white);border:none;}
+.pkg-btn-solid:hover{background:var(--gold-light);}
+
+.testi-section{background:var(--cream);position:relative;overflow:hidden;}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;}
+.testi-card{background:var(--card);border-radius:16px;border:1px solid var(--border);padding:1.75rem;}
+.testi-stars{color:var(--gold);font-size:14px;margin-bottom:1rem;}
+.testi-text{font-size:14px;color:var(--text-muted);line-height:1.7;margin-bottom:1.25rem;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:10px;}
+.testi-avatar{width:40px;height:40px;border-radius:50%;background:var(--warm);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.testi-name{font-size:14px;font-weight:600;color:var(--brown);}
+.testi-role{font-size:11px;color:var(--text-muted);}
+
+.faq-section{background:var(--white);position:relative;overflow:hidden;}
+.faq-list{max-width:700px;margin:0 auto;display:flex;flex-direction:column;gap:1rem;}
+.faq-item{background:var(--card);border-radius:12px;border:1px solid var(--border);overflow:hidden;}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 1.5rem;cursor:pointer;font-weight:500;color:var(--brown);font-size:15px;}
+.faq-icon{color:var(--gold);font-size:18px;transition:transform 0.2s;flex-shrink:0;}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+.faq-a{padding:0 1.5rem;max-height:0;overflow:hidden;transition:max-height 0.3s,padding 0.3s;font-size:14px;color:var(--text-muted);line-height:1.7;}
+.faq-item.open .faq-a{max-height:200px;padding:0 1.5rem 1.25rem;}
+
+.join-section{background:var(--brown);padding:6rem 3rem;text-align:center;position:relative;overflow:hidden;}
+.join-pattern{position:absolute;inset:0;opacity:0.05;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);background-size:24px 24px;}
+.join-inner{position:relative;z-index:1;}
+.join-section h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);color:var(--warm);margin-bottom:1rem;}
+.join-section p{color:rgba(245,230,204,0.65);font-size:1rem;max-width:500px;margin:0 auto 2rem;line-height:1.7;}
+.join-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-join-gold{background:var(--gold);color:var(--white);border:none;padding:15px 36px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
+.btn-join-gold:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-join-outline{background:transparent;color:var(--warm);border:1.5px solid rgba(245,230,204,0.3);padding:15px 36px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
+.btn-join-outline:hover{border-color:var(--warm);}
+
+footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13px;}
+.footer-inner{max-width:1100px;margin:0 auto;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2rem;}
+.footer-desc{font-size:13px;color:rgba(245,230,204,0.4);margin-top:0.75rem;line-height:1.6;max-width:260px;}
+.footer-col-title{color:var(--warm);font-size:13px;font-weight:600;margin-bottom:1rem;}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.footer-links a{text-decoration:none;color:rgba(245,230,204,0.4);font-size:13px;transition:color 0.2s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-bottom{border-top:1px solid rgba(245,230,204,0.1);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-bottom a{color:var(--gold);text-decoration:none;}
+.footer-logo{width:44px;height:44px;border-radius:10px;object-fit:cover;}
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:999;width:54px;height:54px;border-radius:50%;background:#25D366;color:var(--white);display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 4px 16px rgba(37,211,102,0.4);cursor:pointer;transition:transform 0.2s;text-decoration:none;}
+.wa-float:hover{transform:scale(1.1);}
+
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;}.hero-right{display:none;}.why-grid{grid-template-columns:1fr;}.footer-top{grid-template-columns:1fr 1fr;}nav{padding:0 1.5rem;}.nav-links{display:none;}section{padding:4rem 1.5rem;}.bake-deco{display:none;}}
+@media(max-width:600px){.search-bar-section{padding:1.5rem;}.footer-top{grid-template-columns:1fr;}.footer-bottom{flex-direction:column;text-align:center;}.modal-header{flex-direction:column;align-items:center;text-align:center;}.modal-meta{justify-content:center;}}
+
+input:focus{border-color:var(--gold)!important;box-shadow:0 0 0 3px rgba(200,150,42,0.1);}
+input::placeholder{color:var(--text-muted);}
 </style>
 </head>
 <body>
 
-<!-- ==================== NAVIGATION ==================== -->
-<nav id="mainNav">
+<!-- ═══════════════════════════════════════════
+     REUSABLE BAKING EQUIPMENT SVG SYMBOLS
+════════════════════════════════════════════ -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- WHISK -->
+    <symbol id="deco-whisk" viewBox="0 0 80 160">
+      <line x1="40" y1="10" x2="40" y2="80" stroke="#C8962A" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="40" y1="80" x2="40" y2="150" stroke="#C8962A" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="40" cy="55" rx="18" ry="28" fill="none" stroke="#C8962A" stroke-width="2"/>
+      <line x1="28" y1="38" x2="40" y2="80" stroke="#C8962A" stroke-width="1.5"/>
+      <line x1="52" y1="38" x2="40" y2="80" stroke="#C8962A" stroke-width="1.5"/>
+      <line x1="24" y1="55" x2="40" y2="80" stroke="#C8962A" stroke-width="1.5"/>
+      <line x1="56" y1="55" x2="40" y2="80" stroke="#C8962A" stroke-width="1.5"/>
+      <line x1="28" y1="72" x2="40" y2="80" stroke="#C8962A" stroke-width="1.5"/>
+      <line x1="52" y1="72" x2="40" y2="80" stroke="#C8962A" stroke-width="1.5"/>
+    </symbol>
+    <!-- ROLLING PIN -->
+    <symbol id="deco-rolling-pin" viewBox="0 0 200 60">
+      <rect x="50" y="22" width="100" height="16" rx="8" fill="none" stroke="#C8962A" stroke-width="2.5"/>
+      <rect x="10" y="18" width="40" height="24" rx="12" fill="none" stroke="#C8962A" stroke-width="2"/>
+      <rect x="150" y="18" width="40" height="24" rx="12" fill="none" stroke="#C8962A" stroke-width="2"/>
+      <line x1="10" y1="30" x2="50" y2="30" stroke="#C8962A" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <line x1="150" y1="30" x2="190" y2="30" stroke="#C8962A" stroke-width="1.5" stroke-dasharray="4 3"/>
+    </symbol>
+    <!-- CAKE STAND -->
+    <symbol id="deco-cake-stand" viewBox="0 0 120 140">
+      <ellipse cx="60" cy="30" rx="50" ry="12" fill="none" stroke="#C8962A" stroke-width="2"/>
+      <ellipse cx="60" cy="22" rx="50" ry="12" fill="none" stroke="#C8962A" stroke-width="2"/>
+      <ellipse cx="60" cy="14" rx="50" ry="12" fill="none" stroke="#C8962A" stroke-width="2"/>
+      <line x1="60" y1="42" x2="60" y2="112" stroke="#C8962A" stroke-width="2.5"/>
+      <ellipse cx="60" cy="118" rx="45" ry="8" fill="none" stroke="#C8962A" stroke-width="2"/>
+      <ellipse cx="60" cy="124" rx="50" ry="10" fill="none" stroke="#C8962A" stroke-width="2"/>
+      <line x1="10" y1="26" x2="55" y2="60" stroke="#C8962A" stroke-width="1" opacity="0.5"/>
+      <line x1="110" y1="26" x2="65" y2="60" stroke="#C8962A" stroke-width="1" opacity="0.5"/>
+    </symbol>
+    <!-- SPATULA -->
+    <symbol id="deco-spatula" viewBox="0 0 50 180">
+      <rect x="18" y="10" width="14" height="60" rx="4" fill="none" stroke="#C8962A" stroke-width="2"/>
+      <line x1="25" y1="70" x2="25" y2="170" stroke="#C8962A" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="14" y1="130" x2="36" y2="130" stroke="#C8962A" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="14" y1="145" x2="36" y2="145" stroke="#C8962A" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="14" y1="160" x2="36" y2="160" stroke="#C8962A" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <!-- MIXING BOWL -->
+    <symbol id="deco-bowl" viewBox="0 0 140 100">
+      <path d="M10 30 Q70 110 130 30" fill="none" stroke="#C8962A" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="10" y1="30" x2="130" y2="30" stroke="#C8962A" stroke-width="2"/>
+      <ellipse cx="70" cy="30" rx="60" ry="10" fill="none" stroke="#C8962A" stroke-width="2"/>
+      <line x1="30" y1="25" x2="110" y2="25" stroke="#C8962A" stroke-width="1" opacity="0.4"/>
+      <path d="M20 35 Q70 100 120 35" fill="none" stroke="#C8962A" stroke-width="1" opacity="0.4"/>
+    </symbol>
+    <!-- PIPING BAG -->
+    <symbol id="deco-piping" viewBox="0 0 80 160">
+      <path d="M15 10 Q40 5 65 10 L55 110 Q40 120 25 110 Z" fill="none" stroke="#C8962A" stroke-width="2"/>
+      <path d="M25 110 Q40 125 55 110 L48 140 L40 155 L32 140 Z" fill="none" stroke="#C8962A" stroke-width="2"/>
+      <path d="M20 30 Q40 25 60 30" fill="none" stroke="#C8962A" stroke-width="1" opacity="0.5"/>
+      <path d="M18 55 Q40 50 62 55" fill="none" stroke="#C8962A" stroke-width="1" opacity="0.5"/>
+      <path d="M20 80 Q40 75 60 80" fill="none" stroke="#C8962A" stroke-width="1" opacity="0.5"/>
+    </symbol>
+    <!-- CUPCAKE OUTLINE -->
+    <symbol id="deco-cupcake" viewBox="0 0 100 120">
+      <path d="M25 65 L30 100 L70 100 L75 65 Z" fill="none" stroke="#C8962A" stroke-width="2"/>
+      <line x1="40" y1="65" x2="37" y2="100" stroke="#C8962A" stroke-width="1.2" opacity="0.5"/>
+      <line x1="55" y1="65" x2="55" y2="100" stroke="#C8962A" stroke-width="1.2" opacity="0.5"/>
+      <line x1="70" y1="65" x2="63" y2="100" stroke="#C8962A" stroke-width="1.2" opacity="0.5"/>
+      <rect x="22" y="57" width="56" height="10" rx="4" fill="none" stroke="#C8962A" stroke-width="2"/>
+      <path d="M22 57 Q35 25 50 20 Q65 25 78 57" fill="none" stroke="#C8962A" stroke-width="2"/>
+      <path d="M32 50 Q50 30 68 50" fill="none" stroke="#C8962A" stroke-width="1.5"/>
+      <circle cx="50" cy="18" r="4" fill="none" stroke="#C8962A" stroke-width="1.5"/>
+    </symbol>
+    <!-- STAR / COOKIE CUTTER -->
+    <symbol id="deco-star" viewBox="0 0 100 100">
+      <polygon points="50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35" fill="none" stroke="#C8962A" stroke-width="2" stroke-linejoin="round"/>
+    </symbol>
+    <!-- OVEN MITT -->
+    <symbol id="deco-mitt" viewBox="0 0 100 130">
+      <path d="M30 130 L30 60 Q30 20 55 20 Q80 20 80 60 L80 80 Q90 80 90 90 Q90 100 80 100 L80 130 Z" fill="none" stroke="#C8962A" stroke-width="2.5" stroke-linejoin="round"/>
+      <path d="M30 65 Q55 55 80 65" fill="none" stroke="#C8962A" stroke-width="1.2" opacity="0.5"/>
+      <path d="M30 80 Q55 70 80 80" fill="none" stroke="#C8962A" stroke-width="1.2" opacity="0.5"/>
+      <path d="M30 95 Q55 85 80 95" fill="none" stroke="#C8962A" stroke-width="1.2" opacity="0.5"/>
+    </symbol>
+  </defs>
+</svg>
+
+<nav id="navbar">
   <a href="#" class="nav-logo">
-    <img src="https://i.imgur.com/yteSy8p.jpeg" alt="Bakers Bridge Logo" class="logo-img">
+    <img id="img-bb-logo-nav" class="logo-img" src="" alt="Bakers Bridge"/>
     <span class="logo-text">Bakers <span>Bridge</span></span>
   </a>
-
   <ul class="nav-links">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#bakers">Bakers</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#bakers">Find Bakers</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#packages">For Bakers</a></li>
+    <li><a href="#faq">FAQ</a></li>
   </ul>
-
   <div class="nav-actions">
-    <button class="btn-nav-outline">Login</button>
-    <button class="btn-nav-solid">Get Started</button>
+    <button class="btn-nav-outline" onclick="openLoginModal()">Login</button>
+    <button class="btn-nav-solid" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">Join as Baker</button>
   </div>
 </nav>
 
-<!-- ==================== HERO ==================== -->
-<section class="hero" id="home">
-  <div class="hero-orb o1"></div>
-  <div class="hero-orb o2"></div>
-
+<section class="hero">
+  <div class="hero-pattern"></div><div class="hero-orb o1"></div><div class="hero-orb o2"></div>
+  <!-- Hero decorations -->
+  <div class="bake-deco float-slow" style="width:90px;bottom:80px;left:2%;opacity:0.06;">
+    <svg viewBox="0 0 80 160"><use href="#deco-whisk"/></svg>
+  </div>
+  <div class="bake-deco float-slow2" style="width:70px;top:140px;left:5%;opacity:0.05;">
+    <svg viewBox="0 0 100 120"><use href="#deco-cupcake"/></svg>
+  </div>
+  <div class="bake-deco spin-slow" style="width:60px;bottom:120px;right:5%;opacity:0.05;">
+    <svg viewBox="0 0 100 100"><use href="#deco-star"/></svg>
+  </div>
   <div class="hero-inner">
-    <!-- left side -->
     <div class="hero-left">
-      <div class="hero-badge">Explore 🧁</div>
-      <h1>Discover the <em>Best</em> Home Bakers in Chennai</h1>
-      <p class="hero-desc">Find authentic, homemade delights from trusted local bakers. Browse menus, read reviews, and order directly.</p>
-
+      <div class="hero-badge">🏅 Chennai's Most Trusted Home Baker Hub</div>
+      <h1>Discover the <em>Best Home Bakers</em> Near You</h1>
+      <p class="hero-desc">Every baker on Bakers Bridge is personally visited, quality-checked, and verified. Fresh, local, and made with love.</p>
       <div class="hero-btns">
-        <button class="btn-primary">Browse Bakers</button>
-        <button class="btn-outline">How It Works</button>
+        <button class="btn-primary" onclick="document.getElementById('bakers').scrollIntoView({behavior:'smooth'})">Find Bakers Near Me</button>
+        <button class="btn-outline" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">Join as a Baker</button>
       </div>
-
       <div class="hero-stats">
-        <div><span class="stat-num">4.9</span><span class="stat-label">Average Rating</span></div>
-        <div><span class="stat-num">357</span><span class="stat-label">Bakers Onboard</span></div>
-        <div><span class="stat-num">1.2k</span><span class="stat-label">Happy Customers</span></div>
-        <div><span class="stat-num">98%</span><span class="stat-label">Quality Verified</span></div>
+        <div class="stat"><span class="stat-num">50+</span><div class="stat-label">Verified Bakers</div></div>
+        <div class="stat"><span class="stat-num">10+</span><div class="stat-label">Chennai Areas</div></div>
+        <div class="stat"><span class="stat-num">100%</span><div class="stat-label">Quality Verified</div></div>
       </div>
     </div>
-
-    <!-- right side (floating cards) -->
     <div class="hero-right">
       <div class="float-card main">
         <div class="fc-top">
-          <div class="fc-logo"><img src="https://i.imgur.com/0ZwP7O4.jpeg" alt="Baker 1"></div>
-          <div>
-            <div class="fc-name">Madhura’s Classics</div>
-            <div class="fc-spec">Specialty: Traditional sweets</div>
-          </div>
+          <div class="fc-logo"><img id="img-pb-hero" src="" alt="The Pastry Bay"/></div>
+          <div><div class="fc-name">The Pastry Bay</div><div class="fc-spec">Custom Cakes & Cupcakes</div></div>
         </div>
-        <div class="fc-bottom"><span class="fc-stars">★★★★✰</span><span class="fc-loc">Velachery, Chennai</span></div>
+        <div class="fc-badge">✓ Verified Baker</div>
+        <div class="fc-bottom"><span class="fc-stars">★★★★★ 4.9</span><span class="fc-loc">📍 Anna Nagar</span></div>
       </div>
-
       <div class="float-card side">
         <div class="fc-top">
-          <div class="fc-logo"><img src="https://i.imgur.com/n4YgVjk.jpeg" alt="Baker 2"></div>
-          <div>
-            <div class="fc-name">The Sweet Spot</div>
-            <div class="fc-spec">Specialty: Fusion desserts</div>
-          </div>
+          <div class="fc-logo empty">+</div>
+          <div><div class="fc-name" style="color:var(--brown-light);">Slot Available</div><div class="fc-spec">Your Bakery Here</div></div>
         </div>
-        <div class="fc-bottom"><span class="fc-stars">★★★★✰</span><span class="fc-loc">Adyar, Chennai</span></div>
+        <div class="fc-badge slot">⏳ Opening Soon</div>
+        <div class="fc-bottom"><span style="color:var(--brown-light);font-size:11px;">Apply to Join</span><span class="fc-loc">📍 Chennai</span></div>
       </div>
-
       <div class="float-card bottom">
         <div class="fc-top">
-          <div class="fc-logo"><img src="https://i.imgur.com/JCkZfAo.jpeg" alt="Baker 3"></div>
-          <div>
-            <div class="fc-name">Baker’s Dream</div>
-            <div class="fc-spec">Specialty: Gluten‑free treats</div>
-          </div>
+          <div class="fc-logo empty">+</div>
+          <div><div class="fc-name" style="color:var(--brown-light);">Slot Available</div><div class="fc-spec">Your Bakery Here</div></div>
         </div>
-        <div class="fc-bottom"><span class="fc-stars">★★★★✰</span><span class="fc-loc">Porur, Chennai</span></div>
+        <div class="fc-badge slot">⏳ Opening Soon</div>
+        <div class="fc-bottom"><span style="color:var(--brown-light);font-size:11px;">Apply to Join</span><span class="fc-loc">📍 Chennai</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== BAKERS SECTION ==================== -->
-<section class="bakers-section" id="bakers">
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">Our Bakers</div>
-      <h2 class="section-title">Featured Home Bakers</h2>
-      <p class="section-sub">Hand‑picked bakers with proven quality and customer love.</p>
-    </div>
-
-    <div class="filter-tabs">
-      <button class="filter-tab active" data-filter="all">All</button>
-      <button class="filter-tab" data-filter="sweets">Sweets</button>
-      <button class="filter-tab" data-filter="cakes">Cakes</button>
-      <button class="filter-tab" data-filter="vegan">Vegan</button>
-    </div>
-
-    <div class="bakers-grid" id="bakersGrid">
-      <!-- Cards will be injected by JavaScript -->
-    </div>
+<!-- SEARCH -->
+<div class="search-bar-section">
+  <!-- search decorations -->
+  <div class="bake-deco" style="width:110px;top:-10px;right:3%;opacity:0.04;transform:rotate(-20deg);">
+    <svg viewBox="0 0 200 60"><use href="#deco-rolling-pin"/></svg>
   </div>
-</section>
-
-<!-- ==================== LOGIN MODAL ==================== -->
-<div class="modal-overlay" id="loginOverlay" onclick="closeLoginOutside(event)">
-  <div class="modal login-modal">
-    <button class="modal-close" onclick="closeLogin()">✕</button>
-    <div class="modal-header"><h2>Login</h2></div>
-    <div class="modal-content">
-      <form id="loginForm">
-        <div style="margin-bottom:1rem;">
-          <label for="loginEmail" style="display:block;font-size:13px;color:var(--text-muted);margin-bottom:4px;">Email</label>
-          <input id="loginEmail" type="email" required placeholder="you@domain.com"
-                 style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;background:var(--cream);color:var(--text);font-family:'Outfit',sans-serif;">
-        </div>
-
-        <div style="margin-bottom:1rem;">
-          <label for="loginPassword" style="display:block;font-size:13px;color:var(--text-muted);margin-bottom:4px;">Password</label>
-          <input id="loginPassword" type="password" required placeholder="••••••••"
-                 style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;background:var(--cream);color:var(--text);font-family:'Outfit',sans-serif;">
-        </div>
-
-        <div id="loginMessage" style="margin-bottom:1rem;color:var(--gold);font-size:13px;display:none;"></div>
-
-        <button type="submit"
-                style="background:var(--gold);color:var(--white);border:none;padding:10px 20px;border-radius:20px;font-size:14px;font-weight:500;cursor:pointer;width:100%;">Log in</button>
-      </form>
+  <div class="bake-deco" style="width:50px;bottom:5px;left:2%;opacity:0.05;transform:rotate(15deg);">
+    <svg viewBox="0 0 50 180"><use href="#deco-spatula"/></svg>
+  </div>
+  <div class="search-inner">
+    <div class="search-box">
+      <input type="text" placeholder="Search baker name, specialty..."/>
+      <select class="search-select"><option>All Areas</option><option>Anna Nagar</option><option>Adyar</option><option>Velachery</option><option>T Nagar</option><option>OMR</option><option>Tambaram</option><option>Mylapore</option></select>
+      <button class="search-btn">Search</button>
+    </div>
+    <div class="area-chips">
+      <button class="chip active">All</button><button class="chip">Anna Nagar</button><button class="chip">Adyar</button>
+      <button class="chip">Velachery</button><button class="chip">T Nagar</button><button class="chip">OMR</button>
+      <button class="chip">Tambaram</button><button class="chip">Mylapore</button>
     </div>
   </div>
 </div>
 
-<!-- ==================== SUPABASE SDK ==================== -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.3/dist/umd/supabase.min.js"></script>
+<!-- BAKERS -->
+<section class="bakers-section" id="bakers">
+  <!-- bakers section decorations -->
+  <div class="bake-deco float-slow" style="width:100px;top:40px;right:1%;opacity:0.05;">
+    <svg viewBox="0 0 80 160"><use href="#deco-piping"/></svg>
+  </div>
+  <div class="bake-deco float-slow2" style="width:85px;bottom:60px;left:0.5%;opacity:0.05;">
+    <svg viewBox="0 0 140 100"><use href="#deco-bowl"/></svg>
+  </div>
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">Featured Bakers</div>
+      <div class="section-title">Meet Our Verified Bakers</div>
+      <div class="section-sub">Hand-picked, personally visited, and monthly quality-checked — only the best make it here.</div>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active">All</button><button class="filter-tab">Custom Cakes</button>
+      <button class="filter-tab">Cookies</button><button class="filter-tab">Healthy Bakes</button>
+      <button class="filter-tab">Traditional Sweets</button><button class="filter-tab">Eggless</button>
+    </div>
+    <div class="bakers-grid">
+      <div class="baker-card" onclick="openModal('pastry')">
+        <div class="baker-card-header">
+          <div class="baker-brand-logo"><img id="img-pb-card" src="" alt="The Pastry Bay"/></div>
+          <div class="baker-brand-name">The Pastry Bay</div>
+          <span class="verified-badge">✓ Verified</span>
+        </div>
+        <div class="baker-body">
+          <div class="baker-spec">Custom Fondant Cakes & Cupcakes</div>
+          <div class="baker-row">
+            <div class="baker-loc">📍 Anna Nagar</div>
+            <div class="baker-rating"><span class="stars">★★★★★</span><span class="rating-val">4.9</span></div>
+          </div>
+          <div class="baker-tags"><span class="tag">Eggless</span><span class="tag">Custom Cakes</span><span class="tag">3 yrs</span></div>
+        </div>
+        <div class="baker-footer">
+          <button class="btn-enquire" onclick="event.stopPropagation();window.open('https://wa.me/916369380977','_blank')">💬 WhatsApp</button>
+          <button class="btn-view" onclick="event.stopPropagation();openModal('pastry')">View Profile</button>
+        </div>
+      </div>
+      <div class="slot-card" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">
+        <div class="slot-card-header"><div class="slot-logo-frame"><span class="frame-icon">🖼</span><span class="frame-text">Your Logo Here</span></div><div class="slot-name">Slot Available</div><span class="slot-available-badge">⏳ Opening Soon</span></div>
+        <div class="slot-body"><div class="slot-spec">This spot is waiting for a quality baker like you</div><div class="slot-loc">📍 Adyar</div><div class="slot-tags"><span class="slot-tag">Your Specialty</span><span class="slot-tag">Your Area</span></div></div>
+        <div class="slot-footer"><button class="btn-apply">Apply to Join</button><div class="slot-coming">Limited Slots</div></div>
+      </div>
+      <div class="slot-card" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">
+        <div class="slot-card-header"><div class="slot-logo-frame"><span class="frame-icon">🖼</span><span class="frame-text">Your Logo Here</span></div><div class="slot-name">Slot Available</div><span class="slot-available-badge">⏳ Opening Soon</span></div>
+        <div class="slot-body"><div class="slot-spec">This spot is waiting for a quality baker like you</div><div class="slot-loc">📍 Velachery</div><div class="slot-tags"><span class="slot-tag">Your Specialty</span><span class="slot-tag">Your Area</span></div></div>
+        <div class="slot-footer"><button class="btn-apply">Apply to Join</button><div class="slot-coming">Limited Slots</div></div>
+      </div>
+      <div class="slot-card" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">
+        <div class="slot-card-header"><div class="slot-logo-frame"><span class="frame-icon">🖼</span><span class="frame-text">Your Logo Here</span></div><div class="slot-name">Slot Available</div><span class="slot-available-badge">⏳ Opening Soon</span></div>
+        <div class="slot-body"><div class="slot-spec">This spot is waiting for a quality baker like you</div><div class="slot-loc">📍 T Nagar</div><div class="slot-tags"><span class="slot-tag">Your Specialty</span><span class="slot-tag">Your Area</span></div></div>
+        <div class="slot-footer"><button class="btn-apply">Apply to Join</button><div class="slot-coming">Limited Slots</div></div>
+      </div>
+      <div class="slot-card" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">
+        <div class="slot-card-header"><div class="slot-logo-frame"><span class="frame-icon">🖼</span><span class="frame-text">Your Logo Here</span></div><div class="slot-name">Slot Available</div><span class="slot-available-badge">⏳ Opening Soon</span></div>
+        <div class="slot-body"><div class="slot-spec">This spot is waiting for a quality baker like you</div><div class="slot-loc">📍 Mylapore</div><div class="slot-tags"><span class="slot-tag">Your Specialty</span><span class="slot-tag">Your Area</span></div></div>
+        <div class="slot-footer"><button class="btn-apply">Apply to Join</button><div class="slot-coming">Limited Slots</div></div>
+      </div>
+      <div class="slot-card" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">
+        <div class="slot-card-header"><div class="slot-logo-frame"><span class="frame-icon">🖼</span><span class="frame-text">Your Logo Here</span></div><div class="slot-name">Slot Available</div><span class="slot-available-badge">⏳ Opening Soon</span></div>
+        <div class="slot-body"><div class="slot-spec">This spot is waiting for a quality baker like you</div><div class="slot-loc">📍 OMR</div><div class="slot-tags"><span class="slot-tag">Your Specialty</span><span class="slot-tag">Your Area</span></div></div>
+        <div class="slot-footer"><button class="btn-apply">Apply to Join</button><div class="slot-coming">Limited Slots</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginOverlay" onclick="closeLoginModalOutside(event)">
+  <div class="modal" style="max-width:420px;">
+    <button class="modal-close" onclick="closeLoginModal()">✕</button>
+    <div style="padding:2rem;">
+      <div style="text-align:center;margin-bottom:2rem;">
+        <img id="img-bb-logo-login" style="width:60px;height:60px;border-radius:12px;margin-bottom:1rem;" src="" alt="Bakers Bridge"/>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--brown);margin-bottom:0.5rem;">Bakers Bridge</h2>
+        <p style="color:var(--text-muted);font-size:14px;">Sign in to your account</p>
+      </div>
+      
+      <form id="loginForm" style="display:flex;flex-direction:column;gap:1rem;">
+        <div>
+          <label style="display:block;font-size:13px;font-weight:600;color:var(--brown);margin-bottom:0.5rem;">Email or Phone</label>
+          <input type="text" id="loginEmail" placeholder="your@email.com or 9876543210" style="width:100%;padding:12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'Outfit',sans-serif;outline:none;transition:border-color 0.2s;" required/>
+        </div>
+        
+        <div>
+          <label style="display:block;font-size:13px;font-weight:600;color:var(--brown);margin-bottom:0.5rem;">Password</label>
+          <input type="password" id="loginPassword" placeholder="Enter your password" style="width:100%;padding:12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'Outfit',sans-serif;outline:none;transition:border-color 0.2s;" required/>
+        </div>
+        
+        <button type="submit" style="background:var(--gold);color:white;border:none;padding:12px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;margin-top:0.5rem;">Sign In</button>
+      </form>
+      
+      <div style="text-align:center;margin-top:1.5rem;">
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:1rem;">Don't have an account? <span style="color:var(--gold);font-weight:600;cursor:pointer;" onclick="alert('Sign up coming soon! For now, contact us on WhatsApp');window.open('https://wa.me/916369380977','_blank')">Sign up</span></p>
+        <p style="font-size:12px;color:var(--brown-light);"><a href="#" style="color:var(--gold);text-decoration:none;" onclick="alert('Password reset coming soon! Contact support on WhatsApp')">Forgot password?</a></p>
+      </div>
+      
+      <div style="border-top:1px solid var(--border);margin-top:1.5rem;padding-top:1.5rem;">
+        <p style="font-size:12px;color:var(--text-muted);text-align:center;margin-bottom:1rem;">Or continue with</p>
+        <button type="button" onclick="window.open('https://wa.me/916369380977','_blank')" style="width:100%;background:transparent;border:1.5px solid var(--border);color:var(--brown);padding:10px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;">💬 WhatsApp</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-header">
+      <div class="modal-logo"><img id="img-pb-modal" src="" alt="Baker Logo"/></div>
+      <div class="modal-info">
+        <div class="modal-baker-name" id="modalName"></div>
+        <div class="modal-spec" id="modalSpec"></div>
+        <div class="modal-meta">
+          <span class="modal-badge">✓ Verified Baker</span>
+          <span class="modal-rating" id="modalRating"></span>
+          <span class="modal-loc" id="modalLoc"></span>
+        </div>
+        <button class="modal-wa-btn" id="modalWaBtn">💬 WhatsApp Enquiry</button>
+      </div>
+    </div>
+    <div class="modal-tabs">
+      <button class="modal-tab active" onclick="switchTab('products',this)">🛍 Products</button>
+      <button class="modal-tab" onclick="switchTab('about',this)">👩‍🍳 About</button>
+      <button class="modal-tab" onclick="switchTab('reviews',this)">⭐ Reviews</button>
+    </div>
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <!-- decorations -->
+  <div class="bake-deco float-slow" style="width:70px;top:30px;left:1%;opacity:0.05;transform:rotate(-10deg);">
+    <svg viewBox="0 0 50 180"><use href="#deco-spatula"/></svg>
+  </div>
+  <div class="bake-deco spin-slow" style="width:65px;bottom:30px;right:2%;opacity:0.05;">
+    <svg viewBox="0 0 100 100"><use href="#deco-star"/></svg>
+  </div>
+  <div class="section-inner">
+    <div class="section-header"><div class="section-tag">How It Works</div><div class="section-title">Simple. Trusted. Delicious.</div><div class="section-sub">From search to fresh-baked goodness at your door in 4 easy steps.</div></div>
+    <div class="steps-grid">
+      <div class="step"><div class="step-num">1</div><div class="step-icon">🔍</div><div class="step-title">Search Your Area</div><div class="step-desc">Enter your location and instantly discover verified home bakers near you in Chennai.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-icon">👀</div><div class="step-title">Browse Profiles</div><div class="step-desc">View baker profiles, products, reviews, and photos to find your perfect match.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-icon">💬</div><div class="step-title">Connect Directly</div><div class="step-desc">Contact the baker directly on WhatsApp — no middleman, no commission cut.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-icon">🎉</div><div class="step-title">Enjoy Fresh Bakes</div><div class="step-desc">Get freshly baked, quality-verified goodies delivered with love from your local baker.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why-section">
+  <div class="bake-deco float-slow2" style="width:90px;top:50px;right:1%;opacity:0.05;">
+    <svg viewBox="0 0 80 160"><use href="#deco-whisk"/></svg>
+  </div>
+  <div class="bake-deco float-slow" style="width:100px;bottom:40px;left:1%;opacity:0.05;">
+    <svg viewBox="0 0 120 140"><use href="#deco-cake-stand"/></svg>
+  </div>
+  <div class="section-inner">
+    <div class="why-grid">
+      <div>
+        <div class="section-tag" style="text-align:left;">Why Bakers Bridge</div>
+        <div class="section-title" style="text-align:left;">We Do What Instagram Can't</div>
+        <div class="section-sub" style="text-align:left;margin:0 0 2rem;">Finding a trusted home baker is hard. We solve that by personally verifying every baker before listing them.</div>
+        <div class="why-points">
+          <div class="why-point"><div class="why-point-icon">🏅</div><div><div class="why-point-title">Personal Verification</div><div class="why-point-desc">We visit every baker, taste their products, and check hygiene before listing them.</div></div></div>
+          <div class="why-point"><div class="why-point-icon">📍</div><div><div class="why-point-title">Location-Based Search</div><div class="why-point-desc">Find bakers within your exact area — no more ordering from across the city.</div></div></div>
+          <div class="why-point"><div class="why-point-icon">🔄</div><div><div class="why-point-title">Monthly Quality Check</div><div class="why-point-desc">Every baker is inspected monthly to maintain their quality standards.</div></div></div>
+          <div class="why-point"><div class="why-point-icon">💰</div><div><div class="why-point-title">Zero Commission</div><div class="why-point-desc">Customers connect directly to bakers. No hidden charges, no cuts.</div></div></div>
+        </div>
+      </div>
+      <div class="why-visual">
+        <div class="why-item"><div class="why-item-icon">✅</div><div><div class="why-item-title">Quality Ingredients Verified</div><div class="why-item-desc">We check that only quality ingredients are used in every product.</div></div></div>
+        <div class="why-item"><div class="why-item-icon">🧹</div><div><div class="why-item-title">Hygiene Inspected</div><div class="why-item-desc">Kitchen cleanliness and food safety standards checked personally.</div></div></div>
+        <div class="why-item"><div class="why-item-icon">⭐</div><div><div class="why-item-title">Real Customer Reviews</div><div class="why-item-desc">Only genuine customer reviews — no fake ratings allowed.</div></div></div>
+        <div class="why-item"><div class="why-item-icon">🎓</div><div><div class="why-item-title">Experience Checked</div><div class="why-item-desc">Baking experience, consistency, and reliability all evaluated.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="packages-section" id="packages">
+  <div class="bake-deco float-slow2" style="width:80px;top:40px;left:1%;opacity:0.05;">
+    <svg viewBox="0 0 80 160"><use href="#deco-piping"/></svg>
+  </div>
+  <div class="bake-deco float-slow" style="width:110px;bottom:50px;right:1%;opacity:0.05;transform:rotate(15deg);">
+    <svg viewBox="0 0 200 60"><use href="#deco-rolling-pin"/></svg>
+  </div>
+  <div class="section-inner">
+    <div class="section-header"><div class="section-tag">For Home Bakers</div><div class="section-title">Grow Your Baking Business</div><div class="section-sub">Choose a plan that fits your baking journey.</div></div>
+    <div class="packages-grid">
+      <div class="pkg-card"><div class="pkg-icon">🌱</div><div class="pkg-name">Basic</div><div class="pkg-price">₹999 <span class="pkg-price-period">/ month</span></div><div class="pkg-desc">Perfect for bakers just starting out.</div><div class="pkg-divider"></div><ul class="pkg-features"><li class="pkg-feature">Profile listing on platform</li><li class="pkg-feature">Location-based visibility</li><li class="pkg-feature">Direct customer connect</li><li class="pkg-feature">Monthly quality check</li><li class="pkg-feature">Verified Baker badge</li></ul><button class="pkg-btn pkg-btn-outline" onclick="window.open('https://wa.me/916369380977','_blank')">Get Started</button></div>
+      <div class="pkg-card featured"><div class="pkg-popular">Most Popular</div><div class="pkg-icon">🚀</div><div class="pkg-name">Standard</div><div class="pkg-price">₹1999 <span class="pkg-price-period">/ month</span></div><div class="pkg-desc">For bakers ready to grow seriously.</div><div class="pkg-divider"></div><ul class="pkg-features"><li class="pkg-feature">Everything in Basic</li><li class="pkg-feature">Priority search ranking</li><li class="pkg-feature">Review & rating system</li><li class="pkg-feature">WhatsApp enquiry button</li><li class="pkg-feature">Marketing support</li><li class="pkg-feature">Festival promotion alerts</li></ul><button class="pkg-btn pkg-btn-solid" onclick="window.open('https://wa.me/916369380977','_blank')">Get Started</button></div>
+      <div class="pkg-card"><div class="pkg-icon">👑</div><div class="pkg-name">Premium</div><div class="pkg-price">₹3000 <span class="pkg-price-period">/ month</span></div><div class="pkg-desc">Full support to build your baking brand.</div><div class="pkg-divider"></div><ul class="pkg-features"><li class="pkg-feature">Everything in Standard</li><li class="pkg-feature">Professional photography</li><li class="pkg-feature">Social media management</li><li class="pkg-feature">Paid ad campaigns</li><li class="pkg-feature">Featured Baker of the Week</li><li class="pkg-feature">Personal brand building</li></ul><button class="pkg-btn pkg-btn-outline" onclick="window.open('https://wa.me/916369380977','_blank')">Get Started</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+  <div class="bake-deco spin-slow" style="width:70px;top:30px;right:2%;opacity:0.05;">
+    <svg viewBox="0 0 100 100"><use href="#deco-star"/></svg>
+  </div>
+  <div class="bake-deco float-slow" style="width:80px;bottom:30px;left:1%;opacity:0.05;">
+    <svg viewBox="0 0 100 120"><use href="#deco-cupcake"/></svg>
+  </div>
+  <div class="section-inner">
+    <div class="section-header"><div class="section-tag">Testimonials</div><div class="section-title">What People Are Saying</div></div>
+    <div class="testi-grid">
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"I was tired of scrolling Instagram not knowing who to trust. Bakers Bridge made it so easy — found an amazing baker near me in 2 minutes!"</div><div class="testi-author"><div class="testi-avatar">👩</div><div><div class="testi-name">Kavitha R.</div><div class="testi-role">Customer, Anna Nagar</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"After joining Bakers Bridge I started getting 3-4 new enquiries every week. The platform genuinely brought me customers I never would have reached alone."</div><div class="testi-author"><div class="testi-avatar">👩‍🍳</div><div><div class="testi-name">Priya S.</div><div class="testi-role">Home Baker, Adyar</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"The verified badge gave my customers confidence. My monthly orders doubled within 2 months of joining Bakers Bridge!"</div><div class="testi-author"><div class="testi-avatar">👩‍🍳</div><div><div class="testi-name">Meena L.</div><div class="testi-role">Home Baker, Velachery</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="bake-deco float-slow2" style="width:75px;top:40px;left:1%;opacity:0.05;transform:rotate(-15deg);">
+    <svg viewBox="0 0 100 130"><use href="#deco-mitt"/></svg>
+  </div>
+  <div class="bake-deco float-slow" style="width:80px;bottom:40px;right:1%;opacity:0.05;">
+    <svg viewBox="0 0 140 100"><use href="#deco-bowl"/></svg>
+  </div>
+  <div class="section-inner">
+    <div class="section-header"><div class="section-tag">FAQ</div><div class="section-title">Frequently Asked Questions</div></div>
+    <div class="faq-list">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How does Bakers Bridge verify bakers? <span class="faq-icon">+</span></div><div class="faq-a">We personally visit every baker, taste their products, check kitchen hygiene, verify ingredient quality, and review customer feedback before listing them.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is it free for customers to use? <span class="faq-icon">+</span></div><div class="faq-a">Yes, completely free! Customers can search, browse, and contact bakers without any charges. We never take a commission from orders either.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I join as a home baker? <span class="faq-icon">+</span></div><div class="faq-a">Click "Join as a Baker" and fill in your details. Our team will contact you within 48 hours to schedule a quality inspection visit. Once verified, your profile goes live!</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do you take commission on orders? <span class="faq-icon">+</span></div><div class="faq-a">No commission at all. Customers contact bakers directly and all payments are handled between them. We only charge bakers a small monthly listing fee.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What cities do you cover? <span class="faq-icon">+</span></div><div class="faq-a">We currently cover all major areas in Chennai and are expanding to other Tamil Nadu cities soon!</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN CTA -->
+<section class="join-section">
+  <div class="join-pattern"></div>
+  <!-- light decos on dark bg -->
+  <div class="bake-deco spin-slow" style="width:80px;top:20px;left:3%;opacity:0.08;">
+    <svg viewBox="0 0 100 100"><use href="#deco-star"/></svg>
+  </div>
+  <div class="bake-deco float-slow" style="width:70px;bottom:20px;right:3%;opacity:0.08;">
+    <svg viewBox="0 0 100 120"><use href="#deco-cupcake"/></svg>
+  </div>
+  <div class="bake-deco float-slow2" style="width:60px;top:30px;right:10%;opacity:0.07;">
+    <svg viewBox="0 0 80 160"><use href="#deco-whisk"/></svg>
+  </div>
+  <div class="join-inner">
+    <h2>Are You a Home Baker in Chennai?</h2>
+    <p>Join Bakers Bridge and get discovered by hundreds of customers searching for quality home bakers near them.</p>
+    <div class="join-btns">
+      <button class="btn-join-gold" onclick="window.open('https://wa.me/916369380977','_blank')">Apply to Join — Free to Start</button>
+      <button class="btn-join-outline" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">Learn More</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+          <img id="img-bb-logo-footer" class="footer-logo" src="" alt="Bakers Bridge"/>
+          <span style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--warm);">Bakers <span style="color:var(--gold);">Bridge</span></span>
+        </div>
+        <div class="footer-desc">Chennai's most trusted platform for discovering quality-verified home bakers.</div>
+      </div>
+      <div><div class="footer-col-title">For Customers</div><ul class="footer-links"><li><a href="#bakers">Find Bakers</a></li><li><a href="#bakers">Search by Area</a></li><li><a href="#how">How It Works</a></li></ul></div>
+      <div><div class="footer-col-title">For Bakers</div><ul class="footer-links"><li><a href="#packages">Join as Baker</a></li><li><a href="#packages">Our Packages</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="#">About Us</a></li><li><a href="https://wa.me/916369380977" target="_blank">Contact</a></li><li><a href="https://www.instagram.com/bakersbridge.in?igsh=cjZqaW01MTF1MGQ=" target="_blank">Instagram</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 <a href="#">Bakers Bridge</a> · Chennai, Tamil Nadu</span>
+      <span>Made with ❤️ for home bakers</span>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/916369380977" class="wa-float" target="_blank">💬</a>
 
 <script>
-/* -------------------------------------------------------
+var bakers = {
+  pastry: {
+    logoKey: "PB_LOGO",
+    name: "The Pastry Bay",
+    spec: "Custom Fondant Cakes & Cupcakes",
+    rating: "★★★★★ 4.9",
+    loc: "📍 Anna Nagar",
+    whatsapp: "916369380977",
+    about: "The Pastry Bay is one of Chennai's finest home bakeries, specialising in custom fondant cakes, cupcakes, and eggless options. Every product is made fresh to order using quality imported ingredients.",
+    exp: "3 Years", orders: "500+", happy: "98%", areas: "Anna Nagar, Kilpauk",
+    products: {
+      "Custom Cakes": [
+        {n:"Birthday Cake",    p:"From ₹800",   imgKey:"BIRTHDAY_CAKE"},
+        {n:"Anniversary Cake", p:"From ₹1200",  imgKey:"ANNIVERSARY_CAKE"},
+        {n:"Fondant Cake",     p:"From ₹1500",  imgKey:"FONDANT_CAKE"},
+        {n:"Photo Cake",       p:"From ₹1000",  imgKey:"PHOTO_CAKE"}
+      ],
+      "Cupcakes": [
+        {n:"Vanilla Cupcake",   p:"₹60 each",  imgKey:"VANILLA_CUPCAKE"},
+        {n:"Chocolate Cupcake", p:"₹70 each",  imgKey:"CHOCO_CUPCAKE"},
+        {n:"Red Velvet",        p:"₹80 each",  imgKey:"RED_VELVET"},
+        {n:"Box of 12",         p:"From ₹700", imgKey:"BOX_OF_12"}
+      ],
+      "Desserts": [
+        {n:"Cheesecake",  p:"₹600", imgKey:"CHEESECAKE"},
+        {n:"Tiramisu",    p:"₹550", imgKey:"TIRAMISU"},
+        {n:"Brownie Box", p:"₹400", imgKey:"BROWNIE_BOX"}
+      ],
+      "Custom Orders": [
+        {n:"Wedding Cake",     p:"From ₹3000", imgKey:"WEDDING_CAKE"},
+        {n:"Baby Shower Cake", p:"From ₹1500", imgKey:"BABY_SHOWER"},
+        {n:"Corporate Order",  p:"From ₹2000", imgKey:"CORPORATE_CAKE"}
+      ]
+    },
+    reviews: [
+      {name:"Kavitha R.", stars:"★★★★★", text:"Ordered a fondant birthday cake — it was stunning and tasted amazing! Will definitely order again.", date:"March 2026"},
+      {name:"Arun M.",    stars:"★★★★★", text:"The Pastry Bay is so professional. Delivered on time and the cake was exactly as I imagined.", date:"Feb 2026"},
+      {name:"Sruthi P.",  stars:"★★★★☆", text:"Lovely cupcakes for my daughter's birthday party. Kids absolutely loved them!", date:"Jan 2026"}
+    ]
+  }
+};
+
+var curBaker = null;
+
+function applyImages() {
+  document.getElementById("img-bb-logo-nav").src    = IMAGES.BB_LOGO;
+  document.getElementById("img-bb-logo-footer").src = IMAGES.BB_LOGO;
+  document.getElementById("img-pb-hero").src        = IMAGES.PB_LOGO;
+  document.getElementById("img-pb-card").src        = IMAGES.PB_LOGO;
+  document.getElementById("img-pb-modal").src       = IMAGES.PB_LOGO;
+}
+document.addEventListener("DOMContentLoaded", applyImages);
+
+function openModal(id) {
+  curBaker = id;
+  var b = bakers[id];
+  document.getElementById("modalName").textContent   = b.name;
+  document.getElementById("modalSpec").textContent   = b.spec;
+  document.getElementById("modalRating").textContent = b.rating;
+  document.getElementById("modalLoc").textContent    = b.loc;
+  document.getElementById("img-pb-modal").src        = IMAGES[b.logoKey];
+  document.getElementById("modalWaBtn").onclick      = function() { window.open("https://wa.me/" + b.whatsapp, "_blank"); };
+  document.querySelectorAll(".modal-tab").forEach(function(t, i) { t.classList.toggle("active", i === 0); });
+  renderTab("products");
+  document.getElementById("modalOverlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeModal() {
+  document.getElementById("modalOverlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+function closeModalOutside(e) {
+  if (e.target === document.getElementById("modalOverlay")) closeModal();
+}
+function switchTab(tab, el) {
+  document.querySelectorAll(".modal-tab").forEach(function(t) { t.classList.remove("active"); });
+  el.classList.add("active");
+  renderTab(tab);
+}
+function renderTab(tab) {
+  var b = bakers[curBaker];
+  var html = "";
+  if (tab === "products") {
+    Object.entries(b.products).forEach(function(entry) {
+      var cat = entry[0], items = entry[1];
+      html += '<div class="product-category"><div class="product-cat-title">' + cat + '</div><div class="products-row">';
+      items.forEach(function(p) {
+        html += '<div class="product-item"><img src="' + IMAGES[p.imgKey] + '" alt="' + p.n + '"/><div class="product-details"><div class="product-name">' + p.n + '</div><div class="product-price">' + p.p + '</div></div></div>';
+      });
+      html += '</div></div>';
+    });
+  } else if (tab === "about") {
+    html = '<div class="about-text">' + b.about + '</div><div class="about-highlights">' +
+      '<div class="highlight-item"><div class="highlight-val">' + b.exp + '</div><div class="highlight-label">Experience</div></div>' +
+      '<div class="highlight-item"><div class="highlight-val">' + b.orders + '</div><div class="highlight-label">Orders Completed</div></div>' +
+      '<div class="highlight-item"><div class="highlight-val">' + b.happy + '</div><div class="highlight-label">Happy Customers</div></div>' +
+      '<div class="highlight-item"><div class="highlight-val">📍</div><div class="highlight-label">' + b.areas + '</div></div></div>';
+  } else {
+    html = b.reviews.map(function(r) {
+      return '<div class="review-item"><div class="review-top"><span class="reviewer-name">' + r.name + '</span><span class="review-stars">' + r.stars + '</span></div><div class="review-text">&ldquo;' + r.text + '&rdquo;</div><div class="review-date">' + r.date + '</div></div>';
+    }).join("");
+  }
+  document.getElementById("modalContent").innerHTML = html;
+}
+
+window.addEventListener("scroll", function() {
+  document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 50);
+});
+
+document.querySelectorAll(".chip").forEach(function(c) {
+  c.addEventListener("click", function() {
+    document.querySelectorAll(".chip").forEach(function(x) { x.classList.remove("active"); });
+    this.classList.add("active");
+    filterByArea(this.textContent.trim());
+    setTimeout(function() {
+      document.getElementById("bakers").scrollIntoView({behavior:"smooth", block:"start"});
+    }, 50);
+  });
+});
+
+document.querySelector(".search-select").addEventListener("change", function() {
+  var mapped = this.value === "All Areas" ? "All" : this.value;
+  filterByArea(mapped);
+  document.querySelectorAll(".chip").forEach(function(c) {
+    c.classList.toggle("active", c.textContent.trim() === mapped);
+  });
+  setTimeout(function() {
+    document.getElementById("bakers").scrollIntoView({behavior:"smooth", block:"start"});
+  }, 50);
+});
+
+document.querySelector(".search-btn").addEventListener("click", function() {
+  var area = document.querySelector(".search-select").value;
+  filterByArea(area === "All Areas" ? "All" : area);
+  setTimeout(function() {
+    document.getElementById("bakers").scrollIntoView({behavior:"smooth", block:"start"});
+  }, 50);
+});
+
+function filterByArea(area) {
+  var existing = document.getElementById("no-bakers-msg");
+  if (existing) existing.remove();
+
+  var cards = document.querySelectorAll(".baker-card, .slot-card");
+  var visibleCount = 0;
+  cards.forEach(function(card) {
+    var locEl = card.querySelector(".baker-loc, .slot-loc");
+    var locText = locEl ? locEl.textContent : "";
+    var show = (area === "All") || (locText.toLowerCase().indexOf(area.toLowerCase()) !== -1);
+    card.style.display = show ? "" : "none";
+    if (show) visibleCount++;
+  });
+
+  document.querySelectorAll(".chip").forEach(function(c) {
+    c.classList.toggle("active", c.textContent.trim() === area);
+  });
+
+  if (visibleCount === 0) {
+    var grid = document.querySelector(".bakers-grid");
+    var wrapper = document.createElement("div");
+    wrapper.id = "no-bakers-msg";
+    wrapper.style.gridColumn = "1 / -1";
+
+    var card = document.createElement("div");
+    card.style.cssText = "background:var(--card);border-radius:18px;border:2px dashed rgba(200,150,42,0.3);padding:3rem 2rem;text-align:center;animation:fadeUp 0.4s ease both;";
+
+    var icon = document.createElement("div");
+    icon.style.cssText = "width:80px;height:80px;border-radius:50%;background:rgba(200,150,42,0.1);border:2px dashed rgba(200,150,42,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-size:2rem;";
+    icon.textContent = "🔍";
+
+    var title = document.createElement("div");
+    title.style.cssText = "font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--brown);margin-bottom:0.5rem;";
+    title.textContent = "No Verified Bakers in " + area + " Yet";
+
+    var subtitle = document.createElement("div");
+    subtitle.style.cssText = "font-size:14px;color:var(--text-muted);margin-bottom:1.5rem;line-height:1.7;";
+    subtitle.textContent = "We are personally visiting and onboarding bakers in this area soon! Know a great home baker here?";
+
+    var btnRow = document.createElement("div");
+    btnRow.style.cssText = "display:flex;gap:10px;justify-content:center;flex-wrap:wrap;";
+
+    var referBtn = document.createElement("a");
+    referBtn.href = "https://wa.me/916369380977";
+    referBtn.target = "_blank";
+    referBtn.style.cssText = "background:var(--gold);color:white;text-decoration:none;padding:10px 24px;border-radius:25px;font-size:13px;font-weight:500;font-family:Outfit,sans-serif;";
+    referBtn.textContent = "💬 Refer a Baker";
+
+    var allBtn = document.createElement("button");
+    allBtn.style.cssText = "background:transparent;color:var(--brown);border:1.5px solid var(--border);padding:10px 24px;border-radius:25px;font-size:13px;font-weight:500;cursor:pointer;font-family:Outfit,sans-serif;";
+    allBtn.textContent = "View All Bakers";
+    allBtn.addEventListener("click", function() { filterByArea("All"); });
+
+    btnRow.appendChild(referBtn);
+    btnRow.appendChild(allBtn);
+    card.appendChild(icon);
+    card.appendChild(title);
+    card.appendChild(subtitle);
+    card.appendChild(btnRow);
+    wrapper.appendChild(card);
+    grid.appendChild(wrapper);
+  }
+}
+
+document.querySelectorAll(".filter-tab").forEach(function(t) {
+  t.addEventListener("click", function() {
+    document.querySelectorAll(".filter-tab").forEach(function(x) { x.classList.remove("active"); });
+    this.classList.add("active");
+  });
+});
+function toggleFaq(el) {
+  var item = el.parentElement;
+  var open = item.classList.contains("open");
+  document.querySelectorAll(".faq-item").forEach(function(i) { i.classList.remove("open"); });
+  if (!open) item.classList.add("open");
+}
+document.addEventListener("keydown", function(e) { if (e.key === "Escape") closeModal(); });
+
+function openLoginModal() {
+  document.getElementById("loginOverlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+  document.getElementById("img-bb-logo-login").src = IMAGES.BB_LOGO;
+}
+
+function closeLoginModal() {
+  document.getElementById("loginOverlay").classList.remove("open");
+  document.body.style.overflow = "";
+  document.getElementById("loginForm").reset();
+}
+
+function closeLoginModalOutside(e) {
+  if (e.target === document.getElementById("loginOverlay")) closeLoginModal();
+}
+
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  var email = document.getElementById("loginEmail").value;
+  var password = document.getElementById("loginPassword").value;
+  
+  if(email && password) {
+    alert("Login feature coming soon!\n\nFor now, contact us on WhatsApp at 916369380977");
+    closeLoginModal();
+  }
+});
+
+</script>
+</body>
+</html>
