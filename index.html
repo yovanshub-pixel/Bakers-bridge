@@ -76,21 +76,34 @@
     
     .bakers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; max-width: 1300px; margin: 0 auto; }
 
-    /* CARD STYLES */
+    /* BAKER CARDS (PREMIUM) */
     .baker-card { background: var(--white); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: 0.4s; position: relative; cursor: pointer; }
     .baker-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(61, 43, 31, 0.12); }
     
-    .card-plan-Premium { border: 2px solid var(--gold); }
+    .card-plan-Premium { border: 2px solid var(--gold); background: #FFFBF2; }
     .card-plan-Premium::before { content: '👑 PREMIUM'; position: absolute; top: 12px; right: 12px; background: var(--gold); color: white; font-size: 9px; font-weight: 800; padding: 4px 12px; border-radius: 20px; z-index: 5; }
+    .card-plan-Premium .card-header { background: linear-gradient(135deg, #FFF5E1, #FFFBF2); }
     
-    .card-plan-Standard { border: 1.5px solid #0369A1; }
+    .card-plan-Standard { border: 1.5px solid #0369A1; background: #F8FDFF; }
     .card-plan-Standard::before { content: '🚀 FEATURED'; position: absolute; top: 12px; right: 12px; background: #0369A1; color: white; font-size: 9px; font-weight: 800; padding: 4px 12px; border-radius: 20px; z-index: 5; }
+    .card-plan-Standard .card-header { background: linear-gradient(135deg, #E0F2FE, #F8FDFF); }
 
-    .card-header { height: 160px; background: #FAF9F6; display: flex; align-items: center; justify-content: center; position: relative; }
-    .card-logo { width: 90px; height: 90px; border-radius: 20px; border: 3px solid white; box-shadow: 0 8px 20px rgba(0,0,0,0.06); overflow: hidden; }
+    .card-plan-Basic { background: #FCF9F5; }
+    .card-plan-Basic .card-header { background: #F7F1E9; }
+
+    .card-header { height: 160px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    
+    /* Subtle Watermark in Header */
+    .card-header::after { 
+      content: ''; position: absolute; inset: 0; 
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M30 20 L70 80' stroke='%23C8962A' stroke-opacity='0.05' stroke-width='2'/%3E%3C/svg%3E");
+      opacity: 0.5; pointer-events: none;
+    }
+
+    .card-logo { width: 90px; height: 90px; border-radius: 20px; border: 3px solid white; box-shadow: 0 8px 20px rgba(0,0,0,0.06); overflow: hidden; position: relative; z-index: 2; }
     .card-logo img { width: 100%; height: 100%; object-fit: cover; }
     
-    .card-body { padding: 1.5rem; }
+    .card-body { padding: 1.5rem; position: relative; z-index: 2; }
     .card-name { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 700; color: var(--brown); margin-bottom: 8px; }
     .card-spec { color: var(--text-muted); font-size: 15px; margin-bottom: 20px; font-weight: 500; }
     .card-meta { display: flex; justify-content: space-between; border-top: 1px solid #f0f0f0; padding-top: 20px; align-items: center; }
