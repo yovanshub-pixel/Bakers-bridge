@@ -10,6 +10,7 @@
     :root {
       --cream: #FDF6EC; --warm: #F5E6CC;
       --gold: #C8962A; --gold-light: #E8B84B; --gold-dark: #9A7020;
+      --silver: #94A3B8; --silver-light: #E2E8F0;
       --brown: #3D2B1F; --text: #2C1A0E; --text-muted: #7A5C45;
       --white: #FFFFFF; --border: rgba(200, 150, 42, 0.18);
     }
@@ -32,9 +33,9 @@
     .hero h1 em { color: var(--gold); font-style: normal; }
     .hero-desc { font-size: 1.05rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 2rem; max-width: 480px; }
     
-    /* FLOATING CARDS (DYNAMIC) */
+    /* FLOATING CARDS */
     .hero-right { position: relative; height: 600px; }
-    .float-card { position: absolute; background: white; border-radius: 18px; border: 1px solid var(--border); padding: 1.25rem; box-shadow: 0 8px 32px rgba(61,43,31,0.1); width: 260px; transition: opacity 0.5s; }
+    .float-card { position: absolute; background: white; border-radius: 18px; border: 1px solid var(--border); padding: 1.25rem; box-shadow: 0 8px 32px rgba(61,43,31,0.1); width: 260px; }
     .float-card.main { top: 20px; left: 10px; animation: float1 4s infinite; }
     .float-card.side { top: 220px; right: 0; animation: float1 5s infinite; }
     .float-card.bottom { bottom: 20px; left: 30px; animation: float1 6s infinite; }
@@ -42,52 +43,47 @@
 
     /* SEARCH BAR */
     .search-bar-section { background: var(--white); padding: 2.5rem 3rem; box-shadow: 0 4px 20px rgba(61,43,31,0.07); }
-    .search-inner { max-width: 800px; margin: 0 auto; }
-    .search-box { display: flex; background: var(--cream); border: 1.5px solid var(--border); border-radius: 50px; padding: 6px; }
-    .search-box input { flex: 1; border: none; background: transparent; padding-left: 20px; outline: none; }
-    .search-btn { background: var(--gold); color: white; border: none; padding: 10px 28px; border-radius: 40px; cursor: pointer; }
+    .search-inner { max-width: 900px; margin: 0 auto; }
+    .search-box { display: flex; background: var(--cream); border: 1.5px solid var(--border); border-radius: 50px; padding: 6px; gap: 10px; }
+    .search-box input { flex: 1.5; border: none; background: transparent; padding-left: 20px; outline: none; }
+    .search-box select { flex: 1; border: none; background: transparent; border-left: 1px solid var(--border); padding-left: 10px; outline: none; font-family: inherit; color: var(--text-muted); cursor: pointer; }
+    .search-btn { background: var(--gold); color: white; border: none; padding: 10px 28px; border-radius: 40px; cursor: pointer; font-weight: 600; }
 
     /* BAKER GRID */
     section { padding: 5rem 3rem; }
     .section-inner { max-width: 1100px; margin: 0 auto; }
     .section-header { text-align: center; margin-bottom: 3rem; }
-    .bakers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .bakers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
 
-    /* BAKER CARDS (PLAN STYLES) */
-    .baker-card { background: white; border-radius: 18px; border: 1px solid var(--border); overflow: hidden; transition: all 0.3s; cursor: pointer; position: relative; }
-    .baker-card:hover { transform: translateY(-8px); box-shadow: 0 16px 40px rgba(61,43,31,0.15); }
+    /* BAKER CARDS */
+    .baker-card { background: white; border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: all 0.3s; cursor: pointer; position: relative; }
+    .baker-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(61,43,31,0.12); }
     
-    /* Premium Style */
-    .plan-Premium { border: 2px solid var(--gold); box-shadow: 0 0 20px rgba(200, 150, 42, 0.1); }
-    .plan-Premium .card-glow { position: absolute; inset: 0; background: radial-gradient(circle at top right, rgba(200, 150, 42, 0.05), transparent 70%); pointer-events: none; }
-    .plan-Premium .plan-badge { background: var(--gold); color: white; }
+    /* Plan Specifics */
+    .plan-Premium { border: 2.5px solid var(--gold); }
+    .plan-Premium::after { content: '👑 PREMIUM'; position: absolute; top: 12px; right: 12px; background: var(--gold); color: white; font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.5px; }
     
-    /* Standard Style */
-    .plan-Standard { border: 1px solid #BAE6FD; }
-    .plan-Standard .plan-badge { background: #0369A1; color: white; }
+    .plan-Standard { border: 1.5px solid var(--silver); }
+    .plan-Standard::after { content: '🚀 FEATURED'; position: absolute; top: 12px; right: 12px; background: #0369A1; color: white; font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 20px; }
 
-    .baker-card-header { height: 180px; background: #FFF9F0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; position: relative; }
-    .baker-brand-logo { width: 80px; height: 80px; border-radius: 14px; overflow: hidden; border: 2px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .baker-card-header { height: 160px; background: #FAFAFA; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #f0f0f0; }
+    .baker-brand-logo { width: 90px; height: 90px; border-radius: 18px; overflow: hidden; background: white; border: 1px solid #eee; }
     .baker-brand-logo img { width: 100%; height: 100%; object-fit: cover; }
-    .plan-badge { position: absolute; top: 12px; right: 12px; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
 
     .baker-body { padding: 1.5rem; }
-    .baker-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 700; color: var(--brown); margin-bottom: 5px; }
-    .baker-spec { font-size: 14px; color: var(--text-muted); margin-bottom: 12px; }
-    .baker-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); }
-    .baker-footer { padding: 1.25rem; border-top: 1px solid #f5f5f5; display: flex; gap: 10px; }
-    .btn-wa { flex: 1; background: #25D366; color: white; border: none; padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer; }
-    .btn-view { flex: 1; background: var(--cream); color: var(--brown); border: 1px solid var(--border); padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer; }
+    .baker-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: var(--brown); margin-bottom: 4px; }
+    .baker-spec { font-size: 14px; color: var(--text-muted); margin-bottom: 15px; }
+    .baker-meta { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-muted); border-top: 1px solid #f5f5f5; padding-top: 15px; }
 
-    /* EMPTY STATE */
-    .empty-state { text-align: center; padding: 4rem 2rem; background: white; border-radius: 24px; border: 2px dashed var(--border); grid-column: 1 / -1; }
-    .empty-state h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--brown); margin-bottom: 10px; }
-    .empty-state p { color: var(--text-muted); margin-bottom: 20px; }
+    /* PLACEHOLDER CARD */
+    .slot-card { background: var(--cream); border: 2px dashed rgba(61,43,31,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2.5rem; border-radius: 20px; height: 350px; color: var(--text-muted); }
+    .slot-icon { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.5; }
+    .slot-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; color: var(--brown-light); }
+    .btn-slot { background: var(--brown); color: white; border: none; padding: 10px 20px; border-radius: 20px; font-size: 12px; margin-top: 15px; cursor: pointer; }
 
-    /* MODAL */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-    .modal { background: white; width: 90%; max-width: 800px; border-radius: 24px; padding: 2.5rem; position: relative; max-height: 90vh; overflow-y: auto; }
-    .modal-close { position: absolute; top: 20px; right: 20px; cursor: pointer; font-size: 20px; }
+    .modal { background: white; width: 90%; max-width: 800px; border-radius: 24px; padding: 2.5rem; position: relative; }
+    .modal-close { position: absolute; top: 20px; right: 20px; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -115,8 +111,7 @@
         <button class="btn-nav-solid" style="padding: 15px 35px; font-size: 16px;" onclick="document.getElementById('bakers').scrollIntoView()">Start Browsing</button>
       </div>
       <div class="hero-right" id="heroCards">
-        <!-- Floating Cards Dynamically Loaded -->
-        <div class="float-card main" style="opacity:0.5; text-align:center;">Loading featured...</div>
+        <!-- Floating Cards Dynamically Loaded or Placeholders -->
       </div>
     </div>
   </section>
@@ -124,8 +119,19 @@
   <div class="search-bar-section">
     <div class="search-inner">
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Search baker or specialty..." oninput="performSearch()">
-        <button class="search-btn">Search</button>
+        <input type="text" id="searchInput" placeholder="Search by name or specialty..." oninput="performSearch()">
+        <select id="locationSelect" onchange="performSearch()">
+          <option value="All">All Locations</option>
+          <option value="Anna Nagar">Anna Nagar</option>
+          <option value="Adyar">Adyar</option>
+          <option value="Velachery">Velachery</option>
+          <option value="T Nagar">T Nagar</option>
+          <option value="Alwarpet">Alwarpet</option>
+          <option value="Besant Nagar">Besant Nagar</option>
+          <option value="Nungambakkam">Nungambakkam</option>
+          <option value="Mylapore">Mylapore</option>
+        </select>
+        <button class="search-btn" onclick="performSearch()">Search</button>
       </div>
     </div>
   </div>
@@ -133,11 +139,11 @@
   <section id="bakers">
     <div class="section-inner">
       <div class="section-header">
-        <h2 style="font-family:'Cormorant Garamond'; font-size: 2.5rem;">Verified Bakers</h2>
-        <p style="color: var(--text-muted);">Hand-picked local experts.</p>
+        <h2 style="font-family:'Cormorant Garamond'; font-size: 2.8rem;">Meet Our Bakers</h2>
+        <p style="color: var(--text-muted); font-size: 1.1rem;">Every profile is personally verified by our team.</p>
       </div>
       <div class="bakers-grid" id="bakersGrid">
-        <!-- Loaded from Supabase -->
+        <!-- Loaded from Supabase + Placeholders -->
       </div>
     </div>
   </section>
@@ -146,7 +152,7 @@
   <div class="modal-overlay" id="loginModal">
     <div class="modal" style="max-width: 400px;">
       <span class="modal-close" onclick="closeLogin()">✕</span>
-      <h2 style="text-align:center; margin-bottom:20px;">Admin Login</h2>
+      <h2 style="text-align:center; margin-bottom:20px;">Admin Access</h2>
       <form id="loginForm" style="display:flex; flex-direction:column; gap:15px;">
         <input type="email" id="email" placeholder="Email" required style="padding:12px; border:1px solid #ddd; border-radius:10px;">
         <input type="password" id="pass" placeholder="Password" required style="padding:12px; border:1px solid #ddd; border-radius:10px;">
@@ -175,94 +181,92 @@
       const grid = document.getElementById('bakersGrid');
       grid.innerHTML = "";
       
-      if (!data || data.length === 0) {
-        grid.innerHTML = `
-          <div class="empty-state">
-            <h3>No Bakers Found Yet</h3>
-            <p>We are currently vetting new home bakers in your area. Check back soon or join our community!</p>
-            <button class="btn-nav-solid" onclick="window.location.reload()">Refresh List</button>
-          </div>`;
-        return;
-      }
-
+      // Show actual bakers
       data.forEach(b => {
         const card = document.createElement('div');
         card.className = `baker-card plan-${b.plan || 'Basic'}`;
         card.innerHTML = `
-          <div class="card-glow"></div>
           <div class="baker-card-header">
-            <span class="plan-badge">${b.plan || 'Verified'}</span>
             <div class="baker-brand-logo"><img src="${b.logo_key || 'https://i.imgur.com/yteSy8p.jpeg'}"></div>
-            <div class="baker-brand-name">${b.name}</div>
           </div>
           <div class="baker-body">
+            <div class="baker-brand-name">${b.name}</div>
             <div class="baker-spec">${b.spec || 'Home Baker'}</div>
             <div class="baker-meta">
               <span>📍 ${b.loc || 'Chennai'}</span>
               <span>⭐ ${b.rating || '4.8'}</span>
             </div>
           </div>
-          <div class="baker-footer">
-            <button class="btn-wa" onclick="window.open('https://wa.me/${b.whatsapp || '916369380977'}')">WhatsApp</button>
-            <button class="btn-view" onclick="alert('Profile Coming Soon!')">View Profile</button>
-          </div>
         `;
         grid.appendChild(card);
       });
+
+      // Fill up to 6 slots with "Join Us" cards
+      const totalSlots = Math.max(6, data.length);
+      for (let i = data.length; i < 6; i++) {
+        const slot = document.createElement('div');
+        slot.className = "slot-card";
+        slot.innerHTML = `
+          <div class="slot-icon">🧁</div>
+          <div class="slot-title">Baker Slot Available</div>
+          <p>Join our verified hub and grow your brand.</p>
+          <button class="btn-slot" onclick="alert('Join page coming soon!')">Register Now</button>
+        `;
+        grid.appendChild(slot);
+      }
     }
 
     function renderHeroCards(data) {
       const hero = document.getElementById('heroCards');
       const heroes = data.filter(b => b.is_hero).slice(0, 3);
-      
-      if (heroes.length === 0) {
-        hero.innerHTML = `
-          <div class="float-card main"><h3>Baker of the Month</h3><p>Join us to be featured here!</p></div>
-        `;
-        return;
-      }
-
       hero.innerHTML = "";
       const positions = ['main', 'side', 'bottom'];
-      heroes.forEach((b, i) => {
+      
+      for (let i = 0; i < 3; i++) {
         const card = document.createElement('div');
         card.className = `float-card ${positions[i]}`;
-        card.innerHTML = `
-          <div style="display:flex; gap:10px; align-items:center;">
-            <img src="${b.logo_key}" style="width:40px; height:40px; border-radius:8px;">
-            <div>
-              <div style="font-weight:700; font-size:14px;">${b.name}</div>
-              <div style="font-size:10px; color:var(--gold); font-weight:700;">★ TOP RATED</div>
+        
+        if (heroes[i]) {
+          const b = heroes[i];
+          card.innerHTML = `
+            <div style="display:flex; gap:12px; align-items:center;">
+              <img src="${b.logo_key}" style="width:45px; height:45px; border-radius:10px; border:1px solid #eee;">
+              <div>
+                <div style="font-weight:800; font-size:14px; color:var(--brown);">${b.name}</div>
+                <div style="font-size:10px; color:var(--gold); font-weight:800;">★ FEATURED</div>
+              </div>
             </div>
-          </div>
-        `;
+          `;
+        } else {
+          card.style.background = "rgba(253, 246, 236, 0.8)";
+          card.style.border = "2px dashed var(--border)";
+          card.innerHTML = `
+            <div style="display:flex; gap:12px; align-items:center; opacity:0.6;">
+              <div style="width:45px; height:45px; background:#fff; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px;">✨</div>
+              <div>
+                <div style="font-weight:700; font-size:13px;">New Spot Open</div>
+                <div style="font-size:10px; color:var(--text-muted);">Join as Premium</div>
+              </div>
+            </div>
+          `;
+        }
         hero.appendChild(card);
-      });
+      }
     }
 
     function performSearch() {
       const query = document.getElementById('searchInput').value.toLowerCase();
-      const filtered = allBakers.filter(b => 
-        b.name.toLowerCase().includes(query) || 
-        (b.spec && b.spec.toLowerCase().includes(query)) ||
-        (b.loc && b.loc.toLowerCase().includes(query))
-      );
+      const loc = document.getElementById('locationSelect').value;
+      const filtered = allBakers.filter(b => {
+        const matchesQuery = b.name.toLowerCase().includes(query) || (b.spec && b.spec.toLowerCase().includes(query));
+        const matchesLoc = loc === "All" || b.loc === loc;
+        return matchesQuery && matchesLoc;
+      });
       renderBakers(filtered);
     }
 
     function openLogin() { document.getElementById('loginModal').style.display = 'flex'; }
     function closeLogin() { document.getElementById('loginModal').style.display = 'none'; }
-
-    document.getElementById('loginForm').onsubmit = async (e) => {
-      e.preventDefault();
-      const { error } = await supabase.auth.signInWithPassword({
-        email: document.getElementById('email').value,
-        password: document.getElementById('pass').value
-      });
-      if (error) alert(error.message);
-      else window.location.href = "admin.html";
-    };
-
     loadBakers();
   </script>
 </body>
