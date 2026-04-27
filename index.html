@@ -129,7 +129,8 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
     <li><a href="#packages">For Bakers</a></li>
   </ul>
   <div class="nav-actions">
-    <button class="btn-nav-outline" onclick="openLoginModal()">Login</button>
+    <!-- Buttons handled by JS for auth state -->
+    <button class="btn-nav-outline" id="authBtn" onclick="openLoginModal()">Login</button>
     <button class="btn-nav-solid" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">Join as Baker</button>
   </div>
 </nav>
@@ -180,30 +181,33 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
       <div class="section-sub">Hand-picked, personally visited, and monthly quality-checked — only the best make it here.</div>
     </div>
     <div class="bakers-grid" id="bakersGrid">
-      <!-- Bakers will load here from Supabase -->
+      <div style="text-align:center; grid-column: 1/-1; padding: 3rem; color: var(--text-muted);">
+        Loading bakers...
+      </div>
     </div>
   </div>
 </section>
 
 <!-- LOGIN MODAL -->
 <div class="modal-overlay" id="loginOverlay" onclick="closeLoginModalOutside(event)">
-  <div class="modal">
+  <div class="modal" onclick="event.stopPropagation()">
     <button class="modal-close" onclick="closeLoginModal()">✕</button>
     <div style="text-align:center;margin-bottom:2rem;">
       <img id="img-bb-logo-login" style="width:60px;height:60px;border-radius:12px;margin-bottom:1rem;object-fit:cover;" src="https://i.imgur.com/yteSy8p.jpeg" alt="Bakers Bridge"/>
       <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--brown);margin-bottom:0.5rem;">Bakers Bridge</h2>
       <p style="color:var(--text-muted);font-size:14px;">Sign in to your account</p>
     </div>
-    <form id="loginForm" style="display:flex;flex-direction:column;gap:1rem;" onsubmit="handleLogin(event)">
+    <form id="loginForm" style="display:flex;flex-direction:column;gap:1rem;">
       <div>
-        <label style="display:block;font-size:13px;font-weight:600;color:var(--brown);margin-bottom:0.5rem;">Email or Phone</label>
-        <input type="text" id="loginEmail" placeholder="your@email.com or 9876543210" style="width:100%;padding:12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'Outfit',sans-serif;outline:none;" required/>
+        <label style="display:block;font-size:13px;font-weight:600;color:var(--brown);margin-bottom:0.5rem;">Email</label>
+        <input type="email" id="loginEmail" placeholder="your@email.com" style="width:100%;padding:12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'Outfit',sans-serif;outline:none;" required/>
       </div>
       <div>
         <label style="display:block;font-size:13px;font-weight:600;color:var(--brown);margin-bottom:0.5rem;">Password</label>
         <input type="password" id="loginPassword" placeholder="Enter your password" style="width:100%;padding:12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'Outfit',sans-serif;outline:none;" required/>
       </div>
-      <button type="submit" style="background:var(--gold);color:white;border:none;padding:12px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;">Sign In</button>
+      <div id="loginError" style="color: #ff4444; font-size: 13px; display: none;"></div>
+      <button type="submit" id="submitBtn" style="background:var(--gold);color:white;border:none;padding:12px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;">Sign In</button>
     </form>
     <div style="text-align:center;margin-top:1.5rem;">
       <p style="font-size:13px;color:var(--text-muted);">Contact us on <a href="https://wa.me/916369380977" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:600;">WhatsApp</a></p>
@@ -237,33 +241,36 @@ footer{background:#1F0E07;padding:3rem;color:rgba(245,230,204,0.4);font-size:13p
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.3/dist/umd/supabase.min.js"></script>
 
 <script>
-// 1. SUPABASE INITIALIZATION
+// ============================================================
+// SUPABASE INITIALIZATION
+// ============================================================
+// Vercel will inject these if prefixed with NEXT_PUBLIC_
+// We use window fallback for static deployments
 const SUPABASE_URL = window.NEXT_PUBLIC_SUPABASE_URL || "https://qlkdxrryfpdmmbbqxkey.supabase.co";
 const SUPABASE_ANON_KEY = window.NEXT_PUBLIC_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsa2R4cnJ5ZnBkbW1iYnF4a2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMTUzMDQsImV4cCI6MjA5Mjc5MTMwNH0.9dFamA3asEEQ4KCBbfyx3vVw0KvEgh2hA3nGbIptLew"; 
 
 let supabase = null;
-if (window.supabase) {
+
+if (window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY) {
   supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+} else {
+  console.error("Supabase configuration missing! Check Vercel environment variables.");
 }
 
-// 2. MODAL FUNCTIONS (Global Scope)
-window.openLoginModal = function() {
-  document.getElementById("loginOverlay").classList.add("open");
-  document.body.style.overflow = "hidden";
-};
+// ============================================================
+// AUTH LOGIC
+// ============================================================
+function updateAuthUI(user) {
+  const authBtn = document.getElementById("authBtn");
+  if (user) {
+    authBtn.textContent = "Logout";
+    authBtn.onclick = handleLogout;
+  } else {
+    authBtn.textContent = "Login";
+    authBtn.onclick = openLoginModal;
+  }
+}
 
-window.closeLoginModal = function() {
-  document.getElementById("loginOverlay").classList.remove("open");
-  document.body.style.overflow = "";
-  document.getElementById("loginForm").reset();
-  document.getElementById("loginError").style.display = "none";
-};
-
-window.closeLoginModalOutside = function(e) {
-  if (e.target === document.getElementById("loginOverlay")) window.closeLoginModal();
-};
-
-// 3. AUTH LOGIC
 async function handleLogout() {
   await supabase.auth.signOut();
   window.location.reload();
@@ -280,7 +287,10 @@ async function handleLogin(e) {
   submitBtn.textContent = "Signing in...";
   errorDiv.style.display = "none";
 
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: email,
+    password: password,
+  });
 
   if (error) {
     errorDiv.textContent = error.message;
@@ -288,90 +298,22 @@ async function handleLogin(e) {
     submitBtn.disabled = false;
     submitBtn.textContent = "Sign In";
   } else {
-    window.closeLoginModal();
-    window.location.reload();
+    closeLoginModal();
+    window.location.href = "admin.html";
   }
 }
 
-// 4. BAKERS LOADING
-async function loadBakers() {
-  if (!supabase) return;
-  try {
-    const { data, error } = await supabase.from('bakers').select('*').order('verified', { ascending: false });
-    if (error) throw error;
-    
-    const grid = document.getElementById("bakersGrid");
-    grid.innerHTML = "";
-    if (!data || data.length === 0) {
-      grid.innerHTML = '<div style="text-align:center; grid-column: 1/-1; padding: 3rem; color: var(--text-muted);">No bakers found yet.</div>';
-      return;
-    }
+document.getElementById("loginForm").addEventListener("submit", handleLogin);
 
-    data.forEach(baker => {
-      const card = document.createElement("div");
-      card.className = "baker-card";
-      card.innerHTML = `
-        <div class="baker-card-header">
-          <div class="baker-brand-logo"><img src="${baker.logo_url || "https://i.imgur.com/yteSy8p.jpeg"}" alt="${baker.name}"/></div>
-          <div class="baker-brand-name">${baker.name}</div>
-          ${baker.verified ? '<span class="verified-badge">✓ Verified</span>' : ''}
-        </div>
-        <div class="baker-body">
-          <div class="baker-spec">${baker.category || "Home Baker"}</div>
-          <div class="baker-row">
-            <div class="baker-loc">📍 ${baker.location || "Chennai"}</div>
-            <div class="baker-rating"><span class="stars">★★★★★</span><span class="rating-val">${baker.rating || "4.8"}</span></div>
-          </div>
-        </div>
-        <div class="baker-footer">
-          <button class="btn-enquire" onclick="window.open('https://wa.me/${baker.whatsapp || "916369380977"}', '_blank')">💬 WhatsApp</button>
-          <button class="btn-view">View Profile</button>
-        </div>`;
-      grid.appendChild(card);
-    });
-  } catch (err) {
-    console.error('Error loading bakers:', err);
-  }
-}
-
-// 5. INITIALIZATION
-document.addEventListener("DOMContentLoaded", function() {
-  if (supabase) {
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      const authBtn = document.getElementById("authBtn");
-      if (user) {
-        authBtn.textContent = "Logout";
-        authBtn.onclick = handleLogout;
-      } else {
-        authBtn.textContent = "Login";
-        authBtn.onclick = window.openLoginModal;
-      }
-    });
-  }
-
-  const loginForm = document.getElementById("loginForm");
-  if (loginForm) loginForm.addEventListener("submit", handleLogin);
-
-  loadBakers();
-  
-  window.addEventListener("scroll", function() {
-    document.getElementById("navbar").classList.toggle("scrolled", window.scrollY > 50);
+// Check auth state on load
+if (supabase) {
+  supabase.auth.getUser().then(({ data: { user } }) => {
+    updateAuthUI(user);
   });
-});
-</script>
-
-
-<script>
-// ============================================================
-// IMAGES CONFIG
-// ============================================================
-const IMAGES = {
-  BB_LOGO: "https://i.imgur.com/yteSy8p.jpeg",
-  PB_LOGO: "https://i.imgur.com/aVHYGRF.png",
-};
+}
 
 // ============================================================
-// LOGIN FUNCTIONS
+// MODAL FUNCTIONS
 // ============================================================
 function openLoginModal() {
   document.getElementById("loginOverlay").classList.add("open");
@@ -382,75 +324,66 @@ function closeLoginModal() {
   document.getElementById("loginOverlay").classList.remove("open");
   document.body.style.overflow = "";
   document.getElementById("loginForm").reset();
+  document.getElementById("loginError").style.display = "none";
 }
 
 function closeLoginModalOutside(e) {
   if (e.target === document.getElementById("loginOverlay")) closeLoginModal();
 }
 
-function handleLogin(e) {
-  e.preventDefault();
-  var email = document.getElementById("loginEmail").value;
-  var password = document.getElementById("loginPassword").value;
-  alert("Login coming soon! For now, contact us on WhatsApp: 916369380977");
-  closeLoginModal();
-}
-
 // ============================================================
-// SUPABASE & BAKERS LOADING
+// BAKERS LOADING
 // ============================================================
-const SUPABASE_URL = "https://qlkdxrryfpdmmbbqxkey.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsa2R4cnJ5ZnBkbW1iYnF4a2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMTUzMDQsImV4cCI6MjA5Mjc5MTMwNH0.9dFamA3asEEQ4KCBbfyx3vVw0KvEgh2hA3nGbIptLew"; // Add your Anon Key from Supabase Settings > API
-
-let supabase = null;
-
-if (window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY) {
-  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-}
-
 async function loadBakers() {
-  if (!supabase) {
-    console.warn("Supabase not configured. Add your Anon Key to bakers_bridge_clean.html");
-    return;
-  }
+  if (!supabase) return;
   
   try {
-    const { data, error } = await supabase.from('bakers').select('*');
-    if (error) {
-      console.error('Error loading bakers:', error);
-      return;
-    }
+    const { data, error } = await supabase
+      .from('bakers')
+      .select('*')
+      .order('verified', { ascending: false });
+
+    if (error) throw error;
     renderBakers(data);
   } catch (err) {
-    console.error('Connection error:', err);
+    console.error('Error loading bakers:', err);
+    document.getElementById("bakersGrid").innerHTML = 
+      '<div style="text-align:center; grid-column: 1/-1; padding: 3rem; color: var(--gold);">Error loading bakers. Please try again later.</div>';
   }
 }
 
 function renderBakers(bakersData) {
-  var grid = document.getElementById("bakersGrid");
+  const grid = document.getElementById("bakersGrid");
+  if (!bakersData || bakersData.length === 0) {
+    grid.innerHTML = '<div style="text-align:center; grid-column: 1/-1; padding: 3rem; color: var(--text-muted);">No bakers found yet.</div>';
+    return;
+  }
+
   grid.innerHTML = "";
-  
   bakersData.forEach(function(baker) {
-    var card = document.createElement("div");
+    const card = document.createElement("div");
     card.className = "baker-card";
     
-    card.innerHTML = 
-      '<div class="baker-card-header">' +
-        '<div class="baker-brand-logo"><img src="' + (baker.logo_url || "https://via.placeholder.com/90") + '" alt="' + baker.name + '"/></div>' +
-        '<div class="baker-brand-name">' + baker.name + '</div>' +
-        (baker.verified ? '<span class="verified-badge">✓ Verified</span>' : '') +
-      '</div>' +
-      '<div class="baker-body">' +
-        '<div class="baker-spec">' + (baker.category || "Home Baker") + '</div>' +
-        '<div class="baker-row">' +
-          '<div class="baker-loc">📍 ' + (baker.location || "Chennai") + '</div>' +
-          '<div class="baker-rating"><span class="stars">★★★★★</span><span class="rating-val">' + (baker.rating || "4.8") + '</span></div>' +
-        '</div>' +
-      '</div>' +
-      '<div class="baker-footer">' +
-        '<button class="btn-enquire" onclick="window.open(\'https://wa.me/' + (baker.whatsapp || "916369380977") + '\',\'_blank\')">💬 WhatsApp</button>' +
-        '<button class="btn-view">View Profile</button>' +
-      '</div>';
+    card.innerHTML = `
+      <div class="baker-card-header">
+        <div class="baker-brand-logo"><img src="${baker.logo_url || "https://i.imgur.com/yteSy8p.jpeg"}" alt="${baker.name}"/></div>
+        <div class="baker-brand-name">${baker.name}</div>
+        ${baker.verified ? '<span class="verified-badge">✓ Verified</span>' : ''}
+      </div>
+      <div class="baker-body">
+        <div class="baker-spec">${baker.category || "Home Baker"}</div>
+        <div class="baker-row">
+          <div class="baker-loc">📍 ${baker.location || "Chennai"}</div>
+          <div class="baker-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-val">${baker.rating || "4.8"}</span>
+          </div>
+        </div>
+      </div>
+      <div class="baker-footer">
+        <button class="btn-enquire" onclick="window.open('https://wa.me/${baker.whatsapp || "916369380977"}', '_blank')">💬 WhatsApp</button>
+        <button class="btn-view">View Profile</button>
+      </div>`;
     
     grid.appendChild(card);
   });
@@ -458,7 +391,7 @@ function renderBakers(bakersData) {
 
 // Load on page ready
 document.addEventListener("DOMContentLoaded", function() {
-  setTimeout(loadBakers, 500);
+  loadBakers();
 });
 
 // Navbar scroll effect
