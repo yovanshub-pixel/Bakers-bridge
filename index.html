@@ -584,20 +584,21 @@ function filterByArea(area) {
 }
 
 function openModal(id) {
-  alert("Click recognized for Baker ID: " + id);
-  console.log("Attempting to open modal for:", id);
+  alert("Step 1: Button Clicked for ID: " + id);
   
   if (!allBakers || allBakers.length === 0) {
-    alert("Error: No bakers loaded yet. Please wait a second and try again.");
+    alert("Step 2: Error - allBakers list is empty!");
     return;
   }
 
   selectedBaker = allBakers.find(b => b.id == id);
   
   if (!selectedBaker) {
-    alert("Error: Baker not found in the list! ID: " + id);
+    alert("Step 2: Error - Could not find this baker in the list!");
     return;
   }
+
+  alert("Step 3: Found Baker - " + selectedBaker.name);
 
   document.getElementById("modalLogo").src = selectedBaker.logo_url || IMAGES.BB_LOGO;
   document.getElementById("modalName").textContent = selectedBaker.name || "Baker Profile";
@@ -606,11 +607,13 @@ function openModal(id) {
   document.getElementById("modalLoc").textContent = "📍 " + (selectedBaker.location || "Chennai");
   document.getElementById("modalWaBtn").onclick = () => window.open("https://wa.me/" + (selectedBaker.whatsapp || "916369380977"));
   
-  // Reset tabs to Products
   const tabs = document.querySelectorAll('.modal-tab');
   if (tabs.length > 0) switchTab('products', tabs[0]);
   
-  document.getElementById("modalOverlay").classList.add("open");
+  const overlay = document.getElementById("modalOverlay");
+  overlay.classList.add("open");
+  
+  alert("Step 4: Modal should be open now! Current classes: " + overlay.className);
   document.body.style.overflow = "hidden";
 }
 
