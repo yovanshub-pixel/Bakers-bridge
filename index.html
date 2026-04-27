@@ -584,11 +584,18 @@ function filterByArea(area) {
 }
 
 function openModal(id) {
+  alert("Click recognized for Baker ID: " + id);
   console.log("Attempting to open modal for:", id);
+  
+  if (!allBakers || allBakers.length === 0) {
+    alert("Error: No bakers loaded yet. Please wait a second and try again.");
+    return;
+  }
+
   selectedBaker = allBakers.find(b => b.id == id);
   
   if (!selectedBaker) {
-    console.error("Baker not found in the list!");
+    alert("Error: Baker not found in the list! ID: " + id);
     return;
   }
 
