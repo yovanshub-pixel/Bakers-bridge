@@ -169,8 +169,8 @@ async function loadBakers() {
     item.innerHTML = `
       <img src="${baker.logo_url || "https://i.imgur.com/yteSy8p.jpeg"}" alt="">
       <div class="baker-item-info">
-        <h3>${baker.name}</h3>
-        <p>${baker.location} • ${baker.category}</p>
+        <h3>${baker.name || "Untitled Baker"}</h3>
+        <p>${baker.location || "No Location"} • ${baker.category || "General"}</p>
       </div>
     `;
     list.appendChild(item);
