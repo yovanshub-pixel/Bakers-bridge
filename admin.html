@@ -168,8 +168,8 @@ async function loadBakers() {
     div.className = "baker-item";
     div.innerHTML = `
       <div class="baker-info">
-        <img src="${b.logo_url || 'https://i.imgur.com/yteSy8p.jpeg'}">
-        <div><strong>${b.name}</strong><br><small>${b.location}</small></div>
+        <img src="${b.logo_key || 'https://i.imgur.com/yteSy8p.jpeg'}">
+        <div><strong>${b.name}</strong><br><small>${b.loc || 'Chennai'}</small></div>
       </div>
       <div class="baker-actions">
         <button class="btn-edit" onclick="editBaker('${b.id}')">Edit</button>
@@ -186,16 +186,16 @@ function editBaker(id) {
   
   document.getElementById("editingId").value = b.id;
   document.getElementById("name").value = b.name || "";
-  document.getElementById("category").value = b.category || "";
-  document.getElementById("logo_url").value = b.logo_url || "";
-  document.getElementById("location").value = b.location || "";
+  document.getElementById("category").value = b.spec || "";
+  document.getElementById("logo_url").value = b.logo_key || "";
+  document.getElementById("location").value = b.loc || "";
   document.getElementById("whatsapp").value = b.whatsapp || "";
-  document.getElementById("experience").value = b.experience || "";
-  document.getElementById("orders_completed").value = b.orders_completed || "";
+  document.getElementById("experience").value = b.exp || "";
+  document.getElementById("orders_completed").value = b.orders || "";
   document.getElementById("rating").value = b.rating || 4.8;
   document.getElementById("about").value = b.about || "";
   document.getElementById("products").value = JSON.stringify(b.products || [], null, 2);
-  document.getElementById("verified").checked = b.verified;
+  document.getElementById("verified").checked = b.happy;
   
   document.getElementById("formTitle").textContent = "Edit Baker: " + b.name;
   document.getElementById("saveBtn").textContent = "Update Listing";
@@ -231,16 +231,16 @@ document.getElementById("bakerForm").addEventListener("submit", async (e) => {
 
   const bakerData = {
     name: document.getElementById("name").value,
-    category: document.getElementById("category").value,
-    logo_url: document.getElementById("logo_url").value,
-    location: document.getElementById("location").value,
+    spec: document.getElementById("category").value,
+    logo_key: document.getElementById("logo_url").value,
+    loc: document.getElementById("location").value,
     whatsapp: document.getElementById("whatsapp").value,
-    experience: document.getElementById("experience").value,
-    orders_completed: document.getElementById("orders_completed").value,
+    exp: document.getElementById("experience").value,
+    orders: document.getElementById("orders_completed").value,
     rating: parseFloat(document.getElementById("rating").value),
     about: document.getElementById("about").value,
     products: productsJson,
-    verified: document.getElementById("verified").checked
+    happy: document.getElementById("verified").checked
   };
 
   const editingId = document.getElementById("editingId").value;
