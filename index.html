@@ -249,15 +249,24 @@ function renderBakers(data) {
     card.onclick = () => openModal(b.id);
     card.innerHTML = `
       <div class="baker-card-header">
-        <div class="baker-brand-logo"><img src="${b.logo_url || 'https://i.imgur.com/yteSy8p.jpeg'}" /></div>
-        <div style="font-family:'Cormorant Garamond',serif; font-weight:700;">${b.name}</div>
+        <div class="baker-brand-logo"><img src="${b.logo_url || 'https://i.imgur.com/yteSy8p.jpeg'}" alt="${b.name || 'Baker'}"/></div>
+        <div class="baker-brand-name">${b.name || 'Delicious Bakery'}</div>
         ${b.verified ? '<span class="verified-badge">✓ Verified</span>' : ''}
       </div>
       <div class="baker-body">
-        <div style="font-size:12px; color:var(--text-muted); margin-bottom:0.5rem;">${b.category}</div>
-        <div style="display:flex; justify-content:space-between; font-size:12px;">
-          <span>📍 ${b.location}</span><span>★ ${b.rating}</span>
+        <div class="baker-spec">${b.category || "Home Baker"}</div>
+        <div class="baker-row">
+          <div class="baker-loc">📍 ${b.location || "Chennai"}</div>
+          <div class="baker-rating"><span class="stars">★★★★★</span><span class="rating-val">${b.rating || "4.8"}</span></div>
         </div>
+        <div class="baker-tags">
+          <span class="tag">${b.category || "Baker"}</span>
+          <span class="tag">${b.experience || "Verified"}</span>
+        </div>
+      </div>
+      <div class="baker-footer">
+        <button class="btn-enquire" onclick="event.stopPropagation(); window.open('https://wa.me/${b.whatsapp || '916369380977'}')">💬 WhatsApp</button>
+        <button class="btn-view">View Profile</button>
       </div>`;
     grid.appendChild(card);
   });
