@@ -1,314 +1,494 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bakers Bridge | Admin Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bakers Bridge | Premium Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #3D2B1F;
+      --accent: #C8962A;
+      --accent-light: #E8B84B;
+      --accent-dark: #9A7020;
+      --bg: #FDF6EC;
+      --card: #FFFFFF;
+      --text: #2C1A0E;
+      --text-muted: #7A5C45;
+      --border: rgba(61, 43, 31, 0.1);
+      --success: #2D6A4F;
+      --error: #D62828;
+      --shadow: 0 12px 40px rgba(61, 43, 31, 0.08);
+    }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --cream:#FDF6EC;--warm:#F5E6CC;--gold:#C8962A;--gold-light:#E8B84B;
-  --gold-dark:#9A7020;--brown:#3D2B1F;--brown-mid:#6B4C35;--brown-light:#9A7B65;
-  --text:#2C1A0E;--text-muted:#7A5C45;--white:#FFFFFF;--card:#FFFDF8;
-  --border:rgba(200,150,42,0.18);
-}
-body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text); min-height: 100vh;}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
-nav{background:var(--white); border-bottom:1px solid var(--border); padding:0 3rem; height:68px; display:flex; align-items:center; justify-content:space-between;}
-.logo-text{font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:700; color:var(--brown); text-decoration:none;}
-.logo-text span{color:var(--gold);}
+    /* LAYOUT */
+    .dashboard { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
 
-.container{max-width:1100px; margin:3rem auto; padding:0 2rem;}
-.header{margin-bottom:2rem; display:flex; justify-content:space-between; align-items:flex-end;}
-.header h1{font-family:'Cormorant Garamond',serif; font-size:2.5rem; color:var(--brown);}
+    /* SIDEBAR */
+    aside {
+      background: var(--primary);
+      color: white;
+      padding: 2.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; color: var(--accent-light); text-decoration: none; }
+    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .nav-item {
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-item:hover { background: rgba(255, 255, 255, 0.05); }
+    .nav-item.active { background: var(--accent); color: white; }
+    .logout-btn { margin-top: auto; color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; cursor: pointer; background: none; border: none; text-align: left; padding: 1rem; }
+    .logout-btn:hover { color: white; }
 
-.card{background:var(--card); border-radius:18px; border:1px solid var(--border); padding:2rem; box-shadow:0 8px 32px rgba(61,43,31,0.05); margin-bottom:2rem;}
-.card h2{font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:var(--brown); margin-bottom:1.5rem; border-bottom:1px solid var(--border); padding-bottom:0.5rem;}
+    /* MAIN CONTENT */
+    main { padding: 3rem; max-width: 1200px; width: 100%; margin: 0 auto; }
+    header { margin-bottom: 3rem; display: flex; justify-content: space-between; align-items: center; }
+    header h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--primary); }
 
-.form-grid{display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;}
-.form-group{display:flex; flex-direction:column; gap:0.5rem;}
-.form-group label{font-size:13px; font-weight:600; color:var(--brown-mid);}
-.form-group input, .form-group select, .form-group textarea{
-  padding:12px; border:1.5px solid var(--border); border-radius:8px; font-size:14px; font-family:'Outfit',sans-serif; outline:none;
-}
-.form-group input:focus, .form-group textarea:focus{border-color:var(--gold);}
+    /* CARDS */
+    .card { background: var(--card); border-radius: 24px; padding: 2.5rem; border: 1px solid var(--border); box-shadow: var(--shadow); }
+    
+    /* FORM */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    input, textarea, select {
+      padding: 14px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.2s;
+      background: #FAFAFA;
+    }
+    input:focus, textarea:focus { border-color: var(--accent); outline: none; background: white; box-shadow: 0 0 0 4px rgba(200, 150, 42, 0.1); }
+    
+    .btn {
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-primary { background: var(--accent); color: white; }
+    .btn-primary:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(200, 150, 42, 0.3); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .btn-secondary { background: var(--bg); color: var(--primary); border: 1.5px solid var(--border); }
 
-.btn-primary{background:var(--gold); color:var(--white); border:none; padding:12px 24px; border-radius:30px; font-size:15px; font-weight:600; cursor:pointer; transition:all 0.2s;}
-.btn-primary:hover{background:var(--gold-dark); transform:translateY(-2px);}
-.btn-secondary{background:transparent; color:var(--brown); border:1.5px solid var(--border); padding:10px 20px; border-radius:30px; cursor:pointer; font-size:14px;}
+    /* PREVIEW */
+    .logo-preview-box {
+      width: 80px;
+      height: 80px;
+      border-radius: 16px;
+      border: 2px dashed var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .logo-preview-box img { width: 100%; height: 100%; object-fit: cover; }
 
-.baker-list{display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:1rem;}
-.baker-item{background:var(--white); padding:1rem; border-radius:12px; border:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:1rem;}
-.baker-item img{width:50px; height:50px; border-radius:8px; object-fit:cover;}
-.baker-info{display:flex; align-items:center; gap:1rem; flex:1;}
-.baker-actions{display:flex; gap:8px;}
-.btn-edit{padding:6px 12px; font-size:12px; background:var(--warm); border:none; border-radius:6px; cursor:pointer;}
-.btn-delete{padding:6px 12px; font-size:12px; background:#FFE5E5; color:#D32F2F; border:none; border-radius:6px; cursor:pointer;}
+    /* LISTING */
+    .baker-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    .baker-table th { text-align: left; padding: 1rem; color: var(--text-muted); font-weight: 600; font-size: 0.85rem; border-bottom: 2px solid var(--bg); }
+    .baker-table td { padding: 1.25rem 1rem; border-bottom: 1px solid var(--bg); vertical-align: middle; }
+    .baker-row:hover { background: #FAFAFA; }
+    .table-logo { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; }
+    .actions { display: flex; gap: 10px; }
+    .btn-sm { padding: 8px 16px; font-size: 0.85rem; border-radius: 10px; }
+    .btn-edit { background: var(--bg); color: var(--primary); }
+    .btn-delete { background: #FFEAEA; color: var(--error); }
 
-#loadingOverlay{position:fixed; inset:0; background:rgba(253,246,236,0.8); display:flex; align-items:center; justify-content:center; z-index:1000;}
+    /* MODAL OVERLAY */
+    #loadingOverlay {
+      position: fixed; inset: 0; background: var(--bg); z-index: 2000;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 1.5rem; transition: opacity 0.4s;
+    }
+    .spinner { width: 40px; height: 40px; border: 4px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-@media(max-width:768px){.form-grid{grid-template-columns:1fr;}}
-</style>
+    /* UTILS */
+    .hidden { display: none !important; }
+    
+    @media (max-width: 1024px) {
+      .dashboard { grid-template-columns: 1fr; }
+      aside { display: none; }
+    }
+    @media (max-width: 768px) {
+      .form-grid { grid-template-columns: 1fr; }
+      main { padding: 1.5rem; }
+    }
+  </style>
 </head>
 <body>
 
-<div id="loadingOverlay">
-  <p>Verifying access...</p>
-</div>
-
-<nav>
-  <a href="index.html" class="logo-text">Bakers <span>Bridge</span> Admin</a>
-  <button class="btn-secondary" onclick="handleLogout()" style="padding:8px 18px; font-size:13px;">Logout</button>
-</nav>
-
-<div class="container">
-  <div class="header">
-    <h1 id="welcomeText">Welcome Back</h1>
-    <a href="index.html" class="btn-primary" style="padding:10px 20px; text-decoration:none; font-size:14px;">View Live Site</a>
+  <div id="loadingOverlay">
+    <div class="spinner"></div>
+    <p style="font-weight: 500; color: var(--text-muted)">Verifying Security Access...</p>
   </div>
 
-  <div class="card">
-    <h2 id="formTitle">Add New Baker</h2>
-    <form id="bakerForm">
-      <input type="hidden" id="editingId">
-      <div class="form-grid">
-        <div class="form-group">
-          <label>Baker Name</label>
-          <input type="text" id="name" required>
+  <div class="dashboard">
+    <aside>
+      <a href="index.html" class="logo">Bakers<span>Bridge</span></a>
+      <ul class="nav-links">
+        <li class="nav-item active" onclick="switchSection('manage')">📋 Manage Listings</li>
+        <li class="nav-item" onclick="switchSection('form')">✨ Add New Baker</li>
+      </ul>
+      <button class="logout-btn" onclick="handleLogout()">← Logout from Admin</button>
+    </aside>
+
+    <main>
+      <!-- MANAGE SECTION -->
+      <section id="section-manage">
+        <header>
+          <h1>Manage Bakers</h1>
+          <button class="btn btn-primary" onclick="switchSection('form')">+ New Listing</button>
+        </header>
+        <div class="card">
+          <table class="baker-table">
+            <thead>
+              <tr>
+                <th>Baker</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bakerList">
+              <!-- JS Populated -->
+            </tbody>
+          </table>
+          <div id="emptyState" class="hidden" style="text-align: center; padding: 3rem; color: var(--text-muted);">
+            No bakers found. Start by adding one!
+          </div>
         </div>
-        <div class="form-group">
-          <label>Category</label>
-          <input type="text" id="category" placeholder="e.g. Cakes & Pastries">
+      </section>
+
+      <!-- FORM SECTION -->
+      <section id="section-form" class="hidden">
+        <header>
+          <h1 id="formTitle">Create New Listing</h1>
+          <button class="btn btn-secondary" onclick="switchSection('manage')">Back to List</button>
+        </header>
+        <div class="card">
+          <form id="bakerForm">
+            <input type="hidden" id="editingId">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Baker Brand Name</label>
+                <input type="text" id="name" placeholder="e.g. The Cake Studio" required>
+              </div>
+              <div class="form-group">
+                <label>Specialization / Category</label>
+                <input type="text" id="spec" placeholder="e.g. Wedding Cakes & Desserts">
+              </div>
+              <div class="form-group">
+                <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+                  <div style="flex:1; margin-right:1rem; display:flex; flex-direction:column; gap:0.5rem;">
+                    <label>Logo URL</label>
+                    <input type="url" id="logo_key" placeholder="https://..." oninput="updateLogoPreview(this.value)">
+                  </div>
+                  <div class="logo-preview-box">
+                    <img id="logoPreview" src="https://i.imgur.com/yteSy8p.jpeg" alt="Preview">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Primary Location</label>
+                <input type="text" id="loc" placeholder="e.g. Anna Nagar">
+              </div>
+              <div class="form-group">
+                <label>WhatsApp (with 91)</label>
+                <input type="text" id="whatsapp" placeholder="91XXXXXXXXXX">
+              </div>
+              <div class="form-group">
+                <label>Experience Level</label>
+                <input type="text" id="exp" placeholder="e.g. 5+ Years / Professional">
+              </div>
+              <div class="form-group">
+                <label>Total Orders Completed</label>
+                <input type="text" id="orders" placeholder="e.g. 500+">
+              </div>
+              <div class="form-group">
+                <label>Public Rating</label>
+                <input type="number" id="rating" step="0.1" value="4.8" min="0" max="5">
+              </div>
+              <div class="form-group full">
+                <label>Areas Served (comma separated)</label>
+                <input type="text" id="areas" placeholder="e.g. Anna Nagar, Adyar, Velachery">
+              </div>
+              <div class="form-group full">
+                <label>About The Baker (The bio shown in profile)</label>
+                <textarea id="about" rows="4" placeholder="Share the story and passion behind the baking..."></textarea>
+              </div>
+              <div class="form-group full">
+                <label>Products (JSON format)</label>
+                <textarea id="products" rows="4" placeholder='[{"name":"Product Name", "price":"₹1000", "image":"https://..."}]'></textarea>
+              </div>
+              <div class="form-group full">
+                <label>Sample Reviews (JSON format)</label>
+                <textarea id="reviews" rows="4" placeholder='[{"reviewer_name":"John Doe", "rating":5, "comment":"Excellent!"}]'></textarea>
+              </div>
+              <div class="form-group" style="flex-direction:row; align-items:center; gap:10px;">
+                <input type="checkbox" id="happy" checked style="width:20px; height:20px; cursor:pointer;">
+                <label style="cursor:pointer; margin:0;">Verified Baker Status</label>
+              </div>
+            </div>
+            <div style="margin-top: 3rem; display: flex; gap: 1rem;">
+              <button type="submit" class="btn btn-primary" id="saveBtn">✨ Save Baker Listing</button>
+              <button type="button" class="btn btn-secondary" onclick="resetAndSwitch()">Cancel Changes</button>
+            </div>
+          </form>
         </div>
-        <div class="form-group">
-          <label>Logo URL</label>
-          <input type="url" id="logo_url">
-        </div>
-        <div class="form-group">
-          <label>Location</label>
-          <input type="text" id="location">
-        </div>
-        <div class="form-group">
-          <label>WhatsApp (with 91)</label>
-          <input type="text" id="whatsapp">
-        </div>
-        <div class="form-group">
-          <label>Experience</label>
-          <input type="text" id="experience">
-        </div>
-        <div class="form-group">
-          <label>Orders Completed</label>
-          <input type="text" id="orders_completed">
-        </div>
-        <div class="form-group">
-          <label>Rating</label>
-          <input type="number" id="rating" step="0.1" value="4.8">
-        </div>
-        <div class="form-group" style="grid-column: 1/-1;">
-          <label>About The Baker</label>
-          <textarea id="about" rows="4"></textarea>
-        </div>
-        <div class="form-group" style="grid-column: 1/-1;">
-          <label>Products (JSON format)</label>
-          <textarea id="products" rows="4" placeholder='[{"name":"Cake", "price":"₹800", "image":""}]'></textarea>
-        </div>
-        <div class="form-group" style="grid-column: 1/-1;">
-          <label>Reviews (JSON format)</label>
-          <textarea id="reviews" rows="4" placeholder='[{"reviewer_name":"John", "rating":5, "comment":"Amazing!"}]'></textarea>
-        </div>
-        <div class="form-group">
-          <label>Areas Served (comma separated)</label>
-          <input type="text" id="areas" placeholder="e.g. Anna Nagar, Adyar, Velachery">
-        </div>
-        <div class="form-group">
-          <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
-            <input type="checkbox" id="verified" checked style="width:auto;"> Verified Status
-          </label>
-        </div>
-      </div>
-      <div style="margin-top:1.5rem; display:flex; gap:1rem;">
-        <button type="submit" class="btn-primary" id="saveBtn">Save Listing</button>
-        <button type="button" class="btn-secondary" id="cancelBtn" style="display:none;" onclick="resetForm()">Cancel Edit</button>
-      </div>
-    </form>
+      </section>
+    </main>
   </div>
 
-  <div class="card">
-    <h2>Manage Your Listings</h2>
-    <div id="bakerList" class="baker-list">
-      <!-- Listings with Edit/Delete -->
-    </div>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.3/dist/umd/supabase.min.js"></script>
-<script>
-const SUPABASE_URL = "https://qlkdxrryfpdmmbbqxkey.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsa2R4cnJ5ZnBkbW1iYnF4a2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMTUzMDQsImV4cCI6MjA5Mjc5MTMwNH0.9dFamA3asEEQ4KCBbfyx3vVw0KvEgh2hA3nGbIptLew";
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-let allBakers = [];
-
-async function checkUser() {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) { window.location.href = "index.html"; }
-  else { 
-    document.getElementById("loadingOverlay").style.display = "none";
-    loadBakers(); 
-  }
-}
-
-async function handleLogout() {
-  await supabase.auth.signOut();
-  window.location.href = "index.html";
-}
-
-async function loadBakers() {
-  // Only select summary fields for faster listing
-  const { data, error } = await supabase.from('bakers').select('id, name, logo_key, loc').order('created_at', { ascending: false });
-  if (error) return;
-  allBakers = data;
-  const list = document.getElementById("bakerList");
-  list.innerHTML = "";
-  data.forEach(b => {
-    const div = document.createElement("div");
-    div.className = "baker-item";
-    div.innerHTML = `
-      <div class="baker-info">
-        <img src="${b.logo_key || 'https://i.imgur.com/yteSy8p.jpeg'}">
-        <div><strong>${b.name}</strong><br><small>${b.loc || 'Chennai'}</small></div>
-      </div>
-      <div class="baker-actions">
-        <button class="btn-edit" id="edit-btn-${b.id}" onclick="editBaker('${b.id}')">Edit</button>
-        <button class="btn-delete" onclick="deleteBaker('${b.id}')">Delete</button>
-      </div>
-    `;
-    list.appendChild(div);
-  });
-}
-
-async function editBaker(id) {
-  const btn = document.getElementById(`edit-btn-${id}`);
-  if (!btn) return;
-  const originalText = btn.textContent;
-  
-  try {
-    btn.textContent = "Loading...";
-    btn.disabled = true;
-
-    // Fetch full details only when editing
-    const { data: b, error } = await supabase.from('bakers').select('*').eq('id', id).single();
-    
-    if (error || !b) {
-      alert("Error fetching baker details: " + (error ? error.message : "Not found"));
-      return;
-    }
-    
-    document.getElementById("editingId").value = b.id;
-    document.getElementById("name").value = b.name || "";
-    document.getElementById("category").value = b.spec || "";
-    document.getElementById("logo_url").value = b.logo_key || "";
-    document.getElementById("location").value = b.loc || "";
-    document.getElementById("whatsapp").value = b.whatsapp || "";
-    document.getElementById("experience").value = b.exp || "";
-    document.getElementById("orders_completed").value = b.orders || "";
-    document.getElementById("rating").value = b.rating || 4.8;
-    document.getElementById("about").value = b.about || "";
-    document.getElementById("products").value = JSON.stringify(b.products || [], null, 2);
-    document.getElementById("reviews").value = JSON.stringify(b.reviews || [], null, 2);
-    document.getElementById("areas").value = b.areas || "";
-    document.getElementById("verified").checked = b.happy;
-    
-    document.getElementById("formTitle").textContent = "Edit Baker: " + b.name;
-    document.getElementById("saveBtn").textContent = "Update Listing";
-    document.getElementById("cancelBtn").style.display = "block";
-    window.scrollTo({top: 0, behavior: 'smooth'});
-  } catch (err) {
-    console.error(err);
-    alert("An unexpected error occurred while loading details.");
-  } finally {
-    btn.textContent = originalText;
-    btn.disabled = false;
-  }
-}
-
-function resetForm() {
-  document.getElementById("bakerForm").reset();
-  document.getElementById("editingId").value = "";
-  document.getElementById("formTitle").textContent = "Add New Baker";
-  document.getElementById("saveBtn").textContent = "Save Listing";
-  document.getElementById("cancelBtn").style.display = "none";
-}
-
-async function deleteBaker(id) {
-  if (confirm("Are you sure you want to delete this baker?")) {
-    const { error } = await supabase.from('bakers').delete().eq('id', id);
-    if (error) alert(error.message);
-    else loadBakers();
-  }
-}
-
-document.getElementById("bakerForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const btn = document.getElementById("saveBtn");
-  const originalText = btn.textContent;
-  
-  try {
-    btn.disabled = true;
-    btn.textContent = "Processing...";
-
-    let productsJson = [];
-    try { productsJson = JSON.parse(document.getElementById("products").value || "[]"); }
-    catch(err) { alert("Invalid Products JSON format!"); return; }
-
-    let reviewsJson = [];
-    try { reviewsJson = JSON.parse(document.getElementById("reviews").value || "[]"); }
-    catch(err) { alert("Invalid Reviews JSON format!"); return; }
-
-    const bakerData = {
-      name: document.getElementById("name").value,
-      spec: document.getElementById("category").value,
-      logo_key: document.getElementById("logo_url").value,
-      loc: document.getElementById("location").value,
-      whatsapp: document.getElementById("whatsapp").value,
-      exp: document.getElementById("experience").value,
-      orders: document.getElementById("orders_completed").value,
-      rating: parseFloat(document.getElementById("rating").value),
-      about: document.getElementById("about").value,
-      products: productsJson,
-      reviews: reviewsJson,
-      areas: document.getElementById("areas").value,
-      happy: document.getElementById("verified").checked
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.3/dist/umd/supabase.min.js"></script>
+  <script>
+    // GLOBAL ERROR MONITOR
+    window.onerror = function(msg, url, line, col, error) {
+      alert("CRITICAL ERROR: " + msg + "\nAt line: " + line);
+      console.error(error);
+      return false;
     };
 
-    const editingId = document.getElementById("editingId").value;
-    let result;
-    
-    if (editingId) {
-      result = await supabase.from('bakers').update(bakerData).eq('id', editingId);
-    } else {
-      result = await supabase.from('bakers').insert([bakerData]);
+    // CONFIG
+    const SUPABASE_URL = "https://qlkdxrryfpdmmbbqxkey.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsa2R4cnJ5ZnBkbW1iYnF4a2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMTUzMDQsImV4cCI6MjA5Mjc5MTMwNH0.9dFamA3asEEQ4KCBbfyx3vVw0KvEgh2hA3nGbIptLew";
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let currentSection = 'manage';
+
+    // UI CONTROLS
+    function switchSection(id) {
+      currentSection = id;
+      document.getElementById('section-manage').classList.toggle('hidden', id !== 'manage');
+      document.getElementById('section-form').classList.toggle('hidden', id !== 'form');
+      
+      const navItems = document.querySelectorAll('.nav-item');
+      navItems[0].classList.toggle('active', id === 'manage');
+      navItems[1].classList.toggle('active', id === 'form');
+      
+      if (id === 'manage') loadBakers();
     }
 
-    if (result.error) {
-      alert(result.error.message);
-    } else {
-      alert(editingId ? "Updated successfully!" : "Added successfully!");
-      resetForm();
-      loadBakers();
+    function updateLogoPreview(url) {
+      document.getElementById('logoPreview').src = url || 'https://i.imgur.com/yteSy8p.jpeg';
     }
-  } catch (err) {
-    console.error(err);
-    alert("An unexpected error occurred during save.");
-  } finally {
-    btn.disabled = false;
-    btn.textContent = originalText;
-  }
-});
 
-document.addEventListener("DOMContentLoaded", checkUser);
-</script>
+    // AUTH
+    async function checkAccess() {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          window.location.href = "index.html";
+          return;
+        }
+        document.getElementById('loadingOverlay').style.opacity = '0';
+        setTimeout(() => document.getElementById('loadingOverlay').classList.add('hidden'), 400);
+        loadBakers();
+      } catch (err) {
+        alert("Access Check Failed: " + err.message);
+      }
+    }
+
+    async function handleLogout() {
+      await supabase.auth.signOut();
+      window.location.href = "index.html";
+    }
+
+    // DATA LOADING
+    async function loadBakers() {
+      try {
+        const { data, error } = await supabase
+          .from('bakers')
+          .select('id, name, logo_key, loc, happy')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        const list = document.getElementById("bakerList");
+        const empty = document.getElementById("emptyState");
+        list.innerHTML = "";
+        
+        if (!data || data.length === 0) {
+          empty.classList.remove('hidden');
+          return;
+        }
+        empty.classList.add('hidden');
+
+        data.forEach(b => {
+          const tr = document.createElement("tr");
+          tr.className = "baker-row";
+          tr.innerHTML = `
+            <td>
+              <div style="display:flex; align-items:center; gap:12px;">
+                <img src="${b.logo_key || 'https://i.imgur.com/yteSy8p.jpeg'}" class="table-logo">
+                <span style="font-weight:600;">${b.name}</span>
+              </div>
+            </td>
+            <td>📍 ${b.loc || 'Chennai'}</td>
+            <td>${b.happy ? '<span style="color:var(--success); font-weight:600;">✓ Verified</span>' : '<span style="color:var(--text-muted);">Standard</span>'}</td>
+            <td>
+              <div class="actions">
+                <button class="btn btn-sm btn-edit" id="edit-btn-${b.id}" onclick="editBaker('${b.id}')">Edit</button>
+                <button class="btn btn-sm btn-delete" onclick="deleteBaker('${b.id}')">Delete</button>
+              </div>
+            </td>
+          `;
+          list.appendChild(tr);
+        });
+      } catch (err) {
+        alert("Load Error: " + err.message);
+      }
+    }
+
+    // EDIT BAKER
+    async function editBaker(id) {
+      const btn = document.getElementById(`edit-btn-${id}`);
+      const originalText = btn.textContent;
+      
+      try {
+        btn.textContent = "Fetching...";
+        btn.disabled = true;
+
+        const { data: b, error } = await supabase.from('bakers').select('*').eq('id', id).single();
+        if (error) throw error;
+
+        // Populate Form
+        document.getElementById("editingId").value = b.id;
+        document.getElementById("name").value = b.name || "";
+        document.getElementById("spec").value = b.spec || "";
+        document.getElementById("logo_key").value = b.logo_key || "";
+        document.getElementById("loc").value = b.loc || "";
+        document.getElementById("whatsapp").value = b.whatsapp || "";
+        document.getElementById("exp").value = b.exp || "";
+        document.getElementById("orders").value = b.orders || "";
+        document.getElementById("rating").value = b.rating || 4.8;
+        document.getElementById("about").value = b.about || "";
+        document.getElementById("areas").value = b.areas || "";
+        document.getElementById("happy").checked = b.happy;
+        document.getElementById("products").value = JSON.stringify(b.products || [], null, 2);
+        document.getElementById("reviews").value = JSON.stringify(b.reviews || [], null, 2);
+
+        updateLogoPreview(b.logo_key);
+        
+        document.getElementById("formTitle").textContent = "Edit Baker: " + b.name;
+        document.getElementById("saveBtn").textContent = "Update Baker Profile";
+        switchSection('form');
+        window.scrollTo({top: 0, behavior: 'smooth'});
+
+      } catch (err) {
+        alert("Edit Error: " + err.message);
+      } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
+    }
+
+    // SAVE BAKER
+    document.getElementById("bakerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("saveBtn");
+      const originalText = btn.textContent;
+      
+      try {
+        btn.disabled = true;
+        btn.textContent = "Saving to Database...";
+
+        // Parse JSON fields
+        let productsJson = [], reviewsJson = [];
+        try { productsJson = JSON.parse(document.getElementById("products").value || "[]"); } 
+        catch(e) { alert("Invalid Products JSON format!"); return; }
+        
+        try { reviewsJson = JSON.parse(document.getElementById("reviews").value || "[]"); } 
+        catch(e) { alert("Invalid Reviews JSON format!"); return; }
+
+        const bakerData = {
+          name: document.getElementById("name").value,
+          spec: document.getElementById("spec").value,
+          logo_key: document.getElementById("logo_key").value,
+          loc: document.getElementById("loc").value,
+          whatsapp: document.getElementById("whatsapp").value,
+          exp: document.getElementById("exp").value,
+          orders: document.getElementById("orders").value,
+          rating: parseFloat(document.getElementById("rating").value),
+          about: document.getElementById("about").value,
+          areas: document.getElementById("areas").value,
+          happy: document.getElementById("happy").checked,
+          products: productsJson,
+          reviews: reviewsJson
+        };
+
+        const editingId = document.getElementById("editingId").value;
+        let result;
+
+        if (editingId) {
+          result = await supabase.from('bakers').update(bakerData).eq('id', editingId);
+        } else {
+          result = await supabase.from('bakers').insert([bakerData]);
+        }
+
+        if (result.error) throw result.error;
+
+        alert(editingId ? "✅ Profile Updated Successfully!" : "✅ New Baker Added Successfully!");
+        resetAndSwitch();
+      } catch (err) {
+        alert("Save Error: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    });
+
+    function resetAndSwitch() {
+      document.getElementById("bakerForm").reset();
+      document.getElementById("editingId").value = "";
+      document.getElementById("formTitle").textContent = "Create New Listing";
+      document.getElementById("saveBtn").textContent = "✨ Save Baker Listing";
+      updateLogoPreview('');
+      switchSection('manage');
+    }
+
+    async function deleteBaker(id) {
+      if (!confirm("Are you sure you want to delete this baker listing? This cannot be undone.")) return;
+      
+      try {
+        const { error } = await supabase.from('bakers').delete().eq('id', id);
+        if (error) throw error;
+        loadBakers();
+      } catch (err) {
+        alert("Delete Error: " + err.message);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", checkAccess);
+  </script>
 </body>
 </html>
