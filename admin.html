@@ -159,10 +159,17 @@ async function handleLogout() {
 // LOAD LISTINGS
 async function loadBakers() {
   const { data, error } = await supabase.from('bakers').select('*').order('created_at', { ascending: false });
-  if (error) return;
+  if (error) {
+    document.getElementById("bakerList").innerHTML = `<p style="color:red;">Error: ${error.message}</p>`;
+    return;
+  }
   
   const list = document.getElementById("bakerList");
   list.innerHTML = "";
+  if (!data || data.length === 0) {
+    list.innerHTML = "<p>No bakers found yet.</p>";
+    return;
+  }
   data.forEach(baker => {
     const item = document.createElement("div");
     item.className = "baker-item";
