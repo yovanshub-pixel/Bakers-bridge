@@ -191,40 +191,47 @@ async function loadBakers() {
 
 async function editBaker(id) {
   const btn = document.getElementById(`edit-btn-${id}`);
+  if (!btn) return;
   const originalText = btn.textContent;
-  btn.textContent = "Loading...";
-  btn.disabled = true;
-
-  // Fetch full details only when editing
-  const { data: b, error } = await supabase.from('bakers').select('*').eq('id', id).single();
   
-  btn.textContent = originalText;
-  btn.disabled = false;
+  try {
+    btn.textContent = "Loading...";
+    btn.disabled = true;
 
-  if (error || !b) {
-    alert("Error fetching baker details: " + (error ? error.message : "Not found"));
-    return;
+    // Fetch full details only when editing
+    const { data: b, error } = await supabase.from('bakers').select('*').eq('id', id).single();
+    
+    if (error || !b) {
+      alert("Error fetching baker details: " + (error ? error.message : "Not found"));
+      return;
+    }
+    
+    document.getElementById("editingId").value = b.id;
+    document.getElementById("name").value = b.name || "";
+    document.getElementById("category").value = b.spec || "";
+    document.getElementById("logo_url").value = b.logo_key || "";
+    document.getElementById("location").value = b.loc || "";
+    document.getElementById("whatsapp").value = b.whatsapp || "";
+    document.getElementById("experience").value = b.exp || "";
+    document.getElementById("orders_completed").value = b.orders || "";
+    document.getElementById("rating").value = b.rating || 4.8;
+    document.getElementById("about").value = b.about || "";
+    document.getElementById("products").value = JSON.stringify(b.products || [], null, 2);
+    document.getElementById("reviews").value = JSON.stringify(b.reviews || [], null, 2);
+    document.getElementById("areas").value = b.areas || "";
+    document.getElementById("verified").checked = b.happy;
+    
+    document.getElementById("formTitle").textContent = "Edit Baker: " + b.name;
+    document.getElementById("saveBtn").textContent = "Update Listing";
+    document.getElementById("cancelBtn").style.display = "block";
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  } catch (err) {
+    console.error(err);
+    alert("An unexpected error occurred while loading details.");
+  } finally {
+    btn.textContent = originalText;
+    btn.disabled = false;
   }
-  
-  document.getElementById("editingId").value = b.id;
-  document.getElementById("name").value = b.name || "";
-  document.getElementById("category").value = b.spec || "";
-  document.getElementById("logo_url").value = b.logo_key || "";
-  document.getElementById("location").value = b.loc || "";
-  document.getElementById("whatsapp").value = b.whatsapp || "";
-  document.getElementById("experience").value = b.exp || "";
-  document.getElementById("orders_completed").value = b.orders || "";
-  document.getElementById("rating").value = b.rating || 4.8;
-  document.getElementById("about").value = b.about || "";
-  document.getElementById("products").value = JSON.stringify(b.products || [], null, 2);
-  document.getElementById("reviews").value = JSON.stringify(b.reviews || [], null, 2);
-  document.getElementById("areas").value = b.areas || "";
-  document.getElementById("verified").checked = b.happy;
-  
-  document.getElementById("formTitle").textContent = "Edit Baker: " + b.name;
-  document.getElementById("saveBtn").textContent = "Update Listing";
-  document.getElementById("cancelBtn").style.display = "block";
-  window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
 function resetForm() {
@@ -246,49 +253,59 @@ async function deleteBaker(id) {
 document.getElementById("bakerForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const btn = document.getElementById("saveBtn");
-  btn.disabled = true;
-  btn.textContent = "Processing...";
-
-  let productsJson = [];
-  try { productsJson = JSON.parse(document.getElementById("products").value || "[]"); }
-  catch(err) { alert("Invalid Products JSON format!"); btn.disabled = false; return; }
-
-  let reviewsJson = [];
-  try { reviewsJson = JSON.parse(document.getElementById("reviews").value || "[]"); }
-  catch(err) { alert("Invalid Reviews JSON format!"); btn.disabled = false; return; }
-
-  const bakerData = {
-    name: document.getElementById("name").value,
-    spec: document.getElementById("category").value,
-    logo_key: document.getElementById("logo_url").value,
-    loc: document.getElementById("location").value,
-    whatsapp: document.getElementById("whatsapp").value,
-    exp: document.getElementById("experience").value,
-    orders: document.getElementById("orders_completed").value,
-    rating: parseFloat(document.getElementById("rating").value),
-    about: document.getElementById("about").value,
-    products: productsJson,
-    reviews: reviewsJson,
-    areas: document.getElementById("areas").value,
-    happy: document.getElementById("verified").checked
-  };
-
-  const editingId = document.getElementById("editingId").value;
-  let result;
+  const originalText = btn.textContent;
   
-  if (editingId) {
-    result = await supabase.from('bakers').update(bakerData).eq('id', editingId);
-  } else {
-    result = await supabase.from('bakers').insert([bakerData]);
-  }
+  try {
+    btn.disabled = true;
+    btn.textContent = "Processing...";
 
-  if (result.error) alert(result.error.message);
-  else {
-    alert(editingId ? "Updated successfully!" : "Added successfully!");
-    resetForm();
-    loadBakers();
+    let productsJson = [];
+    try { productsJson = JSON.parse(document.getElementById("products").value || "[]"); }
+    catch(err) { alert("Invalid Products JSON format!"); return; }
+
+    let reviewsJson = [];
+    try { reviewsJson = JSON.parse(document.getElementById("reviews").value || "[]"); }
+    catch(err) { alert("Invalid Reviews JSON format!"); return; }
+
+    const bakerData = {
+      name: document.getElementById("name").value,
+      spec: document.getElementById("category").value,
+      logo_key: document.getElementById("logo_url").value,
+      loc: document.getElementById("location").value,
+      whatsapp: document.getElementById("whatsapp").value,
+      exp: document.getElementById("experience").value,
+      orders: document.getElementById("orders_completed").value,
+      rating: parseFloat(document.getElementById("rating").value),
+      about: document.getElementById("about").value,
+      products: productsJson,
+      reviews: reviewsJson,
+      areas: document.getElementById("areas").value,
+      happy: document.getElementById("verified").checked
+    };
+
+    const editingId = document.getElementById("editingId").value;
+    let result;
+    
+    if (editingId) {
+      result = await supabase.from('bakers').update(bakerData).eq('id', editingId);
+    } else {
+      result = await supabase.from('bakers').insert([bakerData]);
+    }
+
+    if (result.error) {
+      alert(result.error.message);
+    } else {
+      alert(editingId ? "Updated successfully!" : "Added successfully!");
+      resetForm();
+      loadBakers();
+    }
+  } catch (err) {
+    console.error(err);
+    alert("An unexpected error occurred during save.");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalText;
   }
-  btn.disabled = false;
 });
 
 document.addEventListener("DOMContentLoaded", checkUser);
