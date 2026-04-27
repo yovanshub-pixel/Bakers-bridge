@@ -123,15 +123,6 @@
     .btn-edit { background: var(--bg); color: var(--primary); }
     .btn-delete { background: #FFEAEA; color: var(--error); }
 
-    /* MODAL OVERLAY */
-    #loadingOverlay {
-      position: fixed; inset: 0; background: var(--bg); z-index: 2000;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 1.5rem; transition: opacity 0.4s;
-    }
-    .spinner { width: 40px; height: 40px; border: 4px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
     /* UTILS */
     .hidden { display: none !important; }
     
@@ -146,8 +137,6 @@
   </style>
 </head>
 <body>
-
-  <!-- Overlay Removed for Maximum Performance -->
 
   <div class="dashboard">
     <aside>
@@ -193,7 +182,7 @@
           <button class="btn btn-secondary" onclick="switchSection('manage')">Back to List</button>
         </header>
         <div class="card">
-          <form id="bakerForm">
+          <form id="bakerForm" autocomplete="off">
             <input type="hidden" id="editingId">
             <div class="form-grid">
               <div class="form-group">
@@ -241,7 +230,7 @@
               </div>
               <div class="form-group full">
                 <label>About The Baker (The bio shown in profile)</label>
-                <textarea id="baker_bio" rows="6" spellcheck="false" style="border: 2px solid #ccc !important; position: relative; z-index: 10;" placeholder="Share the story and passion behind the baking..."></textarea>
+                <textarea id="baker_bio" rows="6" spellcheck="false" placeholder="Share the story and passion behind the baking..."></textarea>
               </div>
               <div class="form-group full">
                 <label>Products (JSON format)</label>
@@ -307,7 +296,6 @@
           window.location.href = "index.html";
           return;
         }
-        // Overlay Logic Removed for Performance
         loadBakers();
       } catch (err) {
         alert("Access Check Failed: " + err.message);
@@ -368,6 +356,7 @@
     // EDIT BAKER
     async function editBaker(id) {
       const btn = document.getElementById(`edit-btn-${id}`);
+      if (!btn) return;
       const originalText = btn.textContent;
       
       try {
@@ -441,8 +430,6 @@
           products: productsJson,
           reviews: reviewsJson
         };
-        
-        console.log("Saving Baker Data:", bakerData);
 
         const editingId = document.getElementById("editingId").value;
         let result;
