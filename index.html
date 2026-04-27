@@ -543,14 +543,13 @@ function renderBakers(data) {
   data.forEach(b => {
     const card = document.createElement("div");
     card.className = "baker-card";
-    // We add onclick to the header and body, and separately to the view button
     card.innerHTML = `
-      <div class="baker-card-header" onclick="openModal('${b.id}')">
+      <div class="baker-card-header" onclick="bbOpenProfile('${b.id}')">
         <div class="baker-brand-logo"><img src="${b.logo_url || IMAGES.BB_LOGO}"/></div>
         <div class="baker-brand-name">${b.name || 'Delicious Baker'}</div>
         ${b.verified ? '<span class="verified-badge">✓ Verified</span>' : ''}
       </div>
-      <div class="baker-body" onclick="openModal('${b.id}')">
+      <div class="baker-body" onclick="bbOpenProfile('${b.id}')">
         <div class="baker-spec">${b.category || 'Home Baker'}</div>
         <div class="baker-row">
           <div class="baker-loc">📍 ${b.location || 'Chennai'}</div>
@@ -560,7 +559,7 @@ function renderBakers(data) {
       </div>
       <div class="baker-footer">
         <button class="btn-enquire" onclick="event.stopPropagation(); window.open('https://wa.me/${b.whatsapp || '916369380977'}')">💬 WhatsApp</button>
-        <button class="btn-view" onclick="openModal('${b.id}')">View Profile</button>
+        <button class="btn-view" onclick="bbOpenProfile('${b.id}')">View Profile</button>
       </div>`;
     grid.appendChild(card);
   });
@@ -583,42 +582,28 @@ function filterByArea(area) {
   renderBakers(filtered);
 }
 
-function openModal(id) {
+function bbOpenProfile(id) {
   console.log("Opening ID:", id);
-  
   try {
     if (!window.allBakers || window.allBakers.length === 0) {
-      console.error("No bakers loaded");
+      alert("Error: Data is still loading... Please wait 2 seconds.");
       return;
     }
-
-    // Find the baker using a very safe method
     selectedBaker = window.allBakers.find(b => String(b.id) === String(id));
-    
     if (!selectedBaker) {
-      console.error("Baker not found for ID:", id);
+      alert("Error: Baker not found!");
       return;
     }
-
-    // Fill the modal with data, with fallbacks for every single field
     document.getElementById("modalLogo").src = selectedBaker.logo_url || "https://i.imgur.com/yteSy8p.jpeg";
     document.getElementById("modalName").innerText = selectedBaker.name || "Baker Profile";
     document.getElementById("modalSpec").innerText = selectedBaker.category || "Home Baker";
     document.getElementById("modalRating").innerText = "★ " + (selectedBaker.rating || "4.8");
     document.getElementById("modalLoc").innerText = "📍 " + (selectedBaker.location || "Chennai");
-    
     document.getElementById("modalWaBtn").onclick = function() {
-      const wa = selectedBaker.whatsapp || "916369380977";
-      window.open("https://wa.me/" + wa);
+      window.open("https://wa.me/" + (selectedBaker.whatsapp || "916369380977"));
     };
-    
-    // Switch to products tab
     const tabs = document.querySelectorAll('.modal-tab');
-    if (tabs && tabs.length > 0) {
-      switchTab('products', tabs[0]);
-    }
-    
-    // Show the modal
+    if (tabs && tabs.length > 0) switchTab('products', tabs[0]);
     const overlay = document.getElementById("modalOverlay");
     if (overlay) {
       overlay.style.display = "flex";
@@ -626,8 +611,7 @@ function openModal(id) {
       document.body.style.overflow = "hidden";
     }
   } catch (err) {
-    alert("CRITICAL ERROR: " + err.message);
-    console.error("Modal Error:", err);
+    alert("Profile Error: " + err.message);
   }
 }
 
@@ -661,6 +645,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+  alert("Bakers Bridge: Site is Ready! Try clicking View Profile now.");
   applyImages();
   loadBakers();
 });
