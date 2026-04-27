@@ -3,303 +3,142 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bakers Bridge | Premium Admin Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
+  <title>Bakers Bridge | High-Speed Admin</title>
   <style>
-    :root {
-      --primary: #3D2B1F;
-      --accent: #C8962A;
-      --accent-light: #E8B84B;
-      --accent-dark: #9A7020;
-      --bg: #FDF6EC;
-      --card: #FFFFFF;
-      --text: #2C1A0E;
-      --text-muted: #7A5C45;
-      --border: rgba(61, 43, 31, 0.1);
-      --success: #2D6A4F;
-      --error: #D62828;
-      --shadow: 0 12px 40px rgba(61, 43, 31, 0.08);
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
-
-    /* LAYOUT */
-    .dashboard { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
-
-    /* SIDEBAR */
-    aside {
-      background: var(--primary);
-      color: white;
-      padding: 2.5rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      position: sticky;
-      top: 0;
-      height: 100vh;
-    }
-    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; color: var(--accent-light); text-decoration: none; }
-    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
-    .nav-item {
-      padding: 1rem 1.25rem;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .nav-item:hover { background: rgba(255, 255, 255, 0.05); }
-    .nav-item.active { background: var(--accent); color: white; }
-    .logout-btn { margin-top: auto; color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; cursor: pointer; background: none; border: none; text-align: left; padding: 1rem; }
-    .logout-btn:hover { color: white; }
-
-    /* MAIN CONTENT */
-    main { padding: 3rem; max-width: 1200px; width: 100%; margin: 0 auto; }
-    header { margin-bottom: 3rem; display: flex; justify-content: space-between; align-items: center; }
-    header h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--primary); }
-
-    /* CARDS */
-    .card { background: var(--card); border-radius: 24px; padding: 2.5rem; border: 1px solid var(--border); box-shadow: var(--shadow); }
+    body { font-family: sans-serif; background: #fdf6ec; padding: 20px; color: #333; }
+    .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 30px; border: 1px solid #ddd; }
+    h1 { color: #3d2b1f; border-bottom: 2px solid #c8962a; padding-bottom: 10px; }
     
-    /* FORM */
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
-    .form-group.full { grid-column: 1 / -1; }
-    label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-    input, textarea, select {
-      padding: 14px 18px;
-      border: 1.5px solid var(--border);
-      border-radius: 14px;
-      font-size: 1rem;
-      font-family: inherit;
-      transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
-      background: #FAFAFA;
+    .section { margin-bottom: 40px; }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; }
+    input[type="text"], input[type="url"], input[type="number"], textarea {
+      width: 100%; padding: 10px; border: 1px solid #ccc; font-family: sans-serif; font-size: 16px;
+      box-sizing: border-box;
     }
-    input:focus, textarea:focus { border: 2px solid var(--accent) !important; outline: none; background: white; }
+    textarea { height: 120px; resize: vertical; }
     
-    .btn {
-      padding: 14px 32px;
-      border-radius: 30px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-      border: none;
-      font-size: 1rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .btn-primary { background: var(--accent); color: white; }
-    .btn-primary:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(200, 150, 42, 0.3); }
-    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-    .btn-secondary { background: var(--bg); color: var(--primary); border: 1.5px solid var(--border); }
-
-    /* PREVIEW */
-    .logo-preview-box {
-      width: 80px;
-      height: 80px;
-      border-radius: 16px;
-      border: 2px dashed var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      background: var(--bg);
-    }
-    .logo-preview-box img { width: 100%; height: 100%; object-fit: cover; }
-
-    /* LISTING */
-    .baker-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-    .baker-table th { text-align: left; padding: 1rem; color: var(--text-muted); font-weight: 600; font-size: 0.85rem; border-bottom: 2px solid var(--bg); }
-    .baker-table td { padding: 1.25rem 1rem; border-bottom: 1px solid var(--bg); vertical-align: middle; }
-    .baker-row:hover { background: #FAFAFA; }
-    .table-logo { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; }
-    .actions { display: flex; gap: 10px; }
-    .btn-sm { padding: 8px 16px; font-size: 0.85rem; border-radius: 10px; }
-    .btn-edit { background: var(--bg); color: var(--primary); }
-    .btn-delete { background: #FFEAEA; color: var(--error); }
-
-    /* UTILS */
-    .hidden { display: none !important; }
+    .btn { padding: 12px 24px; cursor: pointer; border: none; font-weight: bold; }
+    .btn-save { background: #c8962a; color: #fff; }
+    .btn-edit { background: #eee; margin-right: 5px; }
+    .btn-delete { background: #fee; color: #d32f2f; }
     
-    @media (max-width: 1024px) {
-      .dashboard { grid-template-columns: 1fr; }
-      aside { display: none; }
-    }
-    @media (max-width: 768px) {
-      .form-grid { grid-template-columns: 1fr; }
-      main { padding: 1.5rem; }
-    }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { text-align: left; padding: 12px; border-bottom: 1px solid #eee; }
+    
+    .hidden { display: none; }
+    #status { padding: 10px; margin-top: 10px; font-weight: bold; }
   </style>
 </head>
 <body>
 
-  <div class="dashboard">
-    <aside>
-      <a href="index.html" class="logo">Bakers<span>Bridge</span></a>
-      <ul class="nav-links">
-        <li class="nav-item active" onclick="switchSection('manage')">📋 Manage Listings</li>
-        <li class="nav-item" onclick="switchSection('form')">✨ Add New Baker</li>
-      </ul>
-      <button class="logout-btn" onclick="handleLogout()">← Logout from Admin</button>
-    </aside>
+  <div class="container">
+    <h1>Bakers Bridge Admin (High-Speed Mode)</h1>
+    <p><a href="index.html">← Back to Site</a> | <button onclick="handleLogout()">Logout</button></p>
 
-    <main>
-      <!-- MANAGE SECTION -->
-      <section id="section-manage">
-        <header>
-          <h1>Manage Bakers</h1>
-          <button class="btn btn-primary" onclick="switchSection('form')">+ New Listing</button>
-        </header>
-        <div class="card">
-          <table class="baker-table">
-            <thead>
-              <tr>
-                <th>Baker</th>
-                <th>Location</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="bakerList">
-              <!-- JS Populated -->
-            </tbody>
-          </table>
-          <div id="emptyState" class="hidden" style="text-align: center; padding: 3rem; color: var(--text-muted);">
-            No bakers found. Start by adding one!
-          </div>
-        </div>
-      </section>
+    <!-- MANAGE -->
+    <div id="manageSection" class="section">
+      <h2>Your Baker Listings</h2>
+      <button class="btn btn-save" onclick="showForm()">+ Add New Baker</button>
+      <table id="bakerTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="bakerList"></tbody>
+      </table>
+    </div>
 
-      <!-- FORM SECTION -->
-      <section id="section-form" class="hidden">
-        <header>
-          <h1 id="formTitle">Create New Listing</h1>
-          <button class="btn btn-secondary" onclick="switchSection('manage')">Back to List</button>
-        </header>
-        <div class="card">
-          <form id="bakerForm" autocomplete="off">
-            <input type="hidden" id="editingId">
-            <div class="form-grid">
-              <div class="form-group">
-                <label>Baker Brand Name</label>
-                <input type="text" id="name" placeholder="e.g. The Cake Studio" required>
-              </div>
-              <div class="form-group">
-                <label>Specialization / Category</label>
-                <input type="text" id="spec" placeholder="e.g. Wedding Cakes & Desserts">
-              </div>
-              <div class="form-group">
-                <div style="display:flex; justify-content:space-between; align-items:flex-end;">
-                  <div style="flex:1; margin-right:1rem; display:flex; flex-direction:column; gap:0.5rem;">
-                    <label>Logo URL</label>
-                    <input type="url" id="logo_key" placeholder="https://..." oninput="updateLogoPreview(this.value)">
-                  </div>
-                  <div class="logo-preview-box">
-                    <img id="logoPreview" src="https://i.imgur.com/yteSy8p.jpeg" alt="Preview">
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Primary Location</label>
-                <input type="text" id="loc" placeholder="e.g. Anna Nagar">
-              </div>
-              <div class="form-group">
-                <label>WhatsApp (with 91)</label>
-                <input type="text" id="whatsapp" placeholder="91XXXXXXXXXX">
-              </div>
-              <div class="form-group">
-                <label>Experience Level</label>
-                <input type="text" id="exp" placeholder="e.g. 5+ Years / Professional">
-              </div>
-              <div class="form-group">
-                <label>Total Orders Completed</label>
-                <input type="text" id="orders" placeholder="e.g. 500+">
-              </div>
-              <div class="form-group">
-                <label>Public Rating</label>
-                <input type="number" id="rating" step="0.1" value="4.8" min="0" max="5">
-              </div>
-              <div class="form-group full">
-                <label>Areas Served (comma separated)</label>
-                <input type="text" id="areas" placeholder="e.g. Anna Nagar, Adyar, Velachery">
-              </div>
-              <div class="form-group full">
-                <label>About The Baker (The bio shown in profile)</label>
-                <textarea id="baker_bio" rows="6" spellcheck="false" placeholder="Share the story and passion behind the baking..."></textarea>
-              </div>
-              <div class="form-group full">
-                <label>Products (JSON format)</label>
-                <textarea id="products" rows="6" spellcheck="false" placeholder='[{"name":"Product Name", "price":"₹1000", "image":"https://..."}]'></textarea>
-              </div>
-              <div class="form-group full">
-                <label>Sample Reviews (JSON format)</label>
-                <textarea id="reviews" rows="6" spellcheck="false" placeholder='[{"reviewer_name":"John Doe", "rating":5, "comment":"Excellent!"}]'></textarea>
-              </div>
-              <div class="form-group" style="flex-direction:row; align-items:center; gap:10px;">
-                <input type="checkbox" id="happy" checked style="width:20px; height:20px; cursor:pointer;">
-                <label style="cursor:pointer; margin:0;">Verified Baker Status</label>
-              </div>
-            </div>
-            <div style="margin-top: 3rem; display: flex; gap: 1rem;">
-              <button type="submit" class="btn btn-primary" id="saveBtn">✨ Save Baker Listing</button>
-              <button type="button" class="btn btn-secondary" onclick="resetAndSwitch()">Cancel Changes</button>
-            </div>
-          </form>
+    <!-- FORM -->
+    <div id="formSection" class="section hidden">
+      <h2 id="formTitle">Add New Baker</h2>
+      <button onclick="showManage()">← Back to List</button>
+      <form id="bakerForm" style="margin-top:20px;">
+        <input type="hidden" id="editingId">
+        
+        <div class="form-group">
+          <label>Brand Name*</label>
+          <input type="text" id="name" required>
         </div>
-      </section>
-    </main>
+        
+        <div class="form-group">
+          <label>Category</label>
+          <input type="text" id="spec" placeholder="Cakes, Pastries, etc.">
+        </div>
+        
+        <div class="form-group">
+          <label>Logo URL</label>
+          <input type="url" id="logo_key">
+        </div>
+        
+        <div class="form-group">
+          <label>Location</label>
+          <input type="text" id="loc">
+        </div>
+        
+        <div class="form-group">
+          <label>WhatsApp (91...)</label>
+          <input type="text" id="whatsapp">
+        </div>
+        
+        <div class="form-group">
+          <label>Experience</label>
+          <input type="text" id="exp">
+        </div>
+        
+        <div class="form-group">
+          <label>Orders Done</label>
+          <input type="text" id="orders">
+        </div>
+        
+        <div class="form-group">
+          <label>Rating (0-5)</label>
+          <input type="number" id="rating" step="0.1" value="4.8">
+        </div>
+
+        <div class="form-group">
+          <label>Areas Served</label>
+          <input type="text" id="areas">
+        </div>
+
+        <div class="form-group">
+          <label>About the Baker (Bio)</label>
+          <textarea id="baker_bio" spellcheck="false"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Products JSON (Optional)</label>
+          <textarea id="products" spellcheck="false">[]</textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Reviews JSON (Optional)</label>
+          <textarea id="reviews" spellcheck="false">[]</textarea>
+        </div>
+
+        <div class="form-group">
+          <input type="checkbox" id="happy" checked> Verified Status
+        </div>
+
+        <button type="submit" class="btn btn-save" id="saveBtn">Save Baker Listing</button>
+        <div id="status"></div>
+      </form>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.3/dist/umd/supabase.min.js"></script>
   <script>
-    // GLOBAL ERROR MONITOR
-    window.onerror = function(msg, url, line, col, error) {
-      alert("CRITICAL ERROR: " + msg + "\nAt line: " + line);
-      console.error(error);
-      return false;
-    };
-
-    // CONFIG
     const SUPABASE_URL = "https://qlkdxrryfpdmmbbqxkey.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsa2R4cnJ5ZnBkbW1iYnF4a2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMTUzMDQsImV4cCI6MjA5Mjc5MTMwNH0.9dFamA3asEEQ4KCBbfyx3vVw0KvEgh2hA3nGbIptLew";
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    let currentSection = 'manage';
-
-    // UI CONTROLS
-    function switchSection(id) {
-      currentSection = id;
-      document.getElementById('section-manage').classList.toggle('hidden', id !== 'manage');
-      document.getElementById('section-form').classList.toggle('hidden', id !== 'form');
-      
-      const navItems = document.querySelectorAll('.nav-item');
-      navItems[0].classList.toggle('active', id === 'manage');
-      navItems[1].classList.toggle('active', id === 'form');
-      
-      if (id === 'manage') loadBakers();
-    }
-
-    function updateLogoPreview(url) {
-      document.getElementById('logoPreview').src = url || 'https://i.imgur.com/yteSy8p.jpeg';
-    }
-
-    // AUTH
-    async function checkAccess() {
-      try {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) {
-          window.location.href = "index.html";
-          return;
-        }
-        loadBakers();
-      } catch (err) {
-        alert("Access Check Failed: " + err.message);
-      }
+    async function checkAuth() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) window.location.href = "index.html";
+      else loadBakers();
     }
 
     async function handleLogout() {
@@ -307,173 +146,111 @@
       window.location.href = "index.html";
     }
 
-    // DATA LOADING
+    function showForm() {
+      document.getElementById('manageSection').classList.add('hidden');
+      document.getElementById('formSection').classList.remove('hidden');
+    }
+
+    function showManage() {
+      document.getElementById('formSection').classList.add('hidden');
+      document.getElementById('manageSection').classList.remove('hidden');
+      loadBakers();
+    }
+
     async function loadBakers() {
-      try {
-        const { data, error } = await supabase
-          .from('bakers')
-          .select('id, name, logo_key, loc, happy')
-          .order('created_at', { ascending: false });
-
-        if (error) throw error;
-
-        const list = document.getElementById("bakerList");
-        const empty = document.getElementById("emptyState");
-        list.innerHTML = "";
-        
-        if (!data || data.length === 0) {
-          empty.classList.remove('hidden');
-          return;
-        }
-        empty.classList.add('hidden');
-
-        data.forEach(b => {
-          const tr = document.createElement("tr");
-          tr.className = "baker-row";
-          tr.innerHTML = `
-            <td>
-              <div style="display:flex; align-items:center; gap:12px;">
-                <img src="${b.logo_key || 'https://i.imgur.com/yteSy8p.jpeg'}" class="table-logo">
-                <span style="font-weight:600;">${b.name}</span>
-              </div>
-            </td>
-            <td>📍 ${b.loc || 'Chennai'}</td>
-            <td>${b.happy ? '<span style="color:var(--success); font-weight:600;">✓ Verified</span>' : '<span style="color:var(--text-muted);">Standard</span>'}</td>
-            <td>
-              <div class="actions">
-                <button class="btn btn-sm btn-edit" id="edit-btn-${b.id}" onclick="editBaker('${b.id}')">Edit</button>
-                <button class="btn btn-sm btn-delete" onclick="deleteBaker('${b.id}')">Delete</button>
-              </div>
-            </td>
-          `;
-          list.appendChild(tr);
-        });
-      } catch (err) {
-        alert("Load Error: " + err.message);
-      }
+      const { data, error } = await supabase.from('bakers').select('id, name, loc').order('created_at', { ascending: false });
+      if (error) return alert(error.message);
+      
+      const list = document.getElementById("bakerList");
+      list.innerHTML = "";
+      data.forEach(b => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${b.name}</td>
+          <td>${b.loc || ''}</td>
+          <td>
+            <button class="btn btn-edit" onclick="editBaker('${b.id}')">Edit</button>
+            <button class="btn btn-delete" onclick="deleteBaker('${b.id}')">Delete</button>
+          </td>
+        `;
+        list.appendChild(tr);
+      });
     }
 
-    // EDIT BAKER
     async function editBaker(id) {
-      const btn = document.getElementById(`edit-btn-${id}`);
-      if (!btn) return;
-      const originalText = btn.textContent;
+      const { data: b, error } = await supabase.from('bakers').select('*').eq('id', id).single();
+      if (error) return alert(error.message);
       
-      try {
-        btn.textContent = "Fetching...";
-        btn.disabled = true;
-
-        const { data: b, error } = await supabase.from('bakers').select('*').eq('id', id).single();
-        if (error) throw error;
-
-        // Populate Form
-        document.getElementById("editingId").value = b.id;
-        document.getElementById("name").value = b.name || "";
-        document.getElementById("spec").value = b.spec || "";
-        document.getElementById("logo_key").value = b.logo_key || "";
-        document.getElementById("loc").value = b.loc || "";
-        document.getElementById("whatsapp").value = b.whatsapp || "";
-        document.getElementById("exp").value = b.exp || "";
-        document.getElementById("orders").value = b.orders || "";
-        document.getElementById("rating").value = b.rating || 4.8;
-        document.getElementById("baker_bio").value = b.about || "";
-        document.getElementById("areas").value = b.areas || "";
-        document.getElementById("happy").checked = b.happy;
-        document.getElementById("products").value = JSON.stringify(b.products || [], null, 2);
-        document.getElementById("reviews").value = JSON.stringify(b.reviews || [], null, 2);
-
-        updateLogoPreview(b.logo_key);
-        
-        document.getElementById("formTitle").textContent = "Edit Baker: " + b.name;
-        document.getElementById("saveBtn").textContent = "Update Baker Profile";
-        switchSection('form');
-        window.scrollTo({top: 0, behavior: 'smooth'});
-
-      } catch (err) {
-        alert("Edit Error: " + err.message);
-      } finally {
-        btn.textContent = originalText;
-        btn.disabled = false;
-      }
-    }
-
-    // SAVE BAKER
-    document.getElementById("bakerForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById("saveBtn");
-      const originalText = btn.textContent;
+      document.getElementById("editingId").value = b.id;
+      document.getElementById("name").value = b.name || "";
+      document.getElementById("spec").value = b.spec || "";
+      document.getElementById("logo_key").value = b.logo_key || "";
+      document.getElementById("loc").value = b.loc || "";
+      document.getElementById("whatsapp").value = b.whatsapp || "";
+      document.getElementById("exp").value = b.exp || "";
+      document.getElementById("orders").value = b.orders || "";
+      document.getElementById("rating").value = b.rating || 4.8;
+      document.getElementById("areas").value = b.areas || "";
+      document.getElementById("baker_bio").value = b.about || "";
+      document.getElementById("happy").checked = b.happy;
+      document.getElementById("products").value = JSON.stringify(b.products || []);
+      document.getElementById("reviews").value = JSON.stringify(b.reviews || []);
       
-      try {
-        btn.disabled = true;
-        btn.textContent = "Saving to Database...";
-
-        // Parse JSON fields
-        let productsJson = [], reviewsJson = [];
-        try { productsJson = JSON.parse(document.getElementById("products").value || "[]"); } 
-        catch(e) { alert("Invalid Products JSON format!"); return; }
-        
-        try { reviewsJson = JSON.parse(document.getElementById("reviews").value || "[]"); } 
-        catch(e) { alert("Invalid Reviews JSON format!"); return; }
-
-        const bakerData = {
-          name: document.getElementById("name").value || "New Baker",
-          spec: document.getElementById("spec").value || "Home Baker",
-          logo_key: document.getElementById("logo_key").value || "https://i.imgur.com/yteSy8p.jpeg",
-          loc: document.getElementById("loc").value || "Chennai",
-          whatsapp: document.getElementById("whatsapp").value || "910000000000",
-          exp: document.getElementById("exp").value || "Professional",
-          orders: document.getElementById("orders").value || "0",
-          rating: parseFloat(document.getElementById("rating").value) || 4.8,
-          about: document.getElementById("baker_bio").value || "Baker bio coming soon...",
-          areas: document.getElementById("areas").value || "Chennai",
-          happy: document.getElementById("happy").checked || false,
-          products: productsJson,
-          reviews: reviewsJson
-        };
-
-        const editingId = document.getElementById("editingId").value;
-        let result;
-
-        if (editingId) {
-          result = await supabase.from('bakers').update(bakerData).eq('id', editingId);
-        } else {
-          result = await supabase.from('bakers').insert([bakerData]);
-        }
-
-        if (result.error) throw result.error;
-
-        alert(editingId ? "✅ Profile Updated Successfully!" : "✅ New Baker Added Successfully!");
-        resetAndSwitch();
-      } catch (err) {
-        alert("Save Error: " + err.message);
-      } finally {
-        btn.disabled = false;
-        btn.textContent = originalText;
-      }
-    });
-
-    function resetAndSwitch() {
-      document.getElementById("bakerForm").reset();
-      document.getElementById("editingId").value = "";
-      document.getElementById("formTitle").textContent = "Create New Listing";
-      document.getElementById("saveBtn").textContent = "✨ Save Baker Listing";
-      updateLogoPreview('');
-      switchSection('manage');
+      document.getElementById("formTitle").textContent = "Edit: " + b.name;
+      showForm();
     }
 
     async function deleteBaker(id) {
-      if (!confirm("Are you sure you want to delete this baker listing? This cannot be undone.")) return;
-      
-      try {
-        const { error } = await supabase.from('bakers').delete().eq('id', id);
-        if (error) throw error;
+      if (confirm("Delete this baker?")) {
+        await supabase.from('bakers').delete().eq('id', id);
         loadBakers();
-      } catch (err) {
-        alert("Delete Error: " + err.message);
       }
     }
 
-    document.addEventListener("DOMContentLoaded", checkAccess);
+    document.getElementById("bakerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const status = document.getElementById("status");
+      status.textContent = "Saving... please wait...";
+      status.style.color = "blue";
+      
+      try {
+        const bakerData = {
+          name: document.getElementById("name").value || "New Baker",
+          spec: document.getElementById("spec").value || "",
+          logo_key: document.getElementById("logo_key").value || "",
+          loc: document.getElementById("loc").value || "",
+          whatsapp: document.getElementById("whatsapp").value || "",
+          exp: document.getElementById("exp").value || "",
+          orders: document.getElementById("orders").value || "",
+          rating: parseFloat(document.getElementById("rating").value) || 4.8,
+          about: document.getElementById("baker_bio").value || "",
+          areas: document.getElementById("areas").value || "",
+          happy: document.getElementById("happy").checked,
+          products: JSON.parse(document.getElementById("products").value || "[]"),
+          reviews: JSON.parse(document.getElementById("reviews").value || "[]")
+        };
+
+        const id = document.getElementById("editingId").value;
+        const { error } = id ? 
+          await supabase.from('bakers').update(bakerData).eq('id', id) : 
+          await supabase.from('bakers').insert([bakerData]);
+
+        if (error) throw error;
+        
+        status.textContent = "Success!";
+        status.style.color = "green";
+        setTimeout(() => {
+          document.getElementById("bakerForm").reset();
+          document.getElementById("editingId").value = "";
+          showManage();
+        }, 1000);
+      } catch (err) {
+        status.textContent = "Error: " + err.message;
+        status.style.color = "red";
+      }
+    });
+
+    checkAuth();
   </script>
 </body>
 </html>
