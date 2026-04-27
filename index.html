@@ -2504,7 +2504,7 @@
       const area = document.getElementById("searchArea").value;
       const filtered = window.allBakers.filter(b => {
         const matchQuery = (b.name || "").toLowerCase().includes(query) || (b.spec || "").toLowerCase().includes(query);
-        const matchArea = area === "All Areas" || (b.loc || "").includes(area);
+        const matchArea = area === "All Areas" || (b.loc || "").includes(area) || (b.areas || "").includes(area);
         return matchQuery && matchArea;
       });
       renderBakers(filtered);
@@ -2512,7 +2512,7 @@
 
     function filterByArea(area) {
       document.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c.textContent === area));
-      const filtered = area === "All" ? window.allBakers : window.allBakers.filter(b => (b.loc || "").includes(area));
+      const filtered = area === "All" ? window.allBakers : window.allBakers.filter(b => (b.loc || "").includes(area) || (b.areas || "").includes(area));
       renderBakers(filtered);
     }
 
