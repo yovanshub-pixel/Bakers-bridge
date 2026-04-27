@@ -21,7 +21,7 @@ nav{background:var(--white); border-bottom:1px solid var(--border); padding:0 3r
 .logo-text span{color:var(--gold);}
 
 .container{max-width:1100px; margin:3rem auto; padding:0 2rem;}
-.header{margin-bottom:3rem; display:flex; justify-content:space-between; align-items:flex-end;}
+.header{margin-bottom:2rem; display:flex; justify-content:space-between; align-items:flex-end;}
 .header h1{font-family:'Cormorant Garamond',serif; font-size:2.5rem; color:var(--brown);}
 
 .card{background:var(--card); border-radius:18px; border:1px solid var(--border); padding:2rem; box-shadow:0 8px 32px rgba(61,43,31,0.05); margin-bottom:2rem;}
@@ -35,12 +35,17 @@ nav{background:var(--white); border-bottom:1px solid var(--border); padding:0 3r
 }
 .form-group input:focus, .form-group textarea:focus{border-color:var(--gold);}
 
-.btn-primary{background:var(--gold); color:var(--white); border:none; padding:12px 24px; border-radius:30px; font-size:15px; font-weight:600; cursor:pointer; font-family:'Outfit',sans-serif; transition:all 0.2s;}
+.btn-primary{background:var(--gold); color:var(--white); border:none; padding:12px 24px; border-radius:30px; font-size:15px; font-weight:600; cursor:pointer; transition:all 0.2s;}
 .btn-primary:hover{background:var(--gold-dark); transform:translateY(-2px);}
+.btn-secondary{background:transparent; color:var(--brown); border:1.5px solid var(--border); padding:10px 20px; border-radius:30px; cursor:pointer; font-size:14px;}
 
-.baker-list{display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:1rem;}
-.baker-item{background:var(--white); padding:1rem; border-radius:12px; border:1px solid var(--border); display:flex; align-items:center; gap:1rem;}
+.baker-list{display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:1rem;}
+.baker-item{background:var(--white); padding:1rem; border-radius:12px; border:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:1rem;}
 .baker-item img{width:50px; height:50px; border-radius:8px; object-fit:cover;}
+.baker-info{display:flex; align-items:center; gap:1rem; flex:1;}
+.baker-actions{display:flex; gap:8px;}
+.btn-edit{padding:6px 12px; font-size:12px; background:var(--warm); border:none; border-radius:6px; cursor:pointer;}
+.btn-delete{padding:6px 12px; font-size:12px; background:#FFE5E5; color:#D32F2F; border:none; border-radius:6px; cursor:pointer;}
 
 #loadingOverlay{position:fixed; inset:0; background:rgba(253,246,236,0.8); display:flex; align-items:center; justify-content:center; z-index:1000;}
 
@@ -55,7 +60,7 @@ nav{background:var(--white); border-bottom:1px solid var(--border); padding:0 3r
 
 <nav>
   <a href="index.html" class="logo-text">Bakers <span>Bridge</span> Admin</a>
-  <button class="btn-primary" onclick="handleLogout()" style="padding:8px 20px; font-size:13px;">Logout</button>
+  <button class="btn-secondary" onclick="handleLogout()" style="padding:8px 18px; font-size:13px;">Logout</button>
 </nav>
 
 <div class="container">
@@ -65,8 +70,9 @@ nav{background:var(--white); border-bottom:1px solid var(--border); padding:0 3r
   </div>
 
   <div class="card">
-    <h2>Add / Update Baker Profile</h2>
+    <h2 id="formTitle">Add New Baker</h2>
     <form id="bakerForm">
+      <input type="hidden" id="editingId">
       <div class="form-grid">
         <div class="form-group">
           <label>Baker Name</label>
@@ -89,42 +95,42 @@ nav{background:var(--white); border-bottom:1px solid var(--border); padding:0 3r
           <input type="text" id="whatsapp">
         </div>
         <div class="form-group">
-          <label>Experience (e.g. 3 Years)</label>
+          <label>Experience</label>
           <input type="text" id="experience">
         </div>
         <div class="form-group">
-          <label>Orders Completed (e.g. 500+)</label>
+          <label>Orders Completed</label>
           <input type="text" id="orders_completed">
         </div>
         <div class="form-group">
-          <label>Rating (1-5)</label>
+          <label>Rating</label>
           <input type="number" id="rating" step="0.1" value="4.8">
         </div>
         <div class="form-group" style="grid-column: 1/-1;">
           <label>About The Baker</label>
-          <textarea id="about" rows="4" placeholder="Tell customers about your story and baking style..."></textarea>
+          <textarea id="about" rows="4"></textarea>
         </div>
-        
         <div class="form-group" style="grid-column: 1/-1;">
-          <label>Products (JSON List)</label>
-          <p style="font-size:11px; color:var(--text-muted); margin-bottom:5px;">Paste your products list here. Example: [{"name":"Chocolate Cake", "price":"₹800", "image":""}]</p>
-          <textarea id="products" rows="4" placeholder='[{"name":"Cake Name", "price":"₹Price", "image":"URL"}]'></textarea>
+          <label>Products (JSON format)</label>
+          <textarea id="products" rows="6" placeholder='[{"name":"Cake", "price":"₹800", "image":""}]'></textarea>
         </div>
-
-        <div class="form-group" style="grid-column: 1/-1;">
+        <div class="form-group">
           <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
-            <input type="checkbox" id="verified" checked style="width:auto;"> This baker is verified
+            <input type="checkbox" id="verified" checked style="width:auto;"> Verified Status
           </label>
         </div>
       </div>
-      <button type="submit" class="btn-primary" id="saveBtn" style="margin-top:1.5rem;">Save Baker Profile</button>
+      <div style="margin-top:1.5rem; display:flex; gap:1rem;">
+        <button type="submit" class="btn-primary" id="saveBtn">Save Listing</button>
+        <button type="button" class="btn-secondary" id="cancelBtn" style="display:none;" onclick="resetForm()">Cancel Edit</button>
+      </div>
     </form>
   </div>
 
   <div class="card">
-    <h2>Your Listings</h2>
+    <h2>Manage Your Listings</h2>
     <div id="bakerList" class="baker-list">
-      <!-- Listings -->
+      <!-- Listings with Edit/Delete -->
     </div>
   </div>
 </div>
@@ -135,14 +141,14 @@ const SUPABASE_URL = "https://qlkdxrryfpdmmbbqxkey.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsa2R4cnJ5ZnBkbW1iYnF4a2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMTUzMDQsImV4cCI6MjA5Mjc5MTMwNH0.9dFamA3asEEQ4KCBbfyx3vVw0KvEgh2hA3nGbIptLew";
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+let allBakers = [];
+
 async function checkUser() {
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    window.location.href = "index.html";
-  } else {
-    document.getElementById("welcomeText").textContent = "Welcome, " + user.email.split('@')[0];
+  if (!user) { window.location.href = "index.html"; }
+  else { 
     document.getElementById("loadingOverlay").style.display = "none";
-    loadBakers();
+    loadBakers(); 
   }
 }
 
@@ -154,32 +160,74 @@ async function handleLogout() {
 async function loadBakers() {
   const { data, error } = await supabase.from('bakers').select('*').order('created_at', { ascending: false });
   if (error) return;
+  allBakers = data;
   const list = document.getElementById("bakerList");
   list.innerHTML = "";
   data.forEach(b => {
     const div = document.createElement("div");
     div.className = "baker-item";
-    div.innerHTML = `<img src="${b.logo_url || 'https://i.imgur.com/yteSy8p.jpeg'}"> <div><strong>${b.name}</strong><br><small>${b.location}</small></div>`;
+    div.innerHTML = `
+      <div class="baker-info">
+        <img src="${b.logo_url || 'https://i.imgur.com/yteSy8p.jpeg'}">
+        <div><strong>${b.name}</strong><br><small>${b.location}</small></div>
+      </div>
+      <div class="baker-actions">
+        <button class="btn-edit" onclick="editBaker('${b.id}')">Edit</button>
+        <button class="btn-delete" onclick="deleteBaker('${b.id}')">Delete</button>
+      </div>
+    `;
     list.appendChild(div);
   });
+}
+
+function editBaker(id) {
+  const b = allBakers.find(x => x.id === id);
+  if (!b) return;
+  
+  document.getElementById("editingId").value = b.id;
+  document.getElementById("name").value = b.name || "";
+  document.getElementById("category").value = b.category || "";
+  document.getElementById("logo_url").value = b.logo_url || "";
+  document.getElementById("location").value = b.location || "";
+  document.getElementById("whatsapp").value = b.whatsapp || "";
+  document.getElementById("experience").value = b.experience || "";
+  document.getElementById("orders_completed").value = b.orders_completed || "";
+  document.getElementById("rating").value = b.rating || 4.8;
+  document.getElementById("about").value = b.about || "";
+  document.getElementById("products").value = JSON.stringify(b.products || [], null, 2);
+  document.getElementById("verified").checked = b.verified;
+  
+  document.getElementById("formTitle").textContent = "Edit Baker: " + b.name;
+  document.getElementById("saveBtn").textContent = "Update Listing";
+  document.getElementById("cancelBtn").style.display = "block";
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function resetForm() {
+  document.getElementById("bakerForm").reset();
+  document.getElementById("editingId").value = "";
+  document.getElementById("formTitle").textContent = "Add New Baker";
+  document.getElementById("saveBtn").textContent = "Save Listing";
+  document.getElementById("cancelBtn").style.display = "none";
+}
+
+async function deleteBaker(id) {
+  if (confirm("Are you sure you want to delete this baker?")) {
+    const { error } = await supabase.from('bakers').delete().eq('id', id);
+    if (error) alert(error.message);
+    else loadBakers();
+  }
 }
 
 document.getElementById("bakerForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const btn = document.getElementById("saveBtn");
   btn.disabled = true;
-  btn.textContent = "Saving...";
+  btn.textContent = "Processing...";
 
   let productsJson = [];
-  try {
-    const val = document.getElementById("products").value.trim();
-    productsJson = val ? JSON.parse(val) : [];
-  } catch(e) {
-    alert("Error in Products JSON! Please check the format.");
-    btn.disabled = false;
-    btn.textContent = "Save Baker Profile";
-    return;
-  }
+  try { productsJson = JSON.parse(document.getElementById("products").value || "[]"); }
+  catch(err) { alert("Invalid Products JSON format!"); btn.disabled = false; return; }
 
   const bakerData = {
     name: document.getElementById("name").value,
@@ -195,16 +243,22 @@ document.getElementById("bakerForm").addEventListener("submit", async (e) => {
     verified: document.getElementById("verified").checked
   };
 
-  const { error } = await supabase.from('bakers').insert([bakerData]);
-  if (error) {
-    alert("Error: " + error.message);
+  const editingId = document.getElementById("editingId").value;
+  let result;
+  
+  if (editingId) {
+    result = await supabase.from('bakers').update(bakerData).eq('id', editingId);
   } else {
-    alert("Baker added successfully!");
-    document.getElementById("bakerForm").reset();
+    result = await supabase.from('bakers').insert([bakerData]);
+  }
+
+  if (result.error) alert(result.error.message);
+  else {
+    alert(editingId ? "Updated successfully!" : "Added successfully!");
+    resetForm();
     loadBakers();
   }
   btn.disabled = false;
-  btn.textContent = "Save Baker Profile";
 });
 
 document.addEventListener("DOMContentLoaded", checkUser);
