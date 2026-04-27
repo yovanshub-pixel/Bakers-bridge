@@ -536,17 +536,21 @@ async function loadBakers() {
 function renderBakers(data) {
   const grid = document.getElementById("bakersGrid");
   grid.innerHTML = "";
+  if (!data || data.length === 0) {
+    grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);">No bakers found. Try a different area!</div>';
+    return;
+  }
   data.forEach(b => {
     const card = document.createElement("div");
     card.className = "baker-card";
-    card.onclick = () => openModal(b.id);
+    // We add onclick to the header and body, and separately to the view button
     card.innerHTML = `
-      <div class="baker-card-header">
+      <div class="baker-card-header" onclick="openModal('${b.id}')">
         <div class="baker-brand-logo"><img src="${b.logo_url || IMAGES.BB_LOGO}"/></div>
-        <div class="baker-brand-name">${b.name || 'Baker'}</div>
+        <div class="baker-brand-name">${b.name || 'Delicious Baker'}</div>
         ${b.verified ? '<span class="verified-badge">✓ Verified</span>' : ''}
       </div>
-      <div class="baker-body">
+      <div class="baker-body" onclick="openModal('${b.id}')">
         <div class="baker-spec">${b.category || 'Home Baker'}</div>
         <div class="baker-row">
           <div class="baker-loc">📍 ${b.location || 'Chennai'}</div>
@@ -556,7 +560,7 @@ function renderBakers(data) {
       </div>
       <div class="baker-footer">
         <button class="btn-enquire" onclick="event.stopPropagation(); window.open('https://wa.me/${b.whatsapp || '916369380977'}')">💬 WhatsApp</button>
-        <button class="btn-view">View Profile</button>
+        <button class="btn-view" onclick="openModal('${b.id}')">View Profile</button>
       </div>`;
     grid.appendChild(card);
   });
@@ -580,18 +584,30 @@ function filterByArea(area) {
 }
 
 function openModal(id) {
-  selectedBaker = allBakers.find(b => b.id === id);
+  console.log("Attempting to open modal for:", id);
+  selectedBaker = allBakers.find(b => b.id == id);
+  
+  if (!selectedBaker) {
+    console.error("Baker not found in the list!");
+    return;
+  }
+
   document.getElementById("modalLogo").src = selectedBaker.logo_url || IMAGES.BB_LOGO;
-  document.getElementById("modalName").textContent = selectedBaker.name;
-  document.getElementById("modalSpec").textContent = selectedBaker.category;
+  document.getElementById("modalName").textContent = selectedBaker.name || "Baker Profile";
+  document.getElementById("modalSpec").textContent = selectedBaker.category || "Home Baker";
   document.getElementById("modalRating").textContent = "★ " + (selectedBaker.rating || "4.8");
   document.getElementById("modalLoc").textContent = "📍 " + (selectedBaker.location || "Chennai");
   document.getElementById("modalWaBtn").onclick = () => window.open("https://wa.me/" + (selectedBaker.whatsapp || "916369380977"));
-  switchTab('products', document.querySelector('.modal-tab'));
+  
+  // Reset tabs to Products
+  const tabs = document.querySelectorAll('.modal-tab');
+  if (tabs.length > 0) switchTab('products', tabs[0]);
+  
   document.getElementById("modalOverlay").classList.add("open");
+  document.body.style.overflow = "hidden";
 }
 
-function closeModal() { document.getElementById("modalOverlay").classList.remove("open"); }
+function closeModal() { document.getElementById("modalOverlay").classList.remove("open"); document.body.style.overflow = "auto"; }
 function openLoginModal() { document.getElementById("loginOverlay").classList.add("open"); }
 function closeLoginModal() { document.getElementById("loginOverlay").classList.remove("open"); }
 
