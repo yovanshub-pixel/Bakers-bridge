@@ -115,6 +115,10 @@ nav{background:var(--white); border-bottom:1px solid var(--border); padding:0 3r
           <textarea id="products" rows="6" placeholder='[{"name":"Cake", "price":"₹800", "image":""}]'></textarea>
         </div>
         <div class="form-group">
+          <label>Areas Served (comma separated)</label>
+          <input type="text" id="areas" placeholder="e.g. Anna Nagar, Adyar, Velachery">
+        </div>
+        <div class="form-group">
           <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
             <input type="checkbox" id="verified" checked style="width:auto;"> Verified Status
           </label>
@@ -195,6 +199,7 @@ function editBaker(id) {
   document.getElementById("rating").value = b.rating || 4.8;
   document.getElementById("about").value = b.about || "";
   document.getElementById("products").value = JSON.stringify(b.products || [], null, 2);
+  document.getElementById("areas").value = b.areas || "";
   document.getElementById("verified").checked = b.happy;
   
   document.getElementById("formTitle").textContent = "Edit Baker: " + b.name;
@@ -240,6 +245,7 @@ document.getElementById("bakerForm").addEventListener("submit", async (e) => {
     rating: parseFloat(document.getElementById("rating").value),
     about: document.getElementById("about").value,
     products: productsJson,
+    areas: document.getElementById("areas").value,
     happy: document.getElementById("verified").checked
   };
 
