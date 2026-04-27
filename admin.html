@@ -76,7 +76,7 @@
       border-radius: 14px;
       font-size: 1rem;
       font-family: inherit;
-      transition: all 0.2s;
+      transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
       background: #FAFAFA;
     }
     input:focus, textarea:focus { border-color: var(--accent); outline: none; background: white; box-shadow: 0 0 0 4px rgba(200, 150, 42, 0.1); }
@@ -244,15 +244,15 @@
               </div>
               <div class="form-group full">
                 <label>About The Baker (The bio shown in profile)</label>
-                <textarea id="about" rows="4" placeholder="Share the story and passion behind the baking..."></textarea>
+                <textarea id="about" rows="6" spellcheck="false" placeholder="Share the story and passion behind the baking..."></textarea>
               </div>
               <div class="form-group full">
                 <label>Products (JSON format)</label>
-                <textarea id="products" rows="4" placeholder='[{"name":"Product Name", "price":"₹1000", "image":"https://..."}]'></textarea>
+                <textarea id="products" rows="6" spellcheck="false" placeholder='[{"name":"Product Name", "price":"₹1000", "image":"https://..."}]'></textarea>
               </div>
               <div class="form-group full">
                 <label>Sample Reviews (JSON format)</label>
-                <textarea id="reviews" rows="4" placeholder='[{"reviewer_name":"John Doe", "rating":5, "comment":"Excellent!"}]'></textarea>
+                <textarea id="reviews" rows="6" spellcheck="false" placeholder='[{"reviewer_name":"John Doe", "rating":5, "comment":"Excellent!"}]'></textarea>
               </div>
               <div class="form-group" style="flex-direction:row; align-items:center; gap:10px;">
                 <input type="checkbox" id="happy" checked style="width:20px; height:20px; cursor:pointer;">
@@ -431,20 +431,22 @@
         catch(e) { alert("Invalid Reviews JSON format!"); return; }
 
         const bakerData = {
-          name: document.getElementById("name").value,
-          spec: document.getElementById("spec").value,
-          logo_key: document.getElementById("logo_key").value,
-          loc: document.getElementById("loc").value,
-          whatsapp: document.getElementById("whatsapp").value,
-          exp: document.getElementById("exp").value,
-          orders: document.getElementById("orders").value,
-          rating: parseFloat(document.getElementById("rating").value),
-          about: document.getElementById("about").value,
-          areas: document.getElementById("areas").value,
-          happy: document.getElementById("happy").checked,
+          name: document.getElementById("name").value || "New Baker",
+          spec: document.getElementById("spec").value || "Home Baker",
+          logo_key: document.getElementById("logo_key").value || "https://i.imgur.com/yteSy8p.jpeg",
+          loc: document.getElementById("loc").value || "Chennai",
+          whatsapp: document.getElementById("whatsapp").value || "910000000000",
+          exp: document.getElementById("exp").value || "Professional",
+          orders: document.getElementById("orders").value || "0",
+          rating: parseFloat(document.getElementById("rating").value) || 4.8,
+          about: document.getElementById("about").value || "Baker bio coming soon...",
+          areas: document.getElementById("areas").value || "Chennai",
+          happy: document.getElementById("happy").checked || false,
           products: productsJson,
           reviews: reviewsJson
         };
+        
+        console.log("Saving Baker Data:", bakerData);
 
         const editingId = document.getElementById("editingId").value;
         let result;
