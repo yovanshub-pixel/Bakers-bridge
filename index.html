@@ -688,7 +688,13 @@ function switchTab(tab, el) {
   const content = document.getElementById("modalContent");
   
   if (tab === 'products') {
-    const prods = selectedBaker.products || [];
+    let prods = selectedBaker.products || [];
+    // Ensure prods is an array
+    if (typeof prods === 'string') {
+      try { prods = JSON.parse(prods); } catch(e) { prods = []; }
+    }
+    if (!Array.isArray(prods)) prods = [];
+
     let html = '<div class="products-row">';
     if(prods.length === 0) html += '<p style="color:var(--text-muted); grid-column:1/-1;">No products listed yet.</p>';
     prods.forEach(p => {
