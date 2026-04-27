@@ -5,108 +5,128 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bakers Bridge | Chennai's Home Baker Hub</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --cream: #FDF6EC; --warm: #F5E6CC;
       --gold: #C8962A; --gold-light: #E8B84B; --gold-dark: #9A7020;
-      --silver: #94A3B8; --silver-light: #E2E8F0;
-      --brown: #3D2B1F; --text: #2C1A0E; --text-muted: #7A5C45;
-      --white: #FFFFFF; --border: rgba(200, 150, 42, 0.18);
+      --brown: #3D2B1F; --brown-mid: #6B4C35; --brown-light: #9A7B65;
+      --text: #2C1A0E; --text-muted: #7A5C45; --white: #FFFFFF;
+      --card: #FFFDF8; --border: rgba(200, 150, 42, 0.18);
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
 
-    /* NAVIGATION */
+    /* ── PREMIUM DECORATIONS ── */
+    .hero-orb { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(200, 150, 42, 0.12), transparent 70%); pointer-events: none; }
+    .hero-orb.o1 { width: 700px; height: 700px; top: -200px; right: -150px; }
+    .hero-orb.o2 { width: 400px; height: 400px; bottom: -100px; left: -100px; }
+    
+    .bake-deco { position: absolute; pointer-events: none; opacity: 0.05; }
+    @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes floatDeco { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+
+    /* ── NAVIGATION ── */
     nav { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(253, 246, 236, 0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 3rem; height: 68px; display: flex; align-items: center; justify-content: space-between; }
+    nav.scrolled { box-shadow: 0 4px 20px rgba(61, 43, 31, 0.1); }
     .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
     .logo-img { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; }
-    .logo-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--brown); }
+    .logo-text { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: var(--brown); }
+    .logo-text span { color: var(--gold); }
     .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 14px; font-weight: 500; }
-    .btn-nav-solid { background: var(--gold); color: var(--white); border: none; padding: 8px 20px; border-radius: 20px; font-size: 13px; cursor: pointer; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .btn-nav-solid { background: var(--gold); color: var(--white); border: none; padding: 10px 24px; border-radius: 20px; font-weight: 600; cursor: pointer; }
 
-    /* HERO */
-    .hero { min-height: 100vh; padding: 120px 3rem 80px; display: flex; align-items: center; background: var(--cream); position: relative; overflow: hidden; }
-    .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 700; line-height: 1.1; color: var(--brown); margin-bottom: 1.5rem; }
+    /* ── HERO ── */
+    .hero { min-height: 100vh; padding: 120px 3rem 80px; display: flex; align-items: center; position: relative; }
+    .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 700; line-height: 1.1; color: var(--brown); margin-bottom: 1.5rem; }
     .hero h1 em { color: var(--gold); font-style: normal; }
-    .hero-desc { font-size: 1.05rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 2rem; max-width: 480px; }
+    .hero-desc { font-size: 1.1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 500px; }
     
-    /* FLOATING CARDS */
-    .hero-right { position: relative; height: 600px; }
-    .float-card { position: absolute; background: white; border-radius: 18px; border: 1px solid var(--border); padding: 1.25rem; box-shadow: 0 8px 32px rgba(61,43,31,0.1); width: 260px; }
-    .float-card.main { top: 20px; left: 10px; animation: float1 4s infinite; }
-    .float-card.side { top: 220px; right: 0; animation: float1 5s infinite; }
-    .float-card.bottom { bottom: 20px; left: 30px; animation: float1 6s infinite; }
-    @keyframes float1 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .hero-right { position: relative; height: 500px; }
+    .float-card { position: absolute; background: var(--white); border-radius: 20px; border: 1px solid var(--border); padding: 1.5rem; box-shadow: 0 12px 40px rgba(61,43,31,0.08); width: 280px; transition: all 0.5s; cursor: pointer; }
+    .float-card:hover { transform: scale(1.05) !important; z-index: 10; }
+    .float-card.main { top: 20px; left: 0; animation: floatDeco 4s ease-in-out infinite; }
+    .float-card.side { top: 200px; right: 0; animation: floatDeco 5s ease-in-out infinite; }
+    .float-card.bottom { bottom: 0; left: 40px; animation: floatDeco 6s ease-in-out infinite; }
 
-    /* SEARCH BAR */
-    .search-bar-section { background: var(--white); padding: 2.5rem 3rem; box-shadow: 0 4px 20px rgba(61,43,31,0.07); }
-    .search-inner { max-width: 900px; margin: 0 auto; }
-    .search-box { display: flex; background: var(--cream); border: 1.5px solid var(--border); border-radius: 50px; padding: 6px; gap: 10px; }
-    .search-box input { flex: 1.5; border: none; background: transparent; padding-left: 20px; outline: none; }
-    .search-box select { flex: 1; border: none; background: transparent; border-left: 1px solid var(--border); padding-left: 10px; outline: none; font-family: inherit; color: var(--text-muted); cursor: pointer; }
-    .search-btn { background: var(--gold); color: white; border: none; padding: 10px 28px; border-radius: 40px; cursor: pointer; font-weight: 600; }
+    /* ── SEARCH & BAKER GRID ── */
+    .search-bar-section { background: var(--white); padding: 3rem; border-top: 1px solid var(--border); }
+    .search-inner { max-width: 1000px; margin: 0 auto; display: flex; gap: 1rem; }
+    .search-input-group { flex: 1; display: flex; background: var(--cream); border: 1.5px solid var(--border); border-radius: 50px; padding: 8px 10px 8px 25px; gap: 10px; }
+    .search-input-group input { flex: 1; border: none; background: transparent; outline: none; font-size: 16px; font-family: inherit; }
+    .search-input-group select { border: none; background: transparent; border-left: 1px solid var(--border); padding-left: 15px; outline: none; cursor: pointer; color: var(--text-muted); font-family: inherit; }
 
-    /* BAKER GRID */
-    section { padding: 5rem 3rem; }
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-    .section-header { text-align: center; margin-bottom: 3rem; }
-    .bakers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+    section { padding: 8rem 3rem; position: relative; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 3rem; text-align: center; margin-bottom: 4rem; color: var(--brown); }
+    .bakers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
 
-    /* BAKER CARDS */
-    .baker-card { background: white; border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: all 0.3s; cursor: pointer; position: relative; }
-    .baker-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(61,43,31,0.12); }
+    /* BAKER CARDS (PREMIUM) */
+    .baker-card { background: var(--card); border-radius: 24px; border: 1px solid var(--border); overflow: hidden; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }
+    .baker-card:hover { transform: translateY(-12px); box-shadow: 0 20px 50px rgba(61, 43, 31, 0.15); }
     
-    .plan-Premium { border: 2.5px solid var(--gold); }
-    .plan-Premium::after { content: '👑 PREMIUM'; position: absolute; top: 12px; right: 12px; background: var(--gold); color: white; font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 20px; }
-    .plan-Standard { border: 1.5px solid var(--silver); }
-    .plan-Standard::after { content: '🚀 FEATURED'; position: absolute; top: 12px; right: 12px; background: #0369A1; color: white; font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 20px; }
+    .plan-Premium { border: 2.5px solid var(--gold); box-shadow: 0 0 25px rgba(200, 150, 42, 0.1); }
+    .plan-Premium::after { content: '👑 PREMIUM BAKER'; position: absolute; top: 15px; right: 15px; background: var(--gold); color: white; font-size: 10px; font-weight: 800; padding: 6px 14px; border-radius: 30px; letter-spacing: 1px; }
+    .plan-Standard { border: 1.5px solid #0369A1; }
+    .plan-Standard::after { content: '🚀 FEATURED'; position: absolute; top: 15px; right: 15px; background: #0369A1; color: white; font-size: 10px; font-weight: 800; padding: 6px 14px; border-radius: 30px; }
 
-    .baker-card-header { height: 160px; background: #FAFAFA; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #f0f0f0; }
-    .baker-brand-logo { width: 85px; height: 85px; border-radius: 16px; overflow: hidden; background: white; border: 1px solid #eee; }
+    .baker-card-header { height: 180px; background: linear-gradient(135deg, #FFF9F0, #FDF6EC); display: flex; align-items: center; justify-content: center; }
+    .baker-brand-logo { width: 100px; height: 100px; border-radius: 20px; overflow: hidden; background: white; border: 1px solid #eee; box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
     .baker-brand-logo img { width: 100%; height: 100%; object-fit: cover; }
-    .baker-body { padding: 1.5rem; }
-    .baker-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: var(--brown); margin-bottom: 4px; }
-    .baker-spec { font-size: 14px; color: var(--text-muted); margin-bottom: 15px; }
-    .baker-meta { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-muted); border-top: 1px solid #f5f5f5; padding-top: 15px; }
+    
+    .baker-body { padding: 2rem; }
+    .baker-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--brown); margin-bottom: 8px; }
+    .baker-spec { font-size: 15px; color: var(--text-muted); margin-bottom: 20px; font-weight: 500; }
+    .baker-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f0f0f0; padding-top: 20px; }
+    .baker-loc { font-size: 14px; color: var(--text-muted); display: flex; align-items: center; gap: 5px; }
+    .baker-rating { color: var(--gold); font-weight: 700; font-size: 14px; }
 
     /* PLACEHOLDERS */
-    .slot-card { background: var(--cream); border: 2px dashed rgba(61,43,31,0.1); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2.5rem; border-radius: 20px; min-height: 350px; }
+    .slot-card { background: var(--white); border: 2.5px dashed var(--border); border-radius: 24px; padding: 3rem; text-align: center; min-height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0.8; }
+    .slot-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; margin-bottom: 1rem; color: var(--brown-light); }
 
-    /* HOW IT WORKS */
-    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem; }
-    .step { text-align: center; }
-    .step-num { width: 40px; height: 40px; background: var(--gold); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-weight: 700; }
-
-    /* PACKAGES */
-    .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-    .pkg-card { background: white; border-radius: 24px; padding: 3rem 2rem; border: 1px solid var(--border); text-align: center; transition: transform 0.3s; }
-    .pkg-card.featured { background: var(--brown); color: white; border: none; transform: scale(1.05); }
-    .pkg-price { font-size: 2.5rem; font-family: 'Cormorant Garamond'; font-weight: 700; margin: 1rem 0; }
-
-    /* FOOTER */
-    footer { background: var(--brown); color: white; padding: 4rem 3rem; text-align: center; }
-    .footer-logo { width: 50px; height: 50px; border-radius: 12px; margin-bottom: 1rem; }
+    /* FOOTER (DETAILED) */
+    footer { background: var(--brown); color: var(--white); padding: 6rem 3rem 3rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; }
+    .footer-brand h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin-bottom: 1rem; color: var(--gold-light); }
+    .footer-brand p { color: rgba(255,255,255,0.6); line-height: 1.7; font-size: 14px; }
+    .footer-col h4 { color: var(--white); margin-bottom: 1.5rem; font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.8rem; }
+    .footer-col ul li a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--gold-light); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: rgba(255,255,255,0.4); }
 
     /* MODALS */
-    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
-    .modal { background: white; width: 92%; max-width: 850px; border-radius: 28px; padding: 2.5rem; position: relative; max-height: 90vh; overflow-y: auto; }
-    .modal-close { position: absolute; top: 25px; right: 25px; cursor: pointer; font-size: 24px; color: var(--text-muted); }
-    .modal-header { display: flex; gap: 2rem; margin-bottom: 2rem; border-bottom: 1px solid #f0f0f0; padding-bottom: 2rem; }
-    .modal-logo-img { width: 120px; height: 120px; border-radius: 20px; object-fit: cover; border: 1px solid #eee; }
-    .modal-tab-btn { padding: 10px 25px; cursor: pointer; border: none; background: none; font-weight: 600; border-bottom: 3px solid transparent; }
-    .modal-tab-btn.active { border-bottom-color: var(--gold); color: var(--gold); }
-    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-    .product-card { background: #fafafa; border-radius: 16px; padding: 1rem; text-align: center; }
-    .product-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 12px; margin-bottom: 10px; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(12px); }
+    .modal { background: white; width: 95%; max-width: 900px; border-radius: 32px; position: relative; max-height: 90vh; overflow-y: auto; padding: 3rem; }
+    .modal-close { position: absolute; top: 30px; right: 30px; cursor: pointer; font-size: 28px; color: var(--text-muted); transition: color 0.2s; }
+    .modal-close:hover { color: var(--brown); }
+    .modal-header { display: grid; grid-template-columns: 150px 1fr; gap: 3rem; border-bottom: 1px solid #f0f0f0; padding-bottom: 3rem; }
+    .modal-logo-img { width: 150px; height: 150px; border-radius: 24px; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .modal-tabs { display: flex; gap: 1rem; margin-top: 2rem; border-bottom: 1px solid #eee; }
+    .modal-tab-btn { padding: 15px 30px; cursor: pointer; border: none; background: none; font-family: inherit; font-weight: 600; color: var(--text-muted); border-bottom: 3px solid transparent; transition: all 0.2s; }
+    .modal-tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+    
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .product-card { background: #fafafa; border-radius: 20px; padding: 1rem; text-align: center; border: 1px solid #eee; }
+    .product-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 14px; margin-bottom: 15px; }
 
-    .wa-float { position: fixed; bottom: 30px; right: 30px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; text-decoration: none; box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3); z-index: 999; }
+    .wa-float { position: fixed; bottom: 40px; right: 40px; background: #25D366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; text-decoration: none; box-shadow: 0 10px 30px rgba(37,211,102,0.4); z-index: 1000; transition: transform 0.3s; }
+    .wa-float:hover { transform: scale(1.1); }
+    
     .hidden { display: none !important; }
   </style>
 </head>
 <body>
+
+  <!-- BACKGROUND DECOS -->
+  <div class="hero-orb o1"></div>
+  <div class="hero-orb o2"></div>
 
   <nav id="navbar">
     <a href="#" class="nav-logo">
@@ -126,9 +146,9 @@
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-left">
-        <h1>Discover the <em>Best Home Bakers</em> Near You</h1>
-        <p class="hero-desc">Personally visited, quality-checked, and verified home bakers in Chennai.</p>
-        <button class="btn-nav-solid" style="padding: 15px 35px; font-size: 16px;" onclick="document.getElementById('bakers').scrollIntoView()">Start Browsing</button>
+        <h1>Discover the <em>Best Home Bakers</em> in Chennai</h1>
+        <p class="hero-desc">Quality-verified, personally visited, and hand-picked home bakers. Freshly baked goodness delivered with love.</p>
+        <button class="btn-nav-solid" style="padding: 18px 40px; font-size: 16px; border-radius: 40px;" onclick="document.getElementById('bakers').scrollIntoView({behavior:'smooth'})">Explore All Bakers</button>
       </div>
       <div class="hero-right" id="heroCards"></div>
     </div>
@@ -136,8 +156,8 @@
 
   <div class="search-bar-section">
     <div class="search-inner">
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Search by name or specialty..." oninput="performSearch()">
+      <div class="search-input-group">
+        <input type="text" id="searchInput" placeholder="Search by baker name, specialty, or area..." oninput="performSearch()">
         <select id="locationSelect" onchange="performSearch()">
           <option value="All">All Locations</option>
           <option value="Anna Nagar">Anna Nagar</option>
@@ -149,49 +169,94 @@
           <option value="Nungambakkam">Nungambakkam</option>
           <option value="Mylapore">Mylapore</option>
         </select>
-        <button class="search-btn" onclick="performSearch()">Search</button>
+        <button class="btn-nav-solid" onclick="performSearch()">Search</button>
       </div>
     </div>
   </div>
 
   <section id="bakers">
     <div class="section-inner">
-      <div class="section-header">
-        <h2 style="font-family:'Cormorant Garamond'; font-size: 2.8rem;">Meet Our Bakers</h2>
-        <p style="color: var(--text-muted);">Every profile is personally verified by our team.</p>
-      </div>
+      <h2 class="section-title">Verified Home Bakers</h2>
       <div class="bakers-grid" id="bakersGrid"></div>
     </div>
   </section>
 
   <section id="how" style="background: white;">
     <div class="section-inner">
-      <div class="section-header">
-        <h2>Simple. Trusted. Delicious.</h2>
-      </div>
+      <h2 class="section-title" style="margin-bottom: 1rem;">How It Works</h2>
+      <p style="text-align:center; color:var(--text-muted); margin-bottom: 4rem;">Finding the perfect cake is now easier than ever.</p>
       <div class="steps-grid">
-        <div class="step"><div class="step-num">1</div><h3>Search Area</h3><p>Discover verified home bakers near you.</p></div>
-        <div class="step"><div class="step-num">2</div><h3>Browse Profile</h3><p>View products, reviews, and photos.</p></div>
-        <div class="step"><div class="step-num">3</div><h3>Connect</h3><p>Contact directly on WhatsApp.</p></div>
+        <div class="step"><div class="step-num">1</div><h3>Search Area</h3><p>Find top-rated bakers near your area in Chennai.</p></div>
+        <div class="step"><div class="step-num">2</div><h3>Browse Profiles</h3><p>Check their signature bakes, prices, and reviews.</p></div>
+        <div class="step"><div class="step-num">3</div><h3>Order Directly</h3><p>Message the baker directly on WhatsApp to order.</p></div>
       </div>
     </div>
   </section>
 
   <section id="packages">
     <div class="section-inner">
-      <div class="section-header"><h2>Grow Your Bakery</h2></div>
+      <h2 class="section-title">Grow Your Bakery Business</h2>
       <div class="packages-grid">
-        <div class="pkg-card"><h3>Basic</h3><div class="pkg-price">₹999/mo</div><p>Start your journey.</p></div>
-        <div class="pkg-card featured"><h3>Standard</h3><div class="pkg-price" style="color:white;">₹1999/mo</div><p>Boost your brand.</p></div>
-        <div class="pkg-card"><h3>Premium</h3><div class="pkg-price">₹3000/mo</div><p>Maximum exposure.</p></div>
+        <div class="pkg-card">
+          <h3>Basic</h3>
+          <div class="pkg-price">₹999<span style="font-size:14px; font-weight:400;">/mo</span></div>
+          <p>Get listed and start receiving enquiries.</p>
+        </div>
+        <div class="pkg-card featured">
+          <div style="background:var(--gold); color:white; font-size:10px; font-weight:800; padding:4px 12px; border-radius:20px; display:inline-block; margin-bottom:15px;">MOST POPULAR</div>
+          <h3>Standard</h3>
+          <div class="pkg-price" style="color:white;">₹1999<span style="font-size:14px; font-weight:400;">/mo</span></div>
+          <p>Priority search ranking and featured tags.</p>
+        </div>
+        <div class="pkg-card">
+          <h3>Premium</h3>
+          <div class="pkg-price">₹3000<span style="font-size:14px; font-weight:400;">/mo</span></div>
+          <p>Homepage placement and maximum visibility.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <footer>
-    <img src="https://i.imgur.com/yteSy8p.jpeg" class="footer-logo">
-    <h2 style="font-family:'Cormorant Garamond'; margin-bottom:1rem;">Bakers Bridge</h2>
-    <p>© 2026 Bakers Bridge · Chennai's Most Trusted Home Baker Hub</p>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h2>Bakers <span>Bridge</span></h2>
+          <p>Chennai's most trusted platform connecting home bakers with dessert lovers. Every baker is quality-verified and personally visited by our team.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#bakers">Find Bakers</a></li>
+            <li><a href="#how">How it Works</a></li>
+            <li><a href="#packages">Pricing Plans</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#">Anna Nagar</a></li>
+            <li><a href="#">Adyar</a></li>
+            <li><a href="#">T Nagar</a></li>
+            <li><a href="#">Nungambakkam</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Bakers Bridge Chennai. All rights reserved.</span>
+        <span>Made with ❤️ for Chennai Bakers</span>
+      </div>
+    </div>
   </footer>
 
   <a href="https://wa.me/916369380977" class="wa-float" target="_blank">💬</a>
@@ -203,28 +268,28 @@
       <div class="modal-header">
         <img id="modalLogo" src="" class="modal-logo-img">
         <div>
-          <h2 id="modalName" style="font-family:'Cormorant Garamond'; font-size:2rem;"></h2>
-          <p id="modalSpec" style="color:var(--text-muted);"></p>
-          <p id="modalLoc" style="margin-top:10px;"></p>
-          <button class="btn-nav-solid" style="margin-top:15px;" id="modalWaBtn">💬 WhatsApp Enquiry</button>
+          <h2 id="modalName" style="font-family:'Cormorant Garamond'; font-size:2.5rem; color:var(--brown);"></h2>
+          <p id="modalSpec" style="color:var(--gold-dark); font-weight:600; margin-top:5px;"></p>
+          <p id="modalLoc" style="margin-top:10px; color:var(--text-muted); font-size:14px;"></p>
+          <button class="btn-nav-solid" style="margin-top:20px; padding:15px 30px;" id="modalWaBtn">💬 Order on WhatsApp</button>
         </div>
       </div>
       <div class="modal-tabs">
-        <button class="modal-tab-btn active" onclick="switchTab('products', this)">Products</button>
-        <button class="modal-tab-btn" onclick="switchTab('about', this)">About</button>
+        <button class="modal-tab-btn active" onclick="switchTab('products', this)">Our Products</button>
+        <button class="modal-tab-btn" onclick="switchTab('about', this)">Baker Story</button>
       </div>
-      <div id="modalContent" style="margin-top:20px;"></div>
+      <div id="modalContent"></div>
     </div>
   </div>
 
   <div class="modal-overlay" id="loginModal">
-    <div class="modal" style="max-width: 400px;">
+    <div class="modal" style="max-width: 400px; padding: 3rem;">
       <span class="modal-close" onclick="closeLogin()">✕</span>
-      <h2 style="text-align:center; margin-bottom:20px;">Admin Access</h2>
-      <form id="loginForm" style="display:flex; flex-direction:column; gap:15px;">
-        <input type="email" id="email" placeholder="Email" required style="padding:12px; border:1px solid #ddd; border-radius:10px;">
-        <input type="password" id="pass" placeholder="Password" required style="padding:12px; border:1px solid #ddd; border-radius:10px;">
-        <button type="submit" class="btn-nav-solid" style="padding:12px;">Sign In</button>
+      <h2 style="text-align:center; margin-bottom:2rem; font-family:'Cormorant Garamond';">Admin Login</h2>
+      <form id="loginForm" style="display:flex; flex-direction:column; gap:1.5rem;">
+        <input type="email" id="email" placeholder="Email Address" required style="padding:14px; border:1px solid #ddd; border-radius:12px;">
+        <input type="password" id="pass" placeholder="Password" required style="padding:14px; border:1px solid #ddd; border-radius:12px;">
+        <button type="submit" class="btn-nav-solid" style="padding:14px; font-size:16px;">Access Dashboard</button>
       </form>
     </div>
   </div>
@@ -266,7 +331,7 @@
       for (let i = data.length; i < 6; i++) {
         const slot = document.createElement('div');
         slot.className = "slot-card";
-        slot.innerHTML = `<div style="font-size:30px;margin-bottom:10px;">🧁</div><h3>Slot Available</h3><p>Join our hub!</p><button class="btn-nav-solid" style="margin-top:15px;font-size:11px;">Register</button>`;
+        slot.innerHTML = `<div style="font-size:40px;margin-bottom:1rem;">🧁</div><h3>Baker Spot Open</h3><p>Register your home bakery and grow your brand with us.</p><button class="btn-nav-solid" style="margin-top:1.5rem;">Register Now</button>`;
         grid.appendChild(slot);
       }
     }
@@ -282,10 +347,11 @@
         if (heroes[i]) {
           const b = heroes[i];
           card.onclick = () => openProfile(b);
-          card.style.cursor = "pointer";
-          card.innerHTML = `<div style="display:flex; gap:12px; align-items:center;"><img src="${b.logo_key}" style="width:45px;height:45px;border-radius:10px;"><div><div style="font-weight:800;font-size:14px;">${b.name}</div><div style="font-size:10px;color:var(--gold);font-weight:800;">★ TOP RATED</div></div></div>`;
+          card.innerHTML = `<div style="display:flex; gap:15px; align-items:center;"><img src="${b.logo_key}" style="width:50px;height:50px;border-radius:12px;"><div><div style="font-weight:800;font-size:15px;color:var(--brown);">${b.name}</div><div style="font-size:11px;color:var(--gold);font-weight:800;">★ TOP RATED</div></div></div>`;
         } else {
-          card.innerHTML = `<div style="display:flex;gap:12px;align-items:center;opacity:0.6;"><div style="font-size:20px;">✨</div><div><div style="font-weight:700;font-size:13px;">New Spot</div><div style="font-size:10px;">Join Now</div></div></div>`;
+          card.style.background = "rgba(255, 255, 255, 0.7)";
+          card.style.border = "2px dashed var(--border)";
+          card.innerHTML = `<div style="display:flex;gap:15px;align-items:center;opacity:0.6;"><div style="font-size:24px;">✨</div><div><div style="font-weight:700;font-size:14px;">Premium Spot</div><div style="font-size:11px;">Join the Hub</div></div></div>`;
         }
         hero.appendChild(card);
       }
@@ -308,13 +374,13 @@
       btn.classList.add('active');
       const content = document.getElementById("modalContent");
       if (tab === 'products') {
-        let html = '<div class="products-grid">';
+        let html = '<div class="product-grid">';
         (selectedBaker.products || []).forEach(p => {
           html += `<div class="product-card"><img src="${p.image}"><h4>${p.name}</h4><p>${p.price}</p></div>`;
         });
         content.innerHTML = html + '</div>';
       } else {
-        content.innerHTML = `<div style="line-height:1.7; color:var(--text-muted);">${selectedBaker.about || 'Coming soon...'}</div>`;
+        content.innerHTML = `<div style="line-height:1.8; color:var(--text-muted); font-size:16px; margin-top:2rem;">${selectedBaker.about || 'Sharing the passion for baking soon...'}</div>`;
       }
     }
 
@@ -327,11 +393,7 @@
     }
     function openLogin() { document.getElementById('loginModal').style.display = 'flex'; }
     function closeLogin() { document.getElementById('loginModal').style.display = 'none'; }
-    document.getElementById('loginForm').onsubmit = async (e) => {
-      e.preventDefault();
-      const { error } = await supabase.auth.signInWithPassword({ email: document.getElementById('email').value, password: document.getElementById('pass').value });
-      if (error) alert(error.message); else window.location.href = "admin.html";
-    };
+    window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50));
     loadBakers();
   </script>
 </body>
